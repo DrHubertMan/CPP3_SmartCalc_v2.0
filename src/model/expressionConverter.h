@@ -19,7 +19,7 @@ public:
   expressionConverter(expressionConverter &&e);
   expressionConverter &operator=(expressionConverter &&e);
 
-  void Convert();
+  void Conversion();
   void AddToExpression(char val) noexcept;
 
 private:
@@ -37,6 +37,8 @@ private:
   bool IsLeftPriority(char oper) noexcept;
   bool IsOpenBracket(char val) noexcept;
   bool IsClosedBracket(char val) noexcept;
+  void AddInOutline(std::stack<char> &transformator) noexcept;
+  void EmptyTheStack(std::stack<char> &transformator) noexcept;
 };
 }; // namespace s21
 

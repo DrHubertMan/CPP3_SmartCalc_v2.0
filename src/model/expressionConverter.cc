@@ -35,32 +35,48 @@ void expressionConverter::swap(expressionConverter &other) noexcept {
   std::swap(output_string_, other.output_string_);
 };
 
-void expressionConverter::Convert() noexcept {
+void expressionConverter::Conversion() noexcept {
   std::stack<char> transformator;
   while (!input_string_.empty()) {
     char symbol = input_string_.front();
+    input_string_.pop_front();
 
     if (IsOperand(symbol)) {
       output_string_ += symbol;
-      input_string_.pop_front();
     } else if (IsOperator(symbol)) {
       AddOperatorInStack(transformator, symbol);
       transformator.push(symbol);
     } else if (IsOpenBracket(symbol)) {
       transformator.push(symbol);
     } else if (IsClosedBracket(symbol)) {
-
+      AddInOutline(transformator);
     }
   }
+  EmptyTheStack(transformator);
+};
+
+void expressionConverter::EmptyTheStack(std::stack<char> &transformator) noexcept {
+  while (!transformator.empty()) {
+    output_string_ += transformator.top();
+    transformator.pop();
+  }
+}
+
+void expressionConverter::AddInOutline(std::stack<char> &transformator) noexcept {
+  while (!IsOpenBracket(transformator.top())) {
+    output_string_ += transformator.top();
+    transformator.pop();
+  }
+  transformator.pop();
 };
 
 bool expressionConverter::IsClosedBracket(char val) noexcept {
   return val == 41;
-}
+};
 
 bool expressionConverter::IsOpenBracket(char val) noexcept {
   return val == 40;
-}
+};
 
 void expressionConverter::AddOperatorInStack(std::stack<char> &transformator,
                                              char operator_input) noexcept {
