@@ -32,6 +32,9 @@ private:
   void AddOperatorInStack(std::stack<char> &transformatior, char operator_input) noexcept;
   bool PriorityComparsion(char operator_one, char operator_two) noexcept;
   int GetPriority(char operator_input) noexcept;
+  bool IsEqualPriority(char one, char two) noexcept;
+  bool OperatorCheck(char one, char two) noexcept;
+  bool IsLeftPriority(char oper) noexcept;
 };
 }; // namespace s21
 
