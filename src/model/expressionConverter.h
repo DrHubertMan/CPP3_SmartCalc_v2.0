@@ -36,6 +36,7 @@ private:
   bool OperatorCheck(char one, char two) noexcept;
   bool IsLeftPriority(char oper) noexcept;
   bool IsOpenBracket(char val) noexcept;
+  bool IsClosedBracket(char val) noexcept;
 };
 }; // namespace s21
 
