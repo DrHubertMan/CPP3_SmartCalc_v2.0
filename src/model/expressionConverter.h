@@ -2,6 +2,7 @@
 #define CPP3_SMARTCALC_V2_1_MODEL_ECPRESSION_CONVERTER_H
 
 #include <list>
+#include <string>
 
 namespace s21 {
 class expressionConverter {
