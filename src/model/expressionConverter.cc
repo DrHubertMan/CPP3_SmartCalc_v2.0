@@ -51,13 +51,15 @@ void expressionConverter::Convert() noexcept {
 
 void expressionConverter::AddOperatorInStack(std::stack<char> &transformator,
                                              char operator_input) noexcept {
-  while (!transformator.empty() && OperatorCheck(transformator.top(), operator_input))
+  while (!transformator.empty() && OperatorCheck(transformator.top(), operator_input)) {
+    output_string_ += operator_input;
+  }
 };
 
 bool expressionConverter::OperatorCheck(char one, char two) noexcept {
   return (PriorityComparsion(one, two) ||
-          (IsEqualPriority(one, two)) && IsLeftPriority(two))
-}
+          (IsEqualPriority(one, two)) && IsLeftPriority(two));
+};
 
 bool expressionConverter::IsLeftPriority(char oper) noexcept {
   bool result = false;
@@ -65,16 +67,16 @@ bool expressionConverter::IsLeftPriority(char oper) noexcept {
     result = true;
   }
   return result;
-}
+};
 
 bool expressionConverter::IsEqualPriority(char one, char two) noexcept {
   return (GetPriority(one) == GetPriority(two));
-}
+};
 
 bool expressionConverter::PriorityComparsion(char one,
                                              char two) noexcept {
   return (GetPriority(one) > GetPriority(two));
-}
+};
 
 int expressionConverter::GetPriority(char operator_input) {
   int result = 0;
@@ -84,7 +86,7 @@ int expressionConverter::GetPriority(char operator_input) {
     result = 1;
   }
   return result;
-}
+};
 
 bool expressionConverter::IsOperand(char val) {
   return (val > 47 && val < 58);
