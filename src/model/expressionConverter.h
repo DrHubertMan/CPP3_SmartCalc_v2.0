@@ -22,6 +22,9 @@ public:
   void Conversion();
   void AddToExpression(char val) noexcept;
 
+  // debug function
+  std::string GetOut();
+
 private:
   std::list<char> input_string_;
   std::string output_string_;

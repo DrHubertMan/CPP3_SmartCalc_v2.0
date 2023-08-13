@@ -2,6 +2,14 @@
 
 using s21::expressionConverter;
 
+/// DEBUG FUNCTION ///////////////
+
+std::string expressionConverter::GetOut() {
+  return output_string_;
+}
+
+//////////////////////////////////
+
 expressionConverter::expressionConverter(std::list<char> input)
     : input_string_(input){};
 
