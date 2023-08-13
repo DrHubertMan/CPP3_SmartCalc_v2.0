@@ -29,3 +29,23 @@ expressionConverter &expressionConverter::operator=(expressionConverter &&e) {
   }
   return *this;
 };
+
+void expressionConverter::swap(expressionConverter &other) noexcept {
+  std::swap(input_string_, other.input_string_);
+  std::swap(output_string_, other.output_string_);
+};
+
+void expressionConverter::Convert() noexcept {
+    std::stack<char> transformator;
+    while (!input_string_.empty()) {
+      if (IsOperand()){
+
+      }
+    }
+}
+
+bool expressionConverter::IsOperand(char val) {
+  return (val > 47 && val < 58);
+}
+
+void expressionConverter::AddToExpression(char val) noexcept { input_string_.push_back(val); };
