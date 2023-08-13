@@ -45,14 +45,20 @@ void expressionConverter::Convert() noexcept {
       input_string_.pop_front();
     } else if (IsOperator(char_in_string)) {
       AddOperatorInStack(transformator, char_in_string);
-    }
+      transformator.push(char_in_string);
+    } else if (IsOpenBracket(char_in_string))
   }
 };
+
+bool expressionConverter::IsOpenBracket(char val) noexcept {
+  return val == 42;
+}
 
 void expressionConverter::AddOperatorInStack(std::stack<char> &transformator,
                                              char operator_input) noexcept {
   while (!transformator.empty() && OperatorCheck(transformator.top(), operator_input)) {
-    output_string_ += operator_input;
+    output_string_ += transformator.top();
+    transformator.pop();
   }
 };
 
