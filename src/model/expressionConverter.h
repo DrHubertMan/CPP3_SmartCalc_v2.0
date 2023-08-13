@@ -1,7 +1,6 @@
 #ifndef CPP3_SMARTCALC_V2_1_MODEL_ECPRESSION_CONVERTER_H
 #define CPP3_SMARTCALC_V2_1_MODEL_ECPRESSION_CONVERTER_H
 
-#include <iostream>
 #include <list>
 
 namespace s21 {
@@ -11,27 +10,21 @@ class expressionConverter {
     expressionConverter() = default;
     ~expressionConverter() = default;
 
-    explicit expressionConverter(std::list<char> input) : input_string_(input) {};
+    explicit expressionConverter(std::list<char> input);
     
-    expressionConverter(const expressionConverter &e) : input_string_(e.input_string_) , output_string_(e.output_string_) {};
+    expressionConverter(const expressionConverter &e);
     
-    expressionConverter& operator=(const expressionConverter &e) {
+    expressionConverter& operator=(const expressionConverter &e);
+
+    expressionConverter(expressionConverter &&e);
+
+    expressionConverter& operator=(expressionConverter &&e) {
       if (this != &e) {
-        expressionConverter copy{e};
-        swap(copy);
+        expressionConverter moved{std::move(e)};
+        swap(moved);
       }
       return *this;
     };
-
-		expressionConverter(expressionConverter &&e) : expressionConverter() {swap(e)};
-
-		expressionConverter& operator=(expressionConverter &&e) {
-			if (this != &e) {
-				expressionConverter moved{std::move(e)};
-				swap(moved);
-			}
-			return *this;
-		}
 
     private:
     std::list<char> input_string_;
