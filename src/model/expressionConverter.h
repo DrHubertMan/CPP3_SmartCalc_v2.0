@@ -28,6 +28,10 @@ private:
 
   void swap(expressionConverter &other) noexcept;
   bool IsOperand(char val) noexcept;
+  bool IsOperator(char val) noexcept;
+  void AddOperatorInStack(std::stack<char> &transformatior, char operator_input) noexcept;
+  bool PriorityComparsion(char operator_one, char operator_two) noexcept;
+  int GetPriority(char operator_input) noexcept;
 };
 }; // namespace s21
 
