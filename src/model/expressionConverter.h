@@ -4,6 +4,8 @@
 #include <list>
 #include <stack>
 #include <string>
+// debug include:
+#include <iostream>
 
 namespace s21 {
 class expressionConverter {
@@ -19,7 +21,7 @@ public:
   expressionConverter(expressionConverter &&e);
   expressionConverter &operator=(expressionConverter &&e);
 
-  void Conversion();
+  void Conversion() noexcept;
   void AddToExpression(char val) noexcept;
 
   // debug function

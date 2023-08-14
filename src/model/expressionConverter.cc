@@ -4,9 +4,7 @@ using s21::expressionConverter;
 
 /// DEBUG FUNCTION ///////////////
 
-std::string expressionConverter::GetOut() {
-  return output_string_;
-}
+std::string expressionConverter::GetOut() { return output_string_; }
 
 //////////////////////////////////
 
@@ -47,6 +45,7 @@ void expressionConverter::Conversion() noexcept {
   std::stack<char> transformator;
   while (!input_string_.empty()) {
     char symbol = input_string_.front();
+    std::cout << input_string_.front() << std::endl;
     input_string_.pop_front();
 
     if (IsOperand(symbol)) {
@@ -63,14 +62,16 @@ void expressionConverter::Conversion() noexcept {
   EmptyTheStack(transformator);
 };
 
-void expressionConverter::EmptyTheStack(std::stack<char> &transformator) noexcept {
+void expressionConverter::EmptyTheStack(
+    std::stack<char> &transformator) noexcept {
   while (!transformator.empty()) {
     output_string_ += transformator.top();
     transformator.pop();
   }
 }
 
-void expressionConverter::AddInOutline(std::stack<char> &transformator) noexcept {
+void expressionConverter::AddInOutline(
+    std::stack<char> &transformator) noexcept {
   while (!IsOpenBracket(transformator.top())) {
     output_string_ += transformator.top();
     transformator.pop();
@@ -88,7 +89,8 @@ bool expressionConverter::IsOpenBracket(char val) noexcept {
 
 void expressionConverter::AddOperatorInStack(std::stack<char> &transformator,
                                              char operator_input) noexcept {
-  while (!transformator.empty() && OperatorCheck(transformator.top(), operator_input)) {
+  while (!transformator.empty() &&
+         OperatorCheck(transformator.top(), operator_input)) {
     output_string_ += transformator.top();
     transformator.pop();
   }
@@ -111,12 +113,11 @@ bool expressionConverter::IsEqualPriority(char one, char two) noexcept {
   return (GetPriority(one) == GetPriority(two));
 };
 
-bool expressionConverter::PriorityComparsion(char one,
-                                             char two) noexcept {
+bool expressionConverter::PriorityComparsion(char one, char two) noexcept {
   return (GetPriority(one) > GetPriority(two));
 };
 
-int expressionConverter::GetPriority(char operator_input) {
+int expressionConverter::GetPriority(char operator_input) noexcept {
   int result = 0;
   if (operator_input == 94) {
     result = 2;
@@ -126,7 +127,7 @@ int expressionConverter::GetPriority(char operator_input) {
   return result;
 };
 
-bool expressionConverter::IsOperand(char val) {
+bool expressionConverter::IsOperand(char val) noexcept {
   return (val > 47 && val < 58);
 };
 
