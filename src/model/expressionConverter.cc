@@ -4,11 +4,11 @@ using s21::expressionConverter;
 
 /// DEBUG FUNCTION ///////////////
 
-std::string expressionConverter::GetOut() { return output_string_; }
+std::vector<std::string> expressionConverter::GetOut() { return output_string_; }
 
 //////////////////////////////////
 
-expressionConverter::expressionConverter(std::list<char> input)
+expressionConverter::expressionConverter(std::list<std::string> input)
     : input_string_(input){};
 
 expressionConverter::expressionConverter(const expressionConverter &e)
@@ -42,99 +42,104 @@ void expressionConverter::swap(expressionConverter &other) noexcept {
 };
 
 void expressionConverter::Conversion() noexcept {
-  std::stack<char> transformator;
+  std::stack<std::string> transformator;
+  // for (auto & item: input_string_) {
+  //   std::cout << item;
+  // }
   while (!input_string_.empty()) {
-    char symbol = input_string_.front();
-    std::cout << input_string_.front() << std::endl;
+    std::string symbol = input_string_.front();
+    
     input_string_.pop_front();
-
-    if (IsOperand(symbol)) {
-      output_string_ += symbol;
+    // std::cout << "!!!!   -" << symbol << "-    !!!!" << std::endl;
+    if (IsClosedBracket(symbol)) {
+      AddInOutline(transformator);
+    } else if (IsOpenBracket(symbol)) {
+      transformator.push(symbol);
+    } else if (IsOperand(symbol)) {
+      output_string_.push_back(symbol);
     } else if (IsOperator(symbol)) {
       AddOperatorInStack(transformator, symbol);
       transformator.push(symbol);
-    } else if (IsOpenBracket(symbol)) {
-      transformator.push(symbol);
-    } else if (IsClosedBracket(symbol)) {
-      AddInOutline(transformator);
     }
   }
   EmptyTheStack(transformator);
 };
 
 void expressionConverter::EmptyTheStack(
-    std::stack<char> &transformator) noexcept {
+    std::stack<std::string> &transformator) noexcept {
+
   while (!transformator.empty()) {
-    output_string_ += transformator.top();
+    output_string_.push_back(transformator.top());
     transformator.pop();
   }
 }
 
 void expressionConverter::AddInOutline(
-    std::stack<char> &transformator) noexcept {
+    std::stack<std::string> &transformator) noexcept {
+  
   while (!IsOpenBracket(transformator.top())) {
-    output_string_ += transformator.top();
+    output_string_.push_back(transformator.top());
     transformator.pop();
   }
   transformator.pop();
 };
 
-bool expressionConverter::IsClosedBracket(char val) noexcept {
-  return val == 41;
+bool expressionConverter::IsClosedBracket(std::string val) noexcept {
+  return val[0] == 41;
 };
 
-bool expressionConverter::IsOpenBracket(char val) noexcept {
-  return val == 40;
+bool expressionConverter::IsOpenBracket(std::string val) noexcept {
+  return val[0] == 40;
 };
 
-void expressionConverter::AddOperatorInStack(std::stack<char> &transformator,
-                                             char operator_input) noexcept {
+void expressionConverter::AddOperatorInStack(std::stack<std::string> &transformator,
+                                             std::string operator_input) noexcept {
   while (!transformator.empty() &&
          OperatorCheck(transformator.top(), operator_input)) {
-    output_string_ += transformator.top();
+    output_string_.push_back(transformator.top());
     transformator.pop();
   }
 };
 
-bool expressionConverter::OperatorCheck(char one, char two) noexcept {
+bool expressionConverter::OperatorCheck(std::string one, std::string two) noexcept {
   return (PriorityComparsion(one, two) ||
           (IsEqualPriority(one, two)) && IsLeftPriority(two));
 };
 
-bool expressionConverter::IsLeftPriority(char oper) noexcept {
+bool expressionConverter::IsLeftPriority(std::string oper) noexcept {
   bool result = false;
-  if (oper != 94) {
+  if (oper[0] != 94) {
     result = true;
   }
   return result;
 };
 
-bool expressionConverter::IsEqualPriority(char one, char two) noexcept {
+bool expressionConverter::IsEqualPriority(std::string one, std::string two) noexcept {
   return (GetPriority(one) == GetPriority(two));
 };
 
-bool expressionConverter::PriorityComparsion(char one, char two) noexcept {
+bool expressionConverter::PriorityComparsion(std::string one, std::string two) noexcept {
   return (GetPriority(one) > GetPriority(two));
 };
 
-int expressionConverter::GetPriority(char operator_input) noexcept {
+int expressionConverter::GetPriority(std::string operator_input) noexcept {
   int result = 0;
-  if (operator_input == 94) {
+  if (operator_input[0] == 94) {
     result = 2;
-  } else if (operator_input == 42 || operator_input == 47) {
+  } else if (operator_input[0] == 42 || operator_input[0] == 47) {
     result = 1;
   }
   return result;
 };
 
-bool expressionConverter::IsOperand(char val) noexcept {
-  return (val > 47 && val < 58);
+bool expressionConverter::IsOperand(std::string val) noexcept {
+  return (val[0] > 47 && val[0] < 58);
 };
 
-bool expressionConverter::IsOperator(char val) noexcept {
-  return ((val > 41 && val < 48 && val != 44 && val != 46) || (val == 94));
+bool expressionConverter::IsOperator(std::string val) noexcept {
+  return ((val[0] > 41 && val[0] < 48 && val[0] != 44 && val[0] != 46) || (val[0] == 94));
 };
 
-void expressionConverter::AddToExpression(char val) noexcept {
+void expressionConverter::AddToExpression(std::string val) noexcept {
   input_string_.push_back(val);
 };

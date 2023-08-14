@@ -2,10 +2,12 @@
 #define CPP3_SMARTCALC_V2_1_MODEL_ECPRESSION_CONVERTER_H
 
 #include <list>
+#include <vector>
 #include <stack>
 #include <string>
 // debug include:
 #include <iostream>
+
 
 namespace s21 {
 class expressionConverter {
@@ -13,7 +15,7 @@ public:
   expressionConverter() = default;
   ~expressionConverter() = default;
 
-  explicit expressionConverter(std::list<char> input);
+  explicit expressionConverter(std::list<std::string> input);
 
   expressionConverter(const expressionConverter &e);
   expressionConverter &operator=(const expressionConverter &e);
@@ -22,28 +24,28 @@ public:
   expressionConverter &operator=(expressionConverter &&e);
 
   void Conversion() noexcept;
-  void AddToExpression(char val) noexcept;
+  void AddToExpression(std::string val) noexcept;
 
   // debug function
-  std::string GetOut();
+  std::vector<std::string> GetOut();
 
 private:
-  std::list<char> input_string_;
-  std::string output_string_;
+  std::list<std::string> input_string_;
+  std::vector<std::string> output_string_;
 
   void swap(expressionConverter &other) noexcept;
-  bool IsOperand(char val) noexcept;
-  bool IsOperator(char val) noexcept;
-  void AddOperatorInStack(std::stack<char> &transformatior, char operator_input) noexcept;
-  bool PriorityComparsion(char operator_one, char operator_two) noexcept;
-  int GetPriority(char operator_input) noexcept;
-  bool IsEqualPriority(char one, char two) noexcept;
-  bool OperatorCheck(char one, char two) noexcept;
-  bool IsLeftPriority(char oper) noexcept;
-  bool IsOpenBracket(char val) noexcept;
-  bool IsClosedBracket(char val) noexcept;
-  void AddInOutline(std::stack<char> &transformator) noexcept;
-  void EmptyTheStack(std::stack<char> &transformator) noexcept;
+  bool IsOperand(std::string val) noexcept;
+  bool IsOperator(std::string val) noexcept;
+  void AddOperatorInStack(std::stack<std::string> &transformator, std::string operator_input) noexcept;
+  bool PriorityComparsion(std::string operator_one, std::string operator_two) noexcept;
+  int GetPriority(std::string operator_input) noexcept;
+  bool IsEqualPriority(std::string one, std::string two) noexcept;
+  bool OperatorCheck(std::string one, std::string two) noexcept;
+  bool IsLeftPriority(std::string oper) noexcept;
+  bool IsOpenBracket(std::string val) noexcept;
+  bool IsClosedBracket(std::string val) noexcept;
+  void AddInOutline(std::stack<std::string> &transformator) noexcept;
+  void EmptyTheStack(std::stack<std::string> &transformator) noexcept;
 };
 }; // namespace s21
 
