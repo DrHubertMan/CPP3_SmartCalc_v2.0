@@ -87,6 +87,7 @@ bool Calculation::IsDiv(std::string token) noexcept {
   return (token[0] == '/');
 };
 void Calculation::DivCase(std::stack<double> calc_stack) noexcept {};
+
 bool Calculation::IsExp(std::string token) noexcept {
   return (token[0] == '^');
 };
