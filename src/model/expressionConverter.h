@@ -2,7 +2,7 @@
 #define CPP3_SMARTCALC_V2_1_MODEL_ECPRESSION_CONVERTER_H
 
 #include <list>
-#include <vector>
+// #include <vector>
 #include <stack>
 #include <string>
 
@@ -26,11 +26,11 @@ public:
 
 
   // debug function
-  std::vector<std::string> GetOut();
+  std::list<std::string> GetOut();
 
 private:
   std::list<std::string> input_string_;
-  std::vector<std::string> output_string_;
+  std::list<std::string> output_string_;
 
 private:
   void Conversion() noexcept;

@@ -2,7 +2,7 @@
 
 using s21::ExpressionConverter;
 
-std::vector<std::string> ExpressionConverter::GetOut() { return output_string_; }
+std::list<std::string> ExpressionConverter::GetOut() { return output_string_; }
 
 ExpressionConverter::ExpressionConverter(std::list<std::string> input)
     : input_string_(input) { Conversion(); };
