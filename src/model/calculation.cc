@@ -82,6 +82,7 @@ bool Calculation::IsMul(std::string token) noexcept {
 };
 
 void Calculation::MulCase(std::stack<double> calc_stack) noexcept {};
+
 bool Calculation::IsDiv(std::string token) noexcept {
   return (token[0] == '/');
 };
@@ -90,9 +91,11 @@ bool Calculation::IsExp(std::string token) noexcept {
   return (token[0] == '^');
 };
 void Calculation::ExpCase(std::stack<double> calc_stack) noexcept {};
+
 bool Calculation::IsMod(std::string token) noexcept {
   return (token[0] == '%');
 };
+
 void Calculation::ModCase(std::stack<double> calc_stack) noexcept {};
 
 bool Calculation::IsFunciotn(std::string token) noexcept {};
