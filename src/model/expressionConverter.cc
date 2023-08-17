@@ -50,13 +50,12 @@ void expressionConverter::Conversion() noexcept {
     std::string symbol = input_string_.front();
     
     input_string_.pop_front();
-    // std::cout << "!!!!   -" << symbol << "-    !!!!" << std::endl;
-    if (IsClosedBracket(symbol)) {
+    if (IsOperand(symbol)) {
+      output_string_.push_back(symbol);
+    } else if (IsClosedBracket(symbol)) {
       AddInOutline(transformator);
     } else if (IsOpenBracket(symbol)) {
       transformator.push(symbol);
-    } else if (IsOperand(symbol)) {
-      output_string_.push_back(symbol);
     } else if (IsOperator(symbol)) {
       AddOperatorInStack(transformator, symbol);
       transformator.push(symbol);
@@ -142,4 +141,8 @@ bool expressionConverter::IsOperator(std::string val) noexcept {
 
 void expressionConverter::AddToExpression(std::string val) noexcept {
   input_string_.push_back(val);
+};
+
+bool expressionConverter::IsFunction(std::string val) noexcept {
+  return (val == "cos" || val == "sin" || val == "tan" || val == "acos" || val == "asin" || val == "atan" || val == "sqrt" || val == "ln" || val == "log");
 };
