@@ -2,9 +2,10 @@
 #define CPP3_SMARTCALC_V2_1_MODEL_ECPRESSION_CONVERTER_H
 
 #include <list>
-// #include <vector>
 #include <stack>
 #include <string>
+
+#include "element.h"
 
 // debug include:
 #include <iostream>
