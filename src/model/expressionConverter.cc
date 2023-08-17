@@ -43,26 +43,38 @@ void expressionConverter::swap(expressionConverter &other) noexcept {
 
 void expressionConverter::Conversion() noexcept {
   std::stack<std::string> transformator;
-  // for (auto & item: input_string_) {
-  //   std::cout << item;
-  // }
   while (!input_string_.empty()) {
     std::string symbol = input_string_.front();
-    
+
     input_string_.pop_front();
     if (IsOperand(symbol)) {
+      
       output_string_.push_back(symbol);
-    } else if (IsClosedBracket(symbol)) {
-      AddInOutline(transformator);
-    } else if (IsOpenBracket(symbol)) {
+    } else if (IsFunction(symbol)) {
+      
       transformator.push(symbol);
+    } else if (IsSeparator(symbol)) {
+      
+      PullOverStack(transformator);
     } else if (IsOperator(symbol)) {
       AddOperatorInStack(transformator, symbol);
       transformator.push(symbol);
+    } else if (IsOpenBracket(symbol)) {
+      transformator.push(symbol);
+    } else if (IsClosedBracket(symbol)) {
+      AddInOut(transformator);
     }
   }
   EmptyTheStack(transformator);
 };
+
+void expressionConverter::PullOverStack(std::stack<std::string> &transformator) noexcept {
+  while (!IsOpenBracket(transformator.top())) {
+    
+    output_string_.push_back(transformator.top());
+    transformator.pop();
+  }
+}
 
 void expressionConverter::EmptyTheStack(
     std::stack<std::string> &transformator) noexcept {
@@ -73,14 +85,18 @@ void expressionConverter::EmptyTheStack(
   }
 }
 
-void expressionConverter::AddInOutline(
+void expressionConverter::AddInOut(
     std::stack<std::string> &transformator) noexcept {
-  
+
   while (!IsOpenBracket(transformator.top())) {
     output_string_.push_back(transformator.top());
     transformator.pop();
   }
   transformator.pop();
+  if (IsFunction(transformator.top())) {
+    output_string_.push_back(transformator.top());
+    transformator.pop();
+  }
 };
 
 bool expressionConverter::IsClosedBracket(std::string val) noexcept {
@@ -93,7 +109,7 @@ bool expressionConverter::IsOpenBracket(std::string val) noexcept {
 
 void expressionConverter::AddOperatorInStack(std::stack<std::string> &transformator,
                                              std::string operator_input) noexcept {
-  while (!transformator.empty() &&
+  while (!transformator.empty() && IsOperator(transformator.top()) &&
          OperatorCheck(transformator.top(), operator_input)) {
     output_string_.push_back(transformator.top());
     transformator.pop();
@@ -145,4 +161,8 @@ void expressionConverter::AddToExpression(std::string val) noexcept {
 
 bool expressionConverter::IsFunction(std::string val) noexcept {
   return (val == "cos" || val == "sin" || val == "tan" || val == "acos" || val == "asin" || val == "atan" || val == "sqrt" || val == "ln" || val == "log");
+};
+
+bool expressionConverter::IsSeparator(std::string val) noexcept {
+  return (val[0] == 44);
 };

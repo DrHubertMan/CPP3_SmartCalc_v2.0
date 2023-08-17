@@ -39,9 +39,10 @@ private:
   bool PriorityComparsion(std::string operator_one, std::string operator_two) noexcept;
   int GetPriority(std::string operator_input) noexcept;
   bool OperatorCheck(std::string one, std::string two) noexcept;
-  void AddInOutline(std::stack<std::string> &transformator) noexcept;
+  void AddInOut(std::stack<std::string> &transformator) noexcept;
   void EmptyTheStack(std::stack<std::string> &transformator) noexcept;
-  
+  void PullOverStack(std::stack<std::string> &transformator) noexcept;
+
   bool IsOperand(std::string val) noexcept;
   bool IsOperator(std::string val) noexcept;
   bool IsEqualPriority(std::string one, std::string two) noexcept;
@@ -49,6 +50,7 @@ private:
   bool IsOpenBracket(std::string val) noexcept;
   bool IsClosedBracket(std::string val) noexcept;
   bool IsFunction(std::string val) noexcept;
+  bool IsSeparator(std::string val) noexcept;
 };
 }; // namespace s21
 
