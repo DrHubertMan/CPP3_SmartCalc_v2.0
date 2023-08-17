@@ -38,6 +38,10 @@ namespace s21 {
   bool IsLog() noexcept;
   bool IsSeparator() noexcept;
   bool IsLeftPriority() noexcept;
+  bool OperatorCheck(Element &other) noexcept;
+  void SetData(std::string value);
+  bool IsOpenBracket() noexcept;
+  bool IsClosedBracket() noexcept;
 
   private:
   std::string data_;
@@ -45,10 +49,10 @@ namespace s21 {
   private:
 
   void swap(Element &other);
-  
-
-
-    };
+  int GetPriority() noexcept;
+  bool PriorityComparsion(Element &other) noexcept;
+  bool IsEqualPriority(Element &other) noexcept;
+  };
 };
 
 #endif // CPP3_SMARTCALC_V2_1_MODEL_ELEMENT_H
