@@ -29,6 +29,11 @@ class Calculation {
   bool IsOperand(std::string token) noexcept;
   void AddOperandInStack(std::string token, std::stack<double> calc_stack) noexcept;
   bool IsPlus(std::string token) noexcept;
+  void PlusCase(std::stack<double> calc_stack) noexcept;
+  void MinusCase(std::stack<double> calc_stack) noexcept;
+  void MulCase(std::stack<double> calc_stack) noexcept;
+  void DivCase(std::stack<double> calc_stack) noexcept;
+  void ExpCase(std::stack<double> calc_stack) noexcept;
 };
 };
 #endif
