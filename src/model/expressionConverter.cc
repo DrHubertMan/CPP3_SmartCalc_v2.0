@@ -45,20 +45,15 @@ void expressionConverter::swap(expressionConverter &other) noexcept {
 
 void expressionConverter::Conversion() noexcept {
   std::stack<std::string> transformator;
-  // for (auto & item: input_string_) {
-  //   std::cout << item;
-  // }
   while (!input_string_.empty()) {
     std::string symbol = input_string_.front();
-
     input_string_.pop_front();
-    // std::cout << "!!!!   -" << symbol << "-    !!!!" << std::endl;
-    if (IsClosedBracket(symbol)) {
-      AddInOutline(transformator);
+    if (IsOperand(symbol)) {
+      output_string_.push_back(symbol);
     } else if (IsOpenBracket(symbol)) {
       transformator.push(symbol);
-    } else if (IsOperand(symbol)) {
-      output_string_.push_back(symbol);
+    } else if (IsClosedBracket(symbol)) {
+      AddInOutline(transformator);
     } else if (IsOperator(symbol)) {
       AddOperatorInStack(transformator, symbol);
       transformator.push(symbol);
