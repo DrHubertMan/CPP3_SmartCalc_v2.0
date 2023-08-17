@@ -5,26 +5,25 @@
 #include <vector>
 #include <stack>
 #include <string>
+
 // debug include:
 #include <iostream>
 
 
 namespace s21 {
-class expressionConverter {
+class ExpressionConverter {
 public:
-  expressionConverter() = default;
-  ~expressionConverter() = default;
+  ExpressionConverter() = default;
+  ~ExpressionConverter() = default;
 
-  explicit expressionConverter(std::list<std::string> input);
+  explicit ExpressionConverter(std::list<std::string> input);
 
-  expressionConverter(const expressionConverter &e);
-  expressionConverter &operator=(const expressionConverter &e);
+  ExpressionConverter(const ExpressionConverter &e);
+  ExpressionConverter &operator=(const ExpressionConverter &e);
 
-  expressionConverter(expressionConverter &&e);
-  expressionConverter &operator=(expressionConverter &&e);
+  ExpressionConverter(ExpressionConverter &&e);
+  ExpressionConverter &operator=(ExpressionConverter &&e);
 
-  void Conversion() noexcept;
-  void AddToExpression(std::string val) noexcept;
 
   // debug function
   std::vector<std::string> GetOut();
@@ -34,7 +33,10 @@ private:
   std::vector<std::string> output_string_;
 
 private:
-  void swap(expressionConverter &other) noexcept;
+  void Conversion() noexcept;
+  void AddToExpression(std::string val) noexcept;
+  
+  void swap(ExpressionConverter &other) noexcept;
   void AddOperatorInStack(std::stack<std::string> &transformator, std::string operator_input) noexcept;
   bool PriorityComparsion(std::string operator_one, std::string operator_two) noexcept;
   int GetPriority(std::string operator_input) noexcept;
