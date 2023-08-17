@@ -29,7 +29,8 @@ s21::ExpressionConverter::ExpressionConverter(ExpressionConverter &&e)
   Conversion();
 };
 
-s21::ExpressionConverter &s21::ExpressionConverter::operator=(ExpressionConverter &&e) {
+s21::ExpressionConverter &
+s21::ExpressionConverter::operator=(ExpressionConverter &&e) {
   if (this != &e) {
     ExpressionConverter moved{std::move(e)};
     swap(moved);
@@ -100,13 +101,13 @@ void s21::ExpressionConverter::AddInOut(
   if (top.IsFunciotn()) {
     output_string_.push_back(top.GetData());
     transformator.pop();
-    top.SetData(transformator.top());
+    if (!transformator.empty())
+      top.SetData(transformator.top());
   }
 };
 
 void s21::ExpressionConverter::AddOperatorInStack(
-    std::stack<std::string> &transformator,
-    Element &op_one) noexcept {
+    std::stack<std::string> &transformator, Element &op_one) noexcept {
   Element op_two(transformator.top());
   while (!transformator.empty() && op_two.IsOperator() &&
          op_two.OperatorCheck(op_one)) {
