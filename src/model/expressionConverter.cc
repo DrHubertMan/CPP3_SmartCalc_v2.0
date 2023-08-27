@@ -47,7 +47,6 @@ void s21::ExpressionConverter::Conversion() noexcept {
   std::stack<std::string> transformator;
   while (!input_string_.empty()) {
     Element token(input_string_.front());
-    std::cout << token.GetData() << std::endl;
     input_string_.pop_front();
     if (token.IsNumber()) {
 

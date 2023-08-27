@@ -1,14 +1,11 @@
 #include <iostream>
 #include "expressionConverter.h"
+#include "calculation.h"
 
 int main() {
-    std::list<std::string> input_line = {"3", "+", "sin", "(", "2.3", ")", "*", "(", "4", "-", "7", ")", "^", "2", "+", "cos", "(", "2", ")", "/", "tan", "(", "5", ")", "*", "8"};
+    std::list<std::string> input_line = {"10.5", "-", "5", "*" , "(", "15", "-", "(", "15", "-", "5", ")", ")"};
     s21::ExpressionConverter Convert(input_line);
-    s21::ExpressionConverter lola(Convert);
-    std::list<std::string> output = lola.GetOut();
-    for (auto &item: output) {
-        std::cout << item;
-    }
-    std::cout << std::endl;
+    s21::Calculation expr(Convert.GetOut());
+    std::cout << expr.GetValue() << std::endl;
     return 0;
 }

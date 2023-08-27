@@ -7,10 +7,6 @@
 
 #include "element.h"
 
-// debug include:
-#include <iostream>
-
-
 namespace s21 {
 class ExpressionConverter {
 public:
@@ -25,8 +21,6 @@ public:
   ExpressionConverter(ExpressionConverter &&e);
   ExpressionConverter &operator=(ExpressionConverter &&e);
 
-
-  // debug function
   std::list<std::string> GetOut();
 
 private:
