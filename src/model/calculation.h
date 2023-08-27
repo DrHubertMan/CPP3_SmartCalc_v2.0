@@ -22,6 +22,8 @@ public:
   Calculation(Calculation &&c);
   Calculation &operator=(Calculation &&c);
 
+  double GetValue() const noexcept;
+  
 private:
   std::list<std::string> input_string_;
   double value_;

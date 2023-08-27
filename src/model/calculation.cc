@@ -29,9 +29,9 @@ s21::Calculation &s21::Calculation::operator=(Calculation &&c) {
     swap(moved);
   }
   return *this;
-}
-double s21::Calculation::GetValue() const noexcept { return value_; };
 };
+
+double s21::Calculation::GetValue() const noexcept { return value_; };
 
 void s21::Calculation::swap(Calculation &other) {
   std::swap(input_string_, other.input_string_);
