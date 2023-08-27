@@ -47,23 +47,26 @@ void s21::ExpressionConverter::Conversion() noexcept {
   std::stack<std::string> transformator;
   while (!input_string_.empty()) {
     Element token(input_string_.front());
-    for (auto &item : output_string_) {
-      std::cout << item << " ";
-    }
-    std::cout << std::endl;
+    std::cout << token.GetData() << std::endl;
     input_string_.pop_front();
     if (token.IsNumber()) {
+
       output_string_.push_back(token.GetData());
     } else if (token.IsFunciotn()) {
+
       transformator.push(token.GetData());
     } else if (token.IsSeparator()) {
+
       PullOverStack(transformator);
     } else if (token.IsOperator()) {
+
       AddOperatorInStack(transformator, token);
       transformator.push(token.GetData());
     } else if (token.IsOpenBracket()) {
+
       transformator.push(token.GetData());
     } else if (token.IsClosedBracket()) {
+
       AddInOut(transformator);
     }
   }
@@ -108,11 +111,15 @@ void s21::ExpressionConverter::AddInOut(
 
 void s21::ExpressionConverter::AddOperatorInStack(
     std::stack<std::string> &transformator, Element &op_one) noexcept {
-  Element op_two(transformator.top());
-  while (!transformator.empty() && op_two.IsOperator() &&
-         op_two.OperatorCheck(op_one)) {
-    output_string_.push_back(op_two.GetData());
-    transformator.pop();
-    op_two.SetData(transformator.top());
+  if (!transformator.empty()) {
+    Element op_two(transformator.top());
+    while (!transformator.empty() && op_two.IsOperator() &&
+           op_two.OperatorCheck(op_one)) {
+      output_string_.push_back(op_two.GetData());
+      transformator.pop();
+      if (!transformator.empty()) {
+        op_two.SetData(transformator.top());
+      }
+    }
   }
 };
