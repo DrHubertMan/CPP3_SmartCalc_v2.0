@@ -85,8 +85,16 @@ void s21::viewSmartCalc::InitOperatorButton() {
     btn_minus_.setText("-");
 
     btn_plus_.setPos(190, 70);
-    btn_plus_.SetGeometry(110, 50);
+    btn_plus_.SetGeometry(50, 50);
     btn_plus_.setText("+");
+
+    btn_open_br_.setPos(190, 130);
+    btn_open_br_.SetGeometry(50, 50);
+    btn_open_br_.setText("(");
+
+    btn_closed_br_.setPos(190, 190);
+    btn_closed_br_.SetGeometry(50, 50);
+    btn_closed_br_.setText(")");
 
 }
 
@@ -107,13 +115,12 @@ void s21::viewSmartCalc::AddBtnAtScene() {
     scene_.addItem(&btn_minus_);
     scene_.addItem(&btn_plus_);
     scene_.addItem(&btn_point_);
+    scene_.addItem(&btn_open_br_);
+    scene_.addItem(&btn_closed_br_);
 
 //    button btn_eq_;
 
 //    button btn_sep_;
-//    button btn_open_br_;
-//    button btn_closed_br_;
-
 //    button btn_exp_;
 
 //    button btn_sin_;
