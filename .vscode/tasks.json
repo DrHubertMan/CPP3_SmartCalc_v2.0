@@ -9,6 +9,7 @@
                 "-g",
                 "src/model/main.cc",
 				"src/model/expressionConverter.cc",
+                "src/model/element.cc",
                 "-o",
                 "src/model/a.out"
             ],
