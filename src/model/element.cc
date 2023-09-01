@@ -92,4 +92,5 @@ void s21::Element::SetData(std::string value) {
 }
 bool s21::Element::IsOpenBracket() noexcept { return data_[0] == '('; };
 bool s21::Element::IsClosedBracket() noexcept { return data_[0] == ')'; };
-bool s21::Element::IsEq() noexcept { return data_[0] == '='; };
+bool s21::Element::IsEq() noexcept { return data_[0] == '='; }
+bool s21::Element::IsPoint() noexcept { return data_[0] == '.'; };

@@ -43,6 +43,7 @@ namespace s21 {
   bool IsOpenBracket() noexcept;
   bool IsClosedBracket() noexcept;
   bool IsEq() noexcept;
+  bool IsPoint() noexcept;
 
   private:
   std::string data_;

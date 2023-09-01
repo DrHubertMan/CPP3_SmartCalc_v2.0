@@ -32,10 +32,10 @@ private:
     void AddBtnAtScene();
     void AddLineAtScene();
 private:
-    class Button : public QGraphicsItem {
+    class CalculatorButton : public QGraphicsItem {
     public:
-        Button(ViewSmartCalc *parent = nullptr);
-        ~Button();
+        CalculatorButton(ViewSmartCalc *calculation_view = nullptr);
+        ~CalculatorButton();
 
         QRectF boundingRect() const override;
         void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
@@ -43,9 +43,8 @@ private:
         void SetGeometry(int heigth, int width) noexcept;
         void setText(const QString &text) noexcept;
 
-        void hoverEnterEvent(QGraphicsSceneHoverEvent*) override;
-        void hoverLeaveEvent(QGraphicsSceneHoverEvent*) override;
         void mousePressEvent(QGraphicsSceneMouseEvent*) override;
+        void mouseReleaseEvent(QGraphicsSceneMouseEvent*) override;
     private:
         int width_{0};
         int heigth_{0};
@@ -53,13 +52,17 @@ private:
         QColor color_;
         QList<QString> *outline_;
 
-        s21::ViewSmartCalc *parent_;
+        void EqCase() const noexcept;
+        void Adder() const noexcept;
+        bool CheckDisplaysStatus() const noexcept;
+
+        s21::ViewSmartCalc *calculation_view_;
 
 };
 private:
 
-    ExpressionConverter *converter;
-    Calculation *calic;
+    ExpressionConverter *converter_;
+    Calculation *calculator_;
 
     QGraphicsScene scene_;
 
@@ -68,39 +71,39 @@ private:
 
     QLabel *oper_;
 
-    Button btn_eq_{this};
+    CalculatorButton btn_eq_{this};
 
-    Button btn_1_{this};
-    Button btn_2_{this};
-    Button btn_3_{this};
-    Button btn_4_{this};
-    Button btn_5_{this};
-    Button btn_6_{this};
-    Button btn_7_{this};
-    Button btn_8_{this};
-    Button btn_9_{this};
-    Button btn_0_{this};
-    Button btn_point_{this};
-    Button btn_sep_{this};
-    Button btn_open_br_{this};
-    Button btn_closed_br_{this};
+    CalculatorButton btn_1_{this};
+    CalculatorButton btn_2_{this};
+    CalculatorButton btn_3_{this};
+    CalculatorButton btn_4_{this};
+    CalculatorButton btn_5_{this};
+    CalculatorButton btn_6_{this};
+    CalculatorButton btn_7_{this};
+    CalculatorButton btn_8_{this};
+    CalculatorButton btn_9_{this};
+    CalculatorButton btn_0_{this};
+    CalculatorButton btn_point_{this};
+    CalculatorButton btn_sep_{this};
+    CalculatorButton btn_open_br_{this};
+    CalculatorButton btn_closed_br_{this};
 
-    Button btn_plus_{this};
-    Button btn_minus_{this};
-    Button btn_mul_{this};
-    Button btn_div_{this};
-    Button btn_exp_{this};
-    Button btn_mod_{this};
+    CalculatorButton btn_plus_{this};
+    CalculatorButton btn_minus_{this};
+    CalculatorButton btn_mul_{this};
+    CalculatorButton btn_div_{this};
+    CalculatorButton btn_exp_{this};
+    CalculatorButton btn_mod_{this};
 
-    Button btn_sin_{this};
-    Button btn_cos_{this};
-    Button btn_tan_{this};
-    Button btn_asin_{this};
-    Button btn_acos_{this};
-    Button btn_atan_{this};
-    Button btn_sqrt_{this};
-    Button btn_ln_{this};
-    Button btn_log_{this};
+    CalculatorButton btn_sin_{this};
+    CalculatorButton btn_cos_{this};
+    CalculatorButton btn_tan_{this};
+    CalculatorButton btn_asin_{this};
+    CalculatorButton btn_acos_{this};
+    CalculatorButton btn_atan_{this};
+    CalculatorButton btn_sqrt_{this};
+    CalculatorButton btn_ln_{this};
+    CalculatorButton btn_log_{this};
 
     QCheckBox x_var_;
     QCheckBox x_func_;
