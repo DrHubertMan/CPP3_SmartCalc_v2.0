@@ -46,7 +46,11 @@ void s21::ViewSmartCalc::Button::hoverLeaveEvent(QGraphicsSceneHoverEvent *) {
 
 void s21::ViewSmartCalc::Button::mousePressEvent(QGraphicsSceneMouseEvent *) {
     if(parent_ != nullptr) {
-        if (text_ == "=") {
+        Element token(text_.toStdString());
+        if (token.IsEq() && parent_->oper_->text() == "") {
+            parent_->output_line_.push_back(parent_->display_up_->text());
+            parent_->display_down_->setText(parent_->display_down_->text() + parent_->display_up_->text() + text_);
+            parent_->display_up_->clear();
             std::list<std::string> stdList;
             for (const QString& qString : parent_->output_line_) {
                 stdList.push_back(qString.toStdString());
@@ -55,8 +59,20 @@ void s21::ViewSmartCalc::Button::mousePressEvent(QGraphicsSceneMouseEvent *) {
             parent_->calic = new Calculation(parent_->converter->GetOut());
             qWarning() << parent_->calic->GetValue();
             parent_->output_line_.clear();
+        } else if (token.IsNumber()) {
+            parent_->oper_->clear();
+            parent_->display_up_->setText(parent_->display_up_->text() + text_);
+        } else if (token.IsOperator()) {
+            parent_->oper_->setText(text_);
+            parent_->output_line_.push_back(parent_->display_up_->text());
+            parent_->output_line_.push_back(text_);
+            parent_->display_down_->setText(parent_->display_down_->text() + parent_->display_up_->text() + text_);
+            parent_->display_up_->clear();
+        } else if (token.IsFunciotn() && parent_->display_up_->text() == "") {
+            parent_->oper_->clear();
+            parent_->output_line_.push_back(text_);
+            parent_->display_down_->setText(parent_->display_down_->text() + text_ + " (");
         }
-        parent_->output_line_.push_back(text_);
     }
 //    qWarning() << text_;
 };

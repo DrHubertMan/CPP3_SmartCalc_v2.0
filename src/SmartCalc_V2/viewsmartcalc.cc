@@ -13,12 +13,15 @@ s21::ViewSmartCalc::ViewSmartCalc(QWidget* parent) : QGraphicsView(parent)  {
   scene_.setItemIndexMethod(QGraphicsScene::NoIndex);
 
   setScene(&scene_);
-  display_up_ = new QLineEdit(this);
+  oper_ = new QLabel();
+  oper_->setGeometry(10, 350, 30, 30);
+  scene_.addWidget(oper_);
   InitViewElement();
 }
 
 s21::ViewSmartCalc::~ViewSmartCalc() {
     delete display_up_;
+    delete display_down_;
 };
 
 void s21::ViewSmartCalc::InitViewElement() {
@@ -159,8 +162,14 @@ void s21::ViewSmartCalc::InitFunctionButton() {
 }
 
 void s21::ViewSmartCalc::InitLineEdit() {
+    display_up_ = new QLineEdit();
+    display_down_ = new QLineEdit();
+
     display_up_->setGeometry(10, 310, 280, 30);
     display_up_->setReadOnly(true);
+
+    display_down_->setGeometry(10, 400, 280, 30);
+    display_down_->setReadOnly(true);
 }
 
 void s21::ViewSmartCalc::InitQCheckBox() {
@@ -203,4 +212,5 @@ void s21::ViewSmartCalc::AddBtnAtScene() {
 
 void s21::ViewSmartCalc::AddLineAtScene() {
     scene_.addWidget(display_up_);
+    scene_.addWidget(display_down_);
 }

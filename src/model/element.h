@@ -42,6 +42,7 @@ namespace s21 {
   void SetData(std::string value);
   bool IsOpenBracket() noexcept;
   bool IsClosedBracket() noexcept;
+  bool IsEq() noexcept;
 
   private:
   std::string data_;

@@ -11,6 +11,7 @@
 #include <QColor>
 #include <QDebug>
 #include <QList>
+#include <QLabel>
 
 #include "../model/expressionConverter.h"
 #include "../model/calculation.h"
@@ -63,6 +64,9 @@ private:
     QGraphicsScene scene_;
 
     QLineEdit *display_up_;
+    QLineEdit *display_down_;
+
+    QLabel *oper_;
 
     Button btn_eq_{this};
 
