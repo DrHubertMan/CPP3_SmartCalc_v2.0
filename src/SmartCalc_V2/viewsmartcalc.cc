@@ -159,6 +159,10 @@ void s21::ViewSmartCalc::InitFunctionButton() {
    btn_sqrt_.SetGeometry(50, 310);
    btn_sqrt_.setText("sqrt");
 
+   btn_ac_.setPos(390, 250);
+   btn_ac_.SetGeometry(50, 50);
+   btn_ac_.setText("AC");
+
 }
 
 void s21::ViewSmartCalc::InitLineEdit() {
@@ -208,6 +212,7 @@ void s21::ViewSmartCalc::AddBtnAtScene() {
     scene_.addItem(&btn_sqrt_);
     scene_.addItem(&btn_ln_);
     scene_.addItem(&btn_log_);
+    scene_.addItem(&btn_ac_);
 }
 
 void s21::ViewSmartCalc::AddLineAtScene() {

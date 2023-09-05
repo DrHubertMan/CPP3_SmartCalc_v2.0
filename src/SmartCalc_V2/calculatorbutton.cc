@@ -75,6 +75,10 @@ void s21::ViewSmartCalc::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEv
         if (display_down_is_empty || !digit_end_input_line) {
             calculation_view_->display_down_->setText(calculation_view_->display_down_->text() + text_);
         }
+    } else if (text_ == "AC") {
+        calculation_view_->display_down_->clear();
+        calculation_view_->display_up_->clear();
+        calculation_view_->oper_->clear();
     }
   }
   //    qWarning() << text_;
@@ -92,10 +96,12 @@ void s21::ViewSmartCalc::CalculatorButton::EqCase() const noexcept {
       stdList.push_back(qString.toStdString());
 //      qWarning() << qString;
     }
+
     calculation_view_->converter_ = new ExpressionConverter(stdList);
     calculation_view_->calculator_ = new Calculation(calculation_view_->converter_->GetOut());
-    delete calculation_view_->converter_;
+    qWarning() << calculation_view_->calculator_->GetValue();
     calculation_view_->display_down_->setText(calculation_view_->display_down_->text() + QString::number(calculation_view_->calculator_->GetValue()));
+    delete calculation_view_->converter_;
     delete calculation_view_->calculator_;
     calculation_view_->output_line_.clear();
 }

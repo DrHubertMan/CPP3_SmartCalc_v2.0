@@ -13,6 +13,7 @@ TEST(ExpressionConverter, CorrectCase_1) {
     std::list<std::string> inial_case{"sin", "(", "45", ")"};
     s21::ExpressionConverter convert(inial_case);
     s21::Calculation calic(convert.GetOut());
+    std::cout << calic.GetValue() << std::endl;
     // std::list<std::string> right_answer{"45", "sin", "2", "3", "^", "sqrt", "*"};
     // EXPECT_EQ(right_answer, convert.GetOut());
 }

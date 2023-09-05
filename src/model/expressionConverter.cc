@@ -48,6 +48,7 @@ void s21::ExpressionConverter::Conversion() noexcept {
   while (!input_string_.empty()) {
     Element token(input_string_.front());
     input_string_.pop_front();
+
     if (token.IsNumber()) {
 
       output_string_.push_back(token.GetData());

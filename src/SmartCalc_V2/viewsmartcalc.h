@@ -105,6 +105,8 @@ private:
     CalculatorButton btn_ln_{this};
     CalculatorButton btn_log_{this};
 
+    CalculatorButton btn_ac_{this};
+
     QCheckBox x_var_;
     QCheckBox x_func_;
 
