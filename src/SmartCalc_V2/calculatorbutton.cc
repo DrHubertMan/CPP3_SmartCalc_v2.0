@@ -1,7 +1,7 @@
 #include "viewsmartcalc.h"
 
 s21::ViewSmartCalc::CalculatorButton::CalculatorButton(ViewSmartCalc *calculation_view) : calculation_view_(calculation_view) {
-  color_.setRgb(107, 91, 149);
+  color_.setRgb(58, 120, 101);
   setAcceptHoverEvents(true);
 }
 
@@ -36,8 +36,18 @@ void s21::ViewSmartCalc::CalculatorButton::setText(const QString &text) noexcept
   update();
 }
 
+void s21::ViewSmartCalc::CalculatorButton::hoverEnterEvent(QGraphicsSceneHoverEvent *) {
+    color_.setRgb(83, 172, 147);
+    update();
+}
+
+void s21::ViewSmartCalc::CalculatorButton::hoverLeaveEvent(QGraphicsSceneHoverEvent *) {
+  color_.setRgb(58, 120, 101);
+    update();
+}
+
 void s21::ViewSmartCalc::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
-    color_.setRgb(57, 48, 79);
+    color_.setRgb(33, 69, 59);
     update();
   if (calculation_view_ != nullptr) {
     Element token(text_.toStdString());
@@ -75,6 +85,7 @@ void s21::ViewSmartCalc::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEv
         if (display_down_is_empty || !digit_end_input_line) {
             calculation_view_->display_down_->setText(calculation_view_->display_down_->text() + text_);
         }
+        calculation_view_->output_line_.push_back(text_);
     } else if (text_ == "AC") {
         calculation_view_->display_down_->clear();
         calculation_view_->display_up_->clear();
@@ -85,7 +96,7 @@ void s21::ViewSmartCalc::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEv
 }
 
 void s21::ViewSmartCalc::CalculatorButton::mouseReleaseEvent(QGraphicsSceneMouseEvent *) {
-    color_.setRgb(107, 91, 149);
+  color_.setRgb(58, 120, 101);
     update();
 }
 
@@ -94,9 +105,8 @@ void s21::ViewSmartCalc::CalculatorButton::EqCase() const noexcept {
     std::list<std::string> stdList;
     for (const QString &qString : calculation_view_->output_line_) {
       stdList.push_back(qString.toStdString());
-//      qWarning() << qString;
+      qWarning() << qString;
     }
-
     calculation_view_->converter_ = new ExpressionConverter(stdList);
     calculation_view_->calculator_ = new Calculation(calculation_view_->converter_->GetOut());
     qWarning() << calculation_view_->calculator_->GetValue();

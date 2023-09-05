@@ -43,6 +43,9 @@ private:
         void SetGeometry(int heigth, int width) noexcept;
         void setText(const QString &text) noexcept;
 
+        void hoverEnterEvent(QGraphicsSceneHoverEvent *) override;
+        void hoverLeaveEvent(QGraphicsSceneHoverEvent *) override;
+
         void mousePressEvent(QGraphicsSceneMouseEvent*) override;
         void mouseReleaseEvent(QGraphicsSceneMouseEvent*) override;
     private:

@@ -4,6 +4,7 @@
 #include <list>
 #include <stack>
 #include <string>
+#include <iostream>
 
 #include "element.h"
 
@@ -28,13 +29,13 @@ private:
   std::list<std::string> output_string_;
 
 private:
-  void Conversion() noexcept;
+  void Conversion() ;
   
   void swap(ExpressionConverter &other) noexcept;
   void AddOperatorInStack(std::stack<std::string> &transformator, Element &op_one) noexcept;
-  void AddInOut(std::stack<std::string> &transformator) noexcept;
-  void EmptyTheStack(std::stack<std::string> &transformator) noexcept;
-  void PullOverStack(std::stack<std::string> &transformator) noexcept;
+  void AddInOut(std::stack<std::string> &transformator);
+  void EmptyTheStack(std::stack<std::string> &transformator);
+  void PullOverStack(std::stack<std::string> &transformator);
 
 };
 }; // namespace s21

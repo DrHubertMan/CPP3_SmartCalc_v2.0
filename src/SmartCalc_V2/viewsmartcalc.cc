@@ -15,8 +15,10 @@ s21::ViewSmartCalc::ViewSmartCalc(QWidget* parent) : QGraphicsView(parent)  {
   setScene(&scene_);
   oper_ = new QLabel();
   oper_->setGeometry(10, 350, 30, 30);
+  oper_->setStyleSheet("background: #008080; font: 15pt");
   scene_.addWidget(oper_);
   InitViewElement();
+  setBackgroundBrush(QBrush(Qt::darkCyan));
 }
 
 s21::ViewSmartCalc::~ViewSmartCalc() {
@@ -159,7 +161,7 @@ void s21::ViewSmartCalc::InitFunctionButton() {
    btn_sqrt_.SetGeometry(50, 310);
    btn_sqrt_.setText("sqrt");
 
-   btn_ac_.setPos(390, 250);
+   btn_ac_.setPos(330, 310);
    btn_ac_.SetGeometry(50, 50);
    btn_ac_.setText("AC");
 
@@ -169,11 +171,13 @@ void s21::ViewSmartCalc::InitLineEdit() {
     display_up_ = new QLineEdit();
     display_down_ = new QLineEdit();
 
-    display_up_->setGeometry(10, 310, 280, 30);
+    display_up_->setGeometry(10, 310, 290, 30);
     display_up_->setReadOnly(true);
+    display_up_->setStyleSheet("background: #326759; font: 15pt");
 
-    display_down_->setGeometry(10, 400, 280, 30);
+    display_down_->setGeometry(10, 400, 290, 30);
     display_down_->setReadOnly(true);
+    display_down_->setStyleSheet("background: #326759; font: 15pt");
 }
 
 void s21::ViewSmartCalc::InitQCheckBox() {
