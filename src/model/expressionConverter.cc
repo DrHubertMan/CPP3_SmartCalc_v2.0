@@ -99,22 +99,27 @@ void s21::ExpressionConverter::EmptyTheStack(
 
 void s21::ExpressionConverter::AddInOut(
     std::stack<std::string> &transformator) {
+  if (transformator.empty()) {
+    throw std::invalid_argument("\nInvalid expression_3\n");
+  }
   Element top(transformator.top());
   while (!top.IsOpenBracket()) {
     output_string_.push_back(top.GetData());
     transformator.pop();
     if (transformator.empty()) {
-      throw std::invalid_argument("\nInvalid expression_3\n");
+      throw std::invalid_argument("\nInvalid expression_4\n");
     }
     top.SetData(transformator.top());
   }
   transformator.pop();
-  top.SetData(transformator.top());
-  if (top.IsFunciotn()) {
-    output_string_.push_back(top.GetData());
-    transformator.pop();
-    if (!transformator.empty()) {
-      top.SetData(transformator.top());
+  if (!transformator.empty()) {
+    top.SetData(transformator.top());
+    if (top.IsFunciotn()) {
+      output_string_.push_back(top.GetData());
+      transformator.pop();
+      if (!transformator.empty()) {
+        top.SetData(transformator.top());
+      }
     }
   }
 };

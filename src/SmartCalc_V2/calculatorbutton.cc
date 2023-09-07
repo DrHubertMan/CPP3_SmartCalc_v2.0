@@ -51,7 +51,7 @@ void s21::ViewSmartCalc::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEv
     update();
   if (calculation_view_ != nullptr) {
     Element token(text_.toStdString());
-    if (token.IsEq() && calculation_view_->oper_->text().isEmpty()) {
+    if (token.IsEq()) {
         EqCase();
     } else if (token.IsNumber()) {
       calculation_view_->oper_->clear();
@@ -65,7 +65,7 @@ void s21::ViewSmartCalc::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEv
       calculation_view_->output_line_.push_back("(");
       calculation_view_->display_down_->setText(calculation_view_->display_down_->text() + text_ +
                                       " (");
-    } else if (token.IsClosedBracket() && !calculation_view_->display_up_->text().isEmpty()) {
+    } else if (token.IsClosedBracket()) {
       Adder();
     } else if (token.IsPoint()) {
       if (calculation_view_->display_up_->text().isEmpty()) {
@@ -90,9 +90,11 @@ void s21::ViewSmartCalc::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEv
         calculation_view_->display_down_->clear();
         calculation_view_->display_up_->clear();
         calculation_view_->oper_->clear();
+    } else if (text_ == "MC") {
+        calculation_view_->display_hystory_->clear();
     }
   }
-  //    qWarning() << text_;
+//      qWarning() << text_;
 }
 
 void s21::ViewSmartCalc::CalculatorButton::mouseReleaseEvent(QGraphicsSceneMouseEvent *) {
@@ -102,17 +104,30 @@ void s21::ViewSmartCalc::CalculatorButton::mouseReleaseEvent(QGraphicsSceneMouse
 
 void s21::ViewSmartCalc::CalculatorButton::EqCase() const noexcept {
     Adder();
+    bool check_conversion = true;
     std::list<std::string> stdList;
     for (const QString &qString : calculation_view_->output_line_) {
       stdList.push_back(qString.toStdString());
-      qWarning() << qString;
+//      qWarning() << qString;
     }
-    calculation_view_->converter_ = new ExpressionConverter(stdList);
-    calculation_view_->calculator_ = new Calculation(calculation_view_->converter_->GetOut());
-    qWarning() << calculation_view_->calculator_->GetValue();
-    calculation_view_->display_down_->setText(calculation_view_->display_down_->text() + QString::number(calculation_view_->calculator_->GetValue()));
-    delete calculation_view_->converter_;
-    delete calculation_view_->calculator_;
+    try {
+        calculation_view_->converter_ = new ExpressionConverter(stdList);
+    } catch (...) {
+        check_conversion = false;
+//        qWarning() << "i am here";
+    }
+    if (check_conversion) {
+        calculation_view_->calculator_ = new Calculation(calculation_view_->converter_->GetOut());
+        calculation_view_->display_down_->setText(calculation_view_->display_down_->text() + QString::number(calculation_view_->calculator_->GetValue()));
+        calculation_view_->display_hystory_->append(calculation_view_->display_down_->text());
+        calculation_view_->display_down_->clear();
+        delete calculation_view_->calculator_;
+        delete calculation_view_->converter_;
+    } else {
+        calculation_view_->display_hystory_->append(calculation_view_->display_down_->text() + "Wrong expression");
+        calculation_view_->display_down_->clear();
+        (new QErrorMessage())->showMessage("Wrong expression");
+    }
     calculation_view_->output_line_.clear();
 }
 
@@ -123,23 +138,27 @@ void s21::ViewSmartCalc::CalculatorButton::Adder() const noexcept {
     if (last_char == '.') {
       calculation_view_->display_up_->setText(calculation_view_->display_up_->text() + "0");
     }
+  } if (!calculation_view_->display_up_->text().isEmpty()) {
+    calculation_view_->output_line_.push_back(calculation_view_->display_up_->text());
+//    qWarning() << calculation_view_->display_up_->text();
   }
-  calculation_view_->output_line_.push_back(calculation_view_->display_up_->text());
   calculation_view_->output_line_.push_back(text_);
+//  qWarning() << text_;
   calculation_view_->display_down_->setText(calculation_view_->display_down_->text() +
                                   calculation_view_->display_up_->text() + text_);
   calculation_view_->display_up_->clear();
 }
 
+
 bool s21::ViewSmartCalc::CalculatorButton::CheckDisplaysStatus() const noexcept{
     bool check_one = false;
-    bool check_two = false;
+//    bool check_two = false;
     if (!calculation_view_->display_up_->text().isEmpty()) {
         QChar last_char_one = calculation_view_->display_up_->text().at(calculation_view_->display_up_->text().length() - 1);
         if (last_char_one.isDigit() || last_char_one == '.') check_one = true;
     } else if (!calculation_view_->display_down_->text().isEmpty()) {
         QChar last_char_two = calculation_view_->display_down_->text().at(calculation_view_->display_down_->text().length() - 1);
-        if (last_char_two.isDigit()) check_two = true;
+        if (last_char_two.isDigit()) check_one = true;
     }
-    return (check_one || check_two);
+    return (check_one);
 };

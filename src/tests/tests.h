@@ -23,10 +23,19 @@ TEST(ExpressionConverter, CorrectCase_1) {
 }
 
 TEST(ExpressionConverter, CorrectCase_2) {
-  std::list<std::string> inial_case{"25", "+" , "(", "5", ")"};
-  ExpressionConverter convert(inial_case);
-  Calculation calic(convert.GetOut());
-  std::cout << calic.GetValue() << std::endl;
+  ExpressionConverter *convert;
+  bool check = true;
+  std::list<std::string> inial_case{"(", "(","(", "25","+",")",")",")"};
+  try {
+    convert = new ExpressionConverter(inial_case);
+    // std::list<std::string> inial_case{"sin", "(", "(", "45", ")"};
+  } catch (...) {
+    std::cout << "poimal" << std::endl;
+    check = false;
+  }
+  if (check) {
+    delete convert;
+  }
 }
 
 TEST(ExpressionConverter, CorrectCase_3) {}

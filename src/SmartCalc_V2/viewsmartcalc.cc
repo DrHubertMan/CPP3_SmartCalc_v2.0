@@ -1,4 +1,5 @@
 #include "viewsmartcalc.h"
+#include <QGraphicsProxyWidget>
 
 s21::ViewSmartCalc::ViewSmartCalc(QWidget* parent) : QGraphicsView(parent)  {
 
@@ -13,17 +14,38 @@ s21::ViewSmartCalc::ViewSmartCalc(QWidget* parent) : QGraphicsView(parent)  {
   scene_.setItemIndexMethod(QGraphicsScene::NoIndex);
 
   setScene(&scene_);
+
+  x_var_ = new QCheckBox();
+  x_var_->setGeometry(450, 310, 200, 30);
+  x_var_->setText("x-var");
+  x_var_->setStyleSheet("background: #008080; font: 12pt");
+//  x_var_->connect();
+  scene_.addWidget(x_var_);
+
+  x_func_.setGeometry(450, 340, 20, 20);
+  x_func_.setText("x-func");
+
   oper_ = new QLabel();
   oper_->setGeometry(10, 350, 30, 30);
   oper_->setStyleSheet("background: #008080; font: 15pt");
+
+  display_hystory_ = new QTextEdit();
+  display_hystory_->setGeometry(10, 440, 290, 290);
+  display_hystory_->setReadOnly(true);
+  display_hystory_->setStyleSheet("background: #326759; font: 15pt");
+
   scene_.addWidget(oper_);
+  scene_.addWidget(display_hystory_);
+
+
   InitViewElement();
   setBackgroundBrush(QBrush(Qt::darkCyan));
 }
 
 s21::ViewSmartCalc::~ViewSmartCalc() {
-    delete display_up_;
-    delete display_down_;
+    if (display_up_) delete display_up_;
+    if (display_down_) delete display_down_;
+    if (oper_) delete oper_;
 };
 
 void s21::ViewSmartCalc::InitViewElement() {
@@ -165,6 +187,10 @@ void s21::ViewSmartCalc::InitFunctionButton() {
    btn_ac_.SetGeometry(50, 50);
    btn_ac_.setText("AC");
 
+   btn_mc_.setPos(390, 310);
+   btn_mc_.SetGeometry(50, 50);
+   btn_mc_.setText("MC");
+
 }
 
 void s21::ViewSmartCalc::InitLineEdit() {
@@ -178,12 +204,13 @@ void s21::ViewSmartCalc::InitLineEdit() {
     display_down_->setGeometry(10, 400, 290, 30);
     display_down_->setReadOnly(true);
     display_down_->setStyleSheet("background: #326759; font: 15pt");
+
 }
 
-void s21::ViewSmartCalc::InitQCheckBox() {
-    x_var_.setText("X - variable");
-    x_func_.setText("X - function argument");
-}
+//void s21::ViewSmartCalc::InitQCheckBox() {
+//    x_var_.setText("X - variable");
+//    x_func_.setText("X - function argument");
+//}
 
 void s21::ViewSmartCalc::AddBtnAtScene() {
     scene_.addItem(&btn_7_);
@@ -217,6 +244,7 @@ void s21::ViewSmartCalc::AddBtnAtScene() {
     scene_.addItem(&btn_ln_);
     scene_.addItem(&btn_log_);
     scene_.addItem(&btn_ac_);
+    scene_.addItem(&btn_mc_);
 }
 
 void s21::ViewSmartCalc::AddLineAtScene() {

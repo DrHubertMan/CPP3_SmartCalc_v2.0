@@ -12,6 +12,8 @@
 #include <QDebug>
 #include <QList>
 #include <QLabel>
+#include <QErrorMessage>
+#include <QTextEdit>
 
 #include "../model/expressionConverter.h"
 #include "../model/calculation.h"
@@ -42,12 +44,6 @@ private:
 
         void SetGeometry(int heigth, int width) noexcept;
         void setText(const QString &text) noexcept;
-
-        void hoverEnterEvent(QGraphicsSceneHoverEvent *) override;
-        void hoverLeaveEvent(QGraphicsSceneHoverEvent *) override;
-
-        void mousePressEvent(QGraphicsSceneMouseEvent*) override;
-        void mouseReleaseEvent(QGraphicsSceneMouseEvent*) override;
     private:
         int width_{0};
         int heigth_{0};
@@ -55,8 +51,15 @@ private:
         QColor color_;
         QList<QString> *outline_;
 
+        void hoverEnterEvent(QGraphicsSceneHoverEvent *) override;
+        void hoverLeaveEvent(QGraphicsSceneHoverEvent *) override;
+
+        void mousePressEvent(QGraphicsSceneMouseEvent*) override;
+        void mouseReleaseEvent(QGraphicsSceneMouseEvent*) override;
+
         void EqCase() const noexcept;
         void Adder() const noexcept;
+        bool CheckCloseBracketEvent() const noexcept;
         bool CheckDisplaysStatus() const noexcept;
 
         s21::ViewSmartCalc *calculation_view_;
@@ -71,6 +74,8 @@ private:
 
     QLineEdit *display_up_;
     QLineEdit *display_down_;
+
+    QTextEdit *display_hystory_;
 
     QLabel *oper_;
 
@@ -109,8 +114,9 @@ private:
     CalculatorButton btn_log_{this};
 
     CalculatorButton btn_ac_{this};
+    CalculatorButton btn_mc_{this};
 
-    QCheckBox x_var_;
+    QCheckBox *x_var_;
     QCheckBox x_func_;
 
     QList<QString> output_line_;
