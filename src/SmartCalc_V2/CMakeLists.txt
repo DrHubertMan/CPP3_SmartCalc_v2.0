@@ -14,6 +14,7 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
 set(PROJECT_SOURCES
     calculatorbutton.cc
+    calclulatorbutton.h
     main.cpp
     ../model/expressionConverter.cc
     ../model/expressionConverter.h

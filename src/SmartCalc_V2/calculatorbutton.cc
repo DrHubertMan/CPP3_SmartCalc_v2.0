@@ -1,21 +1,20 @@
+#include "calclulatorbutton.h"
 #include "viewsmartcalc.h"
 
-s21::ViewSmartCalc::CalculatorButton::CalculatorButton(ViewSmartCalc *calculation_view) : calculation_view_(calculation_view) {
+s21::CalculatorButton::CalculatorButton(ViewSmartCalc *calculation_view) : calculation_view_(calculation_view) {
   color_.setRgb(58, 120, 101);
   setAcceptHoverEvents(true);
 }
 
-s21::ViewSmartCalc::CalculatorButton::~CalculatorButton() {
-  if (calculation_view_) {
-    delete calculation_view_;
-  }
+s21::CalculatorButton::~CalculatorButton() {
+
 }
 
-QRectF s21::ViewSmartCalc::CalculatorButton::boundingRect() const {
+QRectF s21::CalculatorButton::boundingRect() const {
   return QRectF(0, 0, width_, heigth_);
 };
 
-void s21::ViewSmartCalc::CalculatorButton::paint(QPainter *painter,
+void s21::CalculatorButton::paint(QPainter *painter,
                                        const QStyleOptionGraphicsItem *option,
                                        QWidget *widget) {
   painter->setBrush(color_);
@@ -26,27 +25,27 @@ void s21::ViewSmartCalc::CalculatorButton::paint(QPainter *painter,
   }
 }
 
-void s21::ViewSmartCalc::CalculatorButton::SetGeometry(int heigth, int width) noexcept {
+void s21::CalculatorButton::SetGeometry(int heigth, int width) noexcept {
   heigth_ = heigth;
   width_ = width;
 }
 
-void s21::ViewSmartCalc::CalculatorButton::setText(const QString &text) noexcept {
+void s21::CalculatorButton::setText(const QString &text) noexcept {
   text_ = text;
   update();
 }
 
-void s21::ViewSmartCalc::CalculatorButton::hoverEnterEvent(QGraphicsSceneHoverEvent *) {
+void s21::CalculatorButton::hoverEnterEvent(QGraphicsSceneHoverEvent *) {
     color_.setRgb(83, 172, 147);
     update();
 }
 
-void s21::ViewSmartCalc::CalculatorButton::hoverLeaveEvent(QGraphicsSceneHoverEvent *) {
+void s21::CalculatorButton::hoverLeaveEvent(QGraphicsSceneHoverEvent *) {
   color_.setRgb(58, 120, 101);
     update();
 }
 
-void s21::ViewSmartCalc::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
+void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
     color_.setRgb(33, 69, 59);
     update();
   if (calculation_view_ != nullptr) {
@@ -94,35 +93,32 @@ void s21::ViewSmartCalc::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEv
         calculation_view_->display_hystory_->clear();
     }
   }
-//      qWarning() << text_;
 }
 
-void s21::ViewSmartCalc::CalculatorButton::mouseReleaseEvent(QGraphicsSceneMouseEvent *) {
+void s21::CalculatorButton::mouseReleaseEvent(QGraphicsSceneMouseEvent *) {
   color_.setRgb(58, 120, 101);
     update();
 }
 
-void s21::ViewSmartCalc::CalculatorButton::EqCase() const noexcept {
+void s21::CalculatorButton::EqCase() noexcept {
     Adder();
     bool check_conversion = true;
     std::list<std::string> stdList;
     for (const QString &qString : calculation_view_->output_line_) {
       stdList.push_back(qString.toStdString());
-//      qWarning() << qString;
     }
     try {
-        calculation_view_->converter_ = new ExpressionConverter(stdList);
+        converter_ = new ExpressionConverter(stdList);
     } catch (...) {
         check_conversion = false;
-//        qWarning() << "i am here";
     }
     if (check_conversion) {
-        calculation_view_->calculator_ = new Calculation(calculation_view_->converter_->GetOut());
-        calculation_view_->display_down_->setText(calculation_view_->display_down_->text() + QString::number(calculation_view_->calculator_->GetValue()));
+        calculator_ = new Calculation(converter_->GetOut());
+        calculation_view_->display_down_->setText(calculation_view_->display_down_->text() + QString::number(calculator_->GetValue()));
         calculation_view_->display_hystory_->append(calculation_view_->display_down_->text());
         calculation_view_->display_down_->clear();
-        delete calculation_view_->calculator_;
-        delete calculation_view_->converter_;
+        delete calculator_;
+        delete converter_;
     } else {
         calculation_view_->display_hystory_->append(calculation_view_->display_down_->text() + "Wrong expression");
         calculation_view_->display_down_->clear();
@@ -131,7 +127,7 @@ void s21::ViewSmartCalc::CalculatorButton::EqCase() const noexcept {
     calculation_view_->output_line_.clear();
 }
 
-void s21::ViewSmartCalc::CalculatorButton::Adder() const noexcept {
+void s21::CalculatorButton::Adder() const noexcept {
   if (!calculation_view_->display_up_->text().isEmpty()) {
     QChar last_char = calculation_view_->display_up_->text().at(
         calculation_view_->display_up_->text().length() - 1);
@@ -140,19 +136,15 @@ void s21::ViewSmartCalc::CalculatorButton::Adder() const noexcept {
     }
   } if (!calculation_view_->display_up_->text().isEmpty()) {
     calculation_view_->output_line_.push_back(calculation_view_->display_up_->text());
-//    qWarning() << calculation_view_->display_up_->text();
   }
   calculation_view_->output_line_.push_back(text_);
-//  qWarning() << text_;
   calculation_view_->display_down_->setText(calculation_view_->display_down_->text() +
                                   calculation_view_->display_up_->text() + text_);
   calculation_view_->display_up_->clear();
 }
 
-
-bool s21::ViewSmartCalc::CalculatorButton::CheckDisplaysStatus() const noexcept{
+bool s21::CalculatorButton::CheckDisplaysStatus() const noexcept{
     bool check_one = false;
-//    bool check_two = false;
     if (!calculation_view_->display_up_->text().isEmpty()) {
         QChar last_char_one = calculation_view_->display_up_->text().at(calculation_view_->display_up_->text().length() - 1);
         if (last_char_one.isDigit() || last_char_one == '.') check_one = true;

@@ -7,7 +7,6 @@
 #include <QLineEdit>
 #include <QWidget>
 #include <QGraphicsItem>
-#include <QPainter>
 #include <QColor>
 #include <QDebug>
 #include <QList>
@@ -15,61 +14,13 @@
 #include <QErrorMessage>
 #include <QTextEdit>
 
-#include "../model/expressionConverter.h"
-#include "../model/calculation.h"
+#include "calclulatorbutton.h"
 
 namespace s21 {
 class ViewSmartCalc : public QGraphicsView {
 public:
     ViewSmartCalc(QWidget* parent = nullptr);
     ~ViewSmartCalc();
-private:
-    void InitViewElement();
-    void InitNumberButtton();
-    void InitOperatorButton();
-    void InitFunctionButton();
-    void InitLineEdit();
-    void InitQCheckBox();
-
-    void AddBtnAtScene();
-    void AddLineAtScene();
-private:
-    class CalculatorButton : public QGraphicsItem {
-    public:
-        CalculatorButton(ViewSmartCalc *calculation_view = nullptr);
-        ~CalculatorButton();
-
-        QRectF boundingRect() const override;
-        void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget) override;
-
-        void SetGeometry(int heigth, int width) noexcept;
-        void setText(const QString &text) noexcept;
-    private:
-        int width_{0};
-        int heigth_{0};
-        QString text_;
-        QColor color_;
-        QList<QString> *outline_;
-
-        void hoverEnterEvent(QGraphicsSceneHoverEvent *) override;
-        void hoverLeaveEvent(QGraphicsSceneHoverEvent *) override;
-
-        void mousePressEvent(QGraphicsSceneMouseEvent*) override;
-        void mouseReleaseEvent(QGraphicsSceneMouseEvent*) override;
-
-        void EqCase() const noexcept;
-        void Adder() const noexcept;
-        bool CheckCloseBracketEvent() const noexcept;
-        bool CheckDisplaysStatus() const noexcept;
-
-        s21::ViewSmartCalc *calculation_view_;
-
-};
-private:
-
-    ExpressionConverter *converter_;
-    Calculation *calculator_;
-
     QGraphicsScene scene_;
 
     QLineEdit *display_up_;
@@ -78,7 +29,20 @@ private:
     QTextEdit *display_hystory_;
 
     QLabel *oper_;
+    QList<QString> output_line_;
 
+private:
+    void InitViewElement();
+    void InitNumberButtton();
+    void InitOperatorButton();
+    void InitFunctionButton();
+    void InitTextElement();
+    void InitQCheckBox();
+
+    void AddWidgetAtScene();
+    void AddLineAtScene();
+    
+private:
     CalculatorButton btn_eq_{this};
 
     CalculatorButton btn_1_{this};
@@ -118,9 +82,6 @@ private:
 
     QCheckBox *x_var_;
     QCheckBox x_func_;
-
-    QList<QString> output_line_;
-
 };
 };
 
