@@ -1,10 +1,10 @@
 #ifndef CPP3_SMARTCALC_V2_1_CALCULATION_H
 #define CPP3_SMARTCALC_V2_1_CALCULATION_H
 
+#include <cmath>
 #include <list>
 #include <stack>
 #include <string>
-#include <cmath>
 
 #include "element.h"
 
@@ -23,7 +23,7 @@ public:
   Calculation &operator=(Calculation &&c);
 
   double GetValue() const noexcept;
-  
+
 private:
   std::list<std::string> input_string_;
   double value_;

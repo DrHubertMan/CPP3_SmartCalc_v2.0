@@ -1,12 +1,12 @@
 #ifndef CPP3_SMARTCALC_V2_1_MODEL_ELEMENT_H
 #define CPP3_SMARTCALC_V2_1_MODEL_ELEMENT_H
 
-#include<string>
+#include <string>
 
 namespace s21 {
-  class Element {    
-  public:
-  Element() = default; 
+class Element {
+public:
+  Element() = default;
   ~Element() = default;
 
   explicit Element(std::string value);
@@ -16,7 +16,7 @@ namespace s21 {
 
   Element(Element &&e);
   Element &operator=(Element &&e);
-  
+
   std::string GetData() noexcept;
   bool IsNumber() noexcept;
   bool IsOperator() noexcept;
@@ -45,16 +45,15 @@ namespace s21 {
   bool IsEq() noexcept;
   bool IsPoint() noexcept;
 
-  private:
+private:
   std::string data_;
-    
-  private:
 
+private:
   void swap(Element &other);
   int GetPriority() noexcept;
   bool PriorityComparsion(Element &other) noexcept;
   bool IsEqualPriority(Element &other) noexcept;
-  };
 };
+}; // namespace s21
 
 #endif // CPP3_SMARTCALC_V2_1_MODEL_ELEMENT_H
