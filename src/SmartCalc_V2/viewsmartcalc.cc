@@ -30,6 +30,7 @@ void s21::ViewSmartCalc::InitViewElement() {
   InitOperatorButton();
   InitFunctionButton();
   InitTextElement();
+  InitSpinBox();
   AddWidgetAtScene();
 };
 
@@ -70,8 +71,8 @@ void s21::ViewSmartCalc::InitNumberButtton() {
   btn_3_.SetGeometry(50, 50);
   btn_3_.setText("3");
 
-  btn_0_.setPos(10, 250);
-  btn_0_.SetGeometry(50, 110);
+  btn_0_.setPos(70, 250);
+  btn_0_.SetGeometry(50, 50);
   btn_0_.setText("0");
 
   btn_point_.setPos(130, 250);
@@ -165,6 +166,10 @@ void s21::ViewSmartCalc::InitFunctionButton() {
   btn_mc_.setPos(250, 70);
   btn_mc_.SetGeometry(50, 50);
   btn_mc_.setText("MC");
+
+  btn_x_.setPos(10, 250);
+  btn_x_.SetGeometry(50, 50);
+  btn_x_.setText("x");
 };
 
 void s21::ViewSmartCalc::InitTextElement() {
@@ -194,6 +199,12 @@ void s21::ViewSmartCalc::InitTextElement() {
   oper_->setGeometry(10, 350, 30, 30);
   oper_->setStyleSheet("background: #008080; color: white; font: 15pt");
 
+  nickname_ = new QLabel();
+  nickname_->setGeometry(10, 700, 780, 70);
+  nickname_->setStyleSheet("background: #008080; color: #140033");
+  nickname_->setFont(QFont("Veranda", 40, QFont::StyleItalic));
+  nickname_->setText("@mammiemi");
+
   x_var_ = new QRadioButton();
   x_var_->setGeometry(330, 310, 80, 20);
   x_var_->setText("x-var");
@@ -218,6 +229,11 @@ void s21::ViewSmartCalc::InitTextElement() {
   x_group_->addButton(x_var_);
   x_group_->addButton(x_func_);
   x_group_->addButton(default_mode_);
+}
+
+void s21::ViewSmartCalc::InitSpinBox() {
+   x_min_ = new QSpinBox();
+//   x_min_->setGeometry();
 };
 
 void s21::ViewSmartCalc::AddWidgetAtScene() {
@@ -253,6 +269,7 @@ void s21::ViewSmartCalc::AddWidgetAtScene() {
   scene_.addItem(&btn_log_);
   scene_.addItem(&btn_ac_);
   scene_.addItem(&btn_mc_);
+  scene_.addItem(&btn_x_);
 
   scene_.addWidget(x_var_);
   scene_.addWidget(x_func_);
@@ -262,15 +279,20 @@ void s21::ViewSmartCalc::AddWidgetAtScene() {
   scene_.addWidget(display_up_);
   scene_.addWidget(display_down_);
   scene_.addWidget(display_x_var_);
+  scene_.addWidget(nickname_);
 }
 
 void s21::ViewSmartCalc::DisplayChange() {
   display_up_->clear();
   display_up_ = fake_display;
+  x_var_->setStyleSheet("background: #008080; color: white; font: 12pt");
 }
 
 void s21::ViewSmartCalc::RadioClicked() {
   if (x_var_->isChecked()) {
+    display_down_->setText(display_down_->text() + display_up_->text());
+    output_line_.push_back(display_up_->text());
+    display_up_->clear();
     fake_display = display_up_;
     display_up_ = display_x_var_;
   } else if (default_mode_->isChecked()) {

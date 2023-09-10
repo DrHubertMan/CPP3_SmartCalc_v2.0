@@ -34,6 +34,7 @@ private:
   QColor color_;
   QList<QString> *outline_;
 
+
 private:
   void hoverEnterEvent(QGraphicsSceneHoverEvent *) override;
   void hoverLeaveEvent(QGraphicsSceneHoverEvent *) override;
@@ -43,8 +44,10 @@ private:
 
   void EqCase() noexcept;
   void Adder() const noexcept;
+  void PointAdder() const noexcept;
   bool CheckCloseBracketEvent() const noexcept;
   bool CheckDisplaysStatus() const noexcept;
+  bool CheckForAdd() const noexcept;
 };
 }; // namespace s21
 

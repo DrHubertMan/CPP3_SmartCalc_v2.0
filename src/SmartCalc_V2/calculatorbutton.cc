@@ -20,7 +20,7 @@ void s21::CalculatorButton::paint(QPainter *painter,
   painter->setPen(QColor(Qt::white));
   painter->drawRoundedRect(0, 0, width_, heigth_, 5, 5);
   if (!text_.isEmpty()) {
-    painter->setFont(QFont("Arial", 12));
+    painter->setFont(QFont("Monaco", 12));
     painter->drawText(QRectF(0, 0, width_, heigth_), Qt::AlignCenter, text_);
   }
 }
@@ -52,10 +52,15 @@ void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
     Element token(text_.toStdString());
     if (token.IsEq()) {
       EqCase();
-    } else if (token.IsNumber()) {
+    } else if (token.IsNumber() && CheckForAdd()) {
       calculation_view_->oper_->clear();
       calculation_view_->display_up_->setText(
           calculation_view_->display_up_->text() + text_);
+    } else if (token.IsX()) {
+      if (CheckForAdd()) {
+          calculation_view_->display_up_->setText(text_);
+          calculation_view_->x_var_->setStyleSheet("background: #008080; color: red; font: 12pt");
+      }
     } else if (token.IsOperator() && CheckDisplaysStatus()) {
       calculation_view_->oper_->setText(text_);
       Adder();
@@ -76,21 +81,22 @@ void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
             calculation_view_->display_up_->text() + ".");
       }
     } else if (token.IsOpenBracket()) {
+      QChar last_char;
       bool digit_end_input_line = false;
       bool display_down_is_empty =
           calculation_view_->display_down_->text().isEmpty();
       if (!display_down_is_empty) {
-        QChar last_char = calculation_view_->display_down_->text().at(
+        last_char = calculation_view_->display_down_->text().at(
             calculation_view_->display_down_->text().length() - 1);
         if (last_char.isDigit()) {
           digit_end_input_line = true;
         }
       }
-      if (display_down_is_empty || !digit_end_input_line) {
+      if ((display_down_is_empty || !digit_end_input_line) && last_char != ')') {
         calculation_view_->display_down_->setText(
             calculation_view_->display_down_->text() + text_);
+        calculation_view_->output_line_.push_back(text_);
       }
-      calculation_view_->output_line_.push_back(text_);
     } else if (text_ == "AC") {
       calculation_view_->display_down_->clear();
       calculation_view_->display_up_->clear();
@@ -121,11 +127,21 @@ void s21::CalculatorButton::mouseReleaseEvent(QGraphicsSceneMouseEvent *) {
 }
 
 void s21::CalculatorButton::EqCase() noexcept {
-  Adder();
+  if (calculation_view_->display_up_ == calculation_view_->display_x_var_){
+    calculation_view_->display_down_->setText(calculation_view_->display_down_->text() + "=");
+  } else {
+    Adder();
+  }
   bool check_conversion = true;
   std::list<std::string> stdList;
   for (const QString &qString : calculation_view_->output_line_) {
-    stdList.push_back(qString.toStdString());
+    if (qString == "x") {
+        stdList.push_back(calculation_view_->display_x_var_->text().toStdString());
+//        qWarning() << calculation_view_->display_x_var_->text();
+    } else {
+        stdList.push_back(qString.toStdString());
+//        qWarning() << qString;
+    }
   }
   try {
     converter_ = new ExpressionConverter(stdList);
@@ -149,23 +165,20 @@ void s21::CalculatorButton::EqCase() noexcept {
     (new QErrorMessage())->showMessage("Wrong expression");
   }
   calculation_view_->output_line_.clear();
+  calculation_view_->default_mode_->setChecked(true);
+  calculation_view_->display_up_->clear();
+  calculation_view_->display_up_ = calculation_view_->fake_display;
+  calculation_view_->x_var_->setStyleSheet("background: #008080; color: white; font: 12pt");
 }
 
 void s21::CalculatorButton::Adder() const noexcept {
-  if (!calculation_view_->display_up_->text().isEmpty()) {
-    QChar last_char = calculation_view_->display_up_->text().at(
-        calculation_view_->display_up_->text().length() - 1);
-    if (last_char == '.') {
-      calculation_view_->display_up_->setText(
-          calculation_view_->display_up_->text() + "0");
-    }
-  }
+    PointAdder();
   if (!calculation_view_->display_up_->text().isEmpty()) {
     calculation_view_->output_line_.push_back(
         calculation_view_->display_up_->text());
   }
   calculation_view_->output_line_.push_back(text_);
-  if (calculation_view_->display_up_->text().at(0) == '-') {
+  if (!calculation_view_->display_up_->text().isEmpty() && calculation_view_->display_up_->text().at(0) == '-') {
     calculation_view_->display_down_->setText(
         calculation_view_->display_down_->text() + "(" +
         calculation_view_->display_up_->text() + ")" + text_);
@@ -175,6 +188,18 @@ void s21::CalculatorButton::Adder() const noexcept {
         calculation_view_->display_up_->text() + text_);
   }
   calculation_view_->display_up_->clear();
+  //  if (calculation_view_->display_up_ != calculation_view_->display_x_var_) calculation_view_->display_up_->clear();
+}
+
+void s21::CalculatorButton::PointAdder() const noexcept {
+    if (!calculation_view_->display_up_->text().isEmpty()) {
+      QChar last_char = calculation_view_->display_up_->text().at(
+          calculation_view_->display_up_->text().length() - 1);
+      if (last_char == '.') {
+        calculation_view_->display_up_->setText(
+            calculation_view_->display_up_->text() + "0");
+      }
+    }
 }
 
 bool s21::CalculatorButton::CheckDisplaysStatus() const noexcept {
@@ -182,7 +207,7 @@ bool s21::CalculatorButton::CheckDisplaysStatus() const noexcept {
   if (!calculation_view_->display_up_->text().isEmpty()) {
     QChar last_char_one = calculation_view_->display_up_->text().at(
         calculation_view_->display_up_->text().length() - 1);
-    if (last_char_one.isDigit() || last_char_one == '.')
+    if (last_char_one.isDigit() || last_char_one == '.' || last_char_one == 'x')
       check_one = true;
   }
   if (!calculation_view_->display_down_->text().isEmpty()) {
@@ -192,4 +217,9 @@ bool s21::CalculatorButton::CheckDisplaysStatus() const noexcept {
       check_one = true;
   }
   return (check_one);
+}
+
+bool s21::CalculatorButton::CheckForAdd() const noexcept {
+    return (calculation_view_->display_up_->text().isEmpty() || (!calculation_view_->display_up_->text().isEmpty() && calculation_view_->display_up_->text().at(0) != 'x'));
 };
+

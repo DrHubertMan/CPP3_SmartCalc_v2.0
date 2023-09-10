@@ -15,8 +15,10 @@
 #include <QRadioButton>
 #include <QTextEdit>
 #include <QWidget>
+#include <QSpinBox>
 
 #include "calclulatorbutton.h"
+#include "qcustomplot.h"
 
 namespace s21 {
 class ViewSmartCalc : public QGraphicsView {
@@ -32,12 +34,18 @@ public:
   QTextEdit *display_hystory_;
 
   QLabel *oper_;
+  QLabel *nickname_;
 
   QRadioButton *x_var_;
   QRadioButton *x_func_;
   QRadioButton *default_mode_;
 
   QList<QString> output_line_;
+
+  QSpinBox *x_min_;
+  QSpinBox *x_max_;
+  QSpinBox *y_min_;
+  QSpinBox *y_max_;
 
 private:
   void InitViewElement();
@@ -46,6 +54,7 @@ private:
   void InitFunctionButton();
   void InitTextElement();
   void InitQCheckBox();
+  void InitSpinBox();
 
   void AddWidgetAtScene();
   void AddLineAtScene();
@@ -89,11 +98,12 @@ private:
 
   CalculatorButton btn_ac_{this};
   CalculatorButton btn_mc_{this};
+  CalculatorButton btn_x_{this};
 
   QGraphicsScene scene_;
   QButtonGroup *x_group_;
 
-private slots:
+public slots:
   void RadioClicked();
 };
 }; // namespace s21

@@ -17,42 +17,43 @@ public:
   Element(Element &&e);
   Element &operator=(Element &&e);
 
-  std::string GetData() noexcept;
-  bool IsNumber() noexcept;
-  bool IsOperator() noexcept;
-  bool IsPlus() noexcept;
-  bool IsMinus() noexcept;
-  bool IsMul() noexcept;
-  bool IsDiv() noexcept;
-  bool IsExp() noexcept;
-  bool IsMod() noexcept;
-  bool IsFunciotn() noexcept;
-  bool IsSin() noexcept;
-  bool IsCos() noexcept;
-  bool IsTan() noexcept;
-  bool IsAsin() noexcept;
-  bool IsAcos() noexcept;
-  bool IsAtan() noexcept;
-  bool IsSqrt() noexcept;
-  bool IsLn() noexcept;
-  bool IsLog() noexcept;
-  bool IsSeparator() noexcept;
-  bool IsLeftPriority() noexcept;
-  bool OperatorCheck(Element &other) noexcept;
-  void SetData(std::string value);
-  bool IsOpenBracket() noexcept;
-  bool IsClosedBracket() noexcept;
-  bool IsEq() noexcept;
-  bool IsPoint() noexcept;
+  std::string GetData() const noexcept;
+  bool IsNumber() const noexcept;
+  bool IsOperator() const noexcept;
+  bool IsPlus() const noexcept;
+  bool IsMinus() const noexcept;
+  bool IsMul() const noexcept;
+  bool IsDiv() const noexcept;
+  bool IsExp() const noexcept;
+  bool IsMod() const noexcept;
+  bool IsFunciotn() const noexcept;
+  bool IsSin() const noexcept;
+  bool IsCos() const noexcept;
+  bool IsTan() const noexcept;
+  bool IsAsin() const noexcept;
+  bool IsAcos() const noexcept;
+  bool IsAtan() const noexcept;
+  bool IsSqrt() const noexcept;
+  bool IsLn() const noexcept;
+  bool IsLog() const noexcept;
+  bool IsSeparator() const noexcept;
+  bool IsLeftPriority() const noexcept;
+  bool OperatorCheck(Element &other) const noexcept;
+  void SetData(std::string value) noexcept;
+  bool IsOpenBracket() const noexcept;
+  bool IsClosedBracket() const noexcept;
+  bool IsEq() const noexcept;
+  bool IsPoint() const noexcept;
+  bool IsX() const noexcept;
 
 private:
   std::string data_;
 
 private:
   void swap(Element &other);
-  int GetPriority() noexcept;
-  bool PriorityComparsion(Element &other) noexcept;
-  bool IsEqualPriority(Element &other) noexcept;
+  int GetPriority() const noexcept;
+  bool PriorityComparsion(Element &other) const noexcept;
+  bool IsEqualPriority(Element &other) const noexcept;
 };
 }; // namespace s21
 
