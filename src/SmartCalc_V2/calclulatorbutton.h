@@ -43,6 +43,7 @@ private:
 
   void EqCase() noexcept;
   void DefaultMode() noexcept;
+  void FunctionMode() noexcept;
   void Adder() const noexcept;
   void PointAdder() const noexcept;
   bool CheckCloseBracketEvent() const noexcept;

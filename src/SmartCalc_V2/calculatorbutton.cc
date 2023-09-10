@@ -182,7 +182,39 @@ void s21::CalculatorButton::DefaultMode() noexcept {
 }
 
 void s21::CalculatorButton::FunctionMode() noexcept {
+    double x_min_value = calculation_view_->x_min_->value();
+    double x_max_value = calculation_view_->x_max_->value();
 
+    QVector<double> x(2*(x_max_value - x_min_value));
+    QVector<double> y(2*(x_max_value - x_min_value));
+    bool check_conversion = true;
+    for (int i = 0; x_min_value < x_max_value; x_min_value += 0.5, i++) {
+        x[i] = x_min_value;
+        std::list<std::string> stdList;
+        for (const QString &qString : calculation_view_->output_line_) {
+          if (qString == "x") {
+              stdList.push_back(std::to_string(x[i]));
+          } else {
+              stdList.push_back(qString.toStdString());
+          }
+
+        }
+        try {
+          converter_ = new ExpressionConverter(stdList);
+        } catch (...) {
+          check_conversion = false;
+        }
+        if (check_conversion) {
+          calculator_ = new Calculation(converter_->GetOut());
+          y[i] = calculator_->GetValue();
+          delete calculator_;
+          delete converter_;
+        } else {
+           (new QErrorMessage())->showMessage("Wrong expression");
+            break;
+        }
+    }
+    if (check_conversion) calculation_view_->GraphShow(x, y);
 }
 
 void s21::CalculatorButton::Adder() const noexcept {

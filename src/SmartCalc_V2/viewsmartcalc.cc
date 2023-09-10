@@ -22,7 +22,20 @@ s21::ViewSmartCalc::~ViewSmartCalc() {
   if (display_down_)
     delete display_down_;
   if (oper_)
-    delete oper_;
+      delete oper_;
+}
+
+void s21::ViewSmartCalc::GraphShow(QVector<double> x, QVector<double> y) noexcept{
+    graph_ = new QCustomPlot;
+    graph_->addGraph();
+    graph_->graph(0)->setData(x, y);
+    graph_->xAxis->setLabel("x");
+    graph_->yAxis->setLabel("y");
+    graph_->xAxis->setRange(x_min_->value(), x_max_->value());
+    graph_->yAxis->setRange(y_min_->value(), y_max_->value());
+    graph_->resize(800, 800);
+    graph_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    graph_->show();
 };
 
 void s21::ViewSmartCalc::InitViewElement() {

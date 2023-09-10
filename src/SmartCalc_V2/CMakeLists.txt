@@ -10,11 +10,13 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+#find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets PrintSupport)
+
 
 set(PROJECT_SOURCES
-#    qcustomplot.cpp
-#    qcustomplot.h
+    qcustomplot.cpp
+    qcustomplot.h
     calculatorbutton.cc
     calclulatorbutton.h
     main.cpp
@@ -51,7 +53,8 @@ else()
     endif()
 endif()
 
-target_link_libraries(SmartCalc_V2 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+#target_link_libraries(SmartCalc_V2 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(SmartCalc_V2 PRIVATE Qt${QT_VERSION_MAJOR}::Widgets Qt${QT_VERSION_MAJOR}::PrintSupport)
 
 set_target_properties(SmartCalc_V2 PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com

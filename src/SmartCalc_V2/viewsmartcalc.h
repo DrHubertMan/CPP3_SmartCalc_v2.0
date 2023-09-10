@@ -26,6 +26,7 @@ public:
   ViewSmartCalc(QWidget *parent = nullptr);
   ~ViewSmartCalc();
 
+  QCustomPlot *graph_;
   QLineEdit *display_up_;
   QLineEdit *display_down_;
   QLineEdit *display_x_var_;
@@ -45,7 +46,8 @@ public:
   QSpinBox *x_max_;
   QSpinBox *y_min_;
   QSpinBox *y_max_;
-
+public:
+  void GraphShow(QVector<double> x, QVector<double> y) noexcept;
 private:
   void InitViewElement();
   void InitNumberButtton();
