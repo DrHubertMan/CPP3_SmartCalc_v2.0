@@ -132,47 +132,61 @@ void s21::CalculatorButton::EqCase() noexcept {
   } else {
     Adder();
   }
-  bool check_conversion = true;
-  std::list<std::string> stdList;
-  for (const QString &qString : calculation_view_->output_line_) {
-    if (qString == "x") {
-        stdList.push_back(calculation_view_->display_x_var_->text().toStdString());
-//        qWarning() << calculation_view_->display_x_var_->text();
-    } else {
-        stdList.push_back(qString.toStdString());
-//        qWarning() << qString;
-    }
-  }
-  try {
-    converter_ = new ExpressionConverter(stdList);
-  } catch (...) {
-    check_conversion = false;
-  }
-  if (check_conversion) {
-    calculator_ = new Calculation(converter_->GetOut());
-    calculation_view_->display_down_->setText(
-        calculation_view_->display_down_->text() +
-        QString::number(calculator_->GetValue()));
-    calculation_view_->display_hystory_->append(
-        calculation_view_->display_down_->text());
-    calculation_view_->display_down_->clear();
-    delete calculator_;
-    delete converter_;
+  if (calculation_view_->default_mode_->isChecked() || calculation_view_->x_var_->isChecked()) {
+      DefaultMode();
   } else {
-    calculation_view_->display_hystory_->append(
-        calculation_view_->display_down_->text() + "(Wrong expression)");
-    calculation_view_->display_down_->clear();
-    (new QErrorMessage())->showMessage("Wrong expression");
+      FunctionMode();
   }
   calculation_view_->output_line_.clear();
   calculation_view_->default_mode_->setChecked(true);
   calculation_view_->display_up_->clear();
-  calculation_view_->display_up_ = calculation_view_->fake_display;
+  if (calculation_view_->display_up_ == calculation_view_->display_x_var_) {
+    calculation_view_->display_up_ = calculation_view_->fake_display;
+  }
   calculation_view_->x_var_->setStyleSheet("background: #008080; color: white; font: 12pt");
 }
 
+void s21::CalculatorButton::DefaultMode() noexcept {
+    bool check_conversion = true;
+    std::list<std::string> stdList;
+    for (const QString &qString : calculation_view_->output_line_) {
+      if (qString == "x") {
+          stdList.push_back(calculation_view_->display_x_var_->text().toStdString());
+  //        qWarning() << calculation_view_->display_x_var_->text();
+      } else {
+          stdList.push_back(qString.toStdString());
+  //        qWarning() << qString;
+      }
+    }
+    try {
+      converter_ = new ExpressionConverter(stdList);
+    } catch (...) {
+      check_conversion = false;
+    }
+    if (check_conversion) {
+      calculator_ = new Calculation(converter_->GetOut());
+      calculation_view_->display_down_->setText(
+          calculation_view_->display_down_->text() +
+          QString::number(calculator_->GetValue()));
+      calculation_view_->display_hystory_->append(
+          calculation_view_->display_down_->text());
+      calculation_view_->display_down_->clear();
+      delete calculator_;
+      delete converter_;
+    } else {
+      calculation_view_->display_hystory_->append(
+          calculation_view_->display_down_->text() + "(Wrong expression)");
+      calculation_view_->display_down_->clear();
+      (new QErrorMessage())->showMessage("Wrong expression");
+    }
+}
+
+void s21::CalculatorButton::FunctionMode() noexcept {
+
+}
+
 void s21::CalculatorButton::Adder() const noexcept {
-    PointAdder();
+  PointAdder();
   if (!calculation_view_->display_up_->text().isEmpty()) {
     calculation_view_->output_line_.push_back(
         calculation_view_->display_up_->text());
@@ -220,6 +234,17 @@ bool s21::CalculatorButton::CheckDisplaysStatus() const noexcept {
 }
 
 bool s21::CalculatorButton::CheckForAdd() const noexcept {
-    return (calculation_view_->display_up_->text().isEmpty() || (!calculation_view_->display_up_->text().isEmpty() && calculation_view_->display_up_->text().at(0) != 'x'));
+    bool check_one = false;
+    bool check_two = false;
+    if (calculation_view_->display_up_->text().isEmpty()) {
+//        qWarning() << "olo";
+        check_one = true;
+    }
+    if (!calculation_view_->display_up_->text().isEmpty()) {
+        if (calculation_view_->display_up_->text().at(0) != 'x') {
+            check_two = true;
+        }
+    }
+    return (check_one || check_two);
 };
 

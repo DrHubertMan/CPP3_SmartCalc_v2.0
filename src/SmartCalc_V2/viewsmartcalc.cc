@@ -205,6 +205,26 @@ void s21::ViewSmartCalc::InitTextElement() {
   nickname_->setFont(QFont("Veranda", 40, QFont::StyleItalic));
   nickname_->setText("@mammiemi");
 
+  x_min_label_= new QLabel();
+  x_min_label_->setGeometry(330, 380, 45, 20);
+  x_min_label_->setStyleSheet("background: #008080; color: white; font: 12pt");
+  x_min_label_->setText("x.min:");
+
+  x_max_label_= new QLabel();
+  x_max_label_->setGeometry(470, 380, 45, 20);
+  x_max_label_->setStyleSheet("background: #008080; color: white; font: 12pt");
+  x_max_label_->setText("x.max:");
+
+  y_min_label_= new QLabel();
+  y_min_label_->setGeometry(330, 410, 45, 20);
+  y_min_label_->setStyleSheet("background: #008080; color: white; font: 12pt");
+  y_min_label_->setText("y.min:");
+
+  y_max_label_= new QLabel();
+  y_max_label_->setGeometry(470, 410, 45, 20);
+  y_max_label_->setStyleSheet("background: #008080; color: white; font: 12pt");
+  y_max_label_->setText("y.max:");
+
   x_var_ = new QRadioButton();
   x_var_->setGeometry(330, 310, 80, 20);
   x_var_->setText("x-var");
@@ -233,7 +253,28 @@ void s21::ViewSmartCalc::InitTextElement() {
 
 void s21::ViewSmartCalc::InitSpinBox() {
    x_min_ = new QSpinBox();
-//   x_min_->setGeometry();
+   x_min_->setGeometry(380, 380, 80, 20);
+   x_min_->setRange(-1000000, 1000000);
+   x_min_->setValue(0);
+   x_min_->setStyleSheet("background: #008080; color: white; font: 10pt");
+
+   x_max_ = new QSpinBox();
+   x_max_->setGeometry(520, 380, 80, 20);
+   x_max_->setRange(-1000000, 1000000);
+   x_max_->setValue(0);
+   x_max_->setStyleSheet("background: #008080; color: white; font: 10pt");
+
+   y_min_ = new QSpinBox();
+   y_min_->setGeometry(380, 410, 80, 20);
+   y_min_->setRange(-1000000, 1000000);
+   y_min_->setValue(0);
+   y_min_->setStyleSheet("background: #008080; color: white; font: 10pt");
+
+   y_max_ = new QSpinBox();
+   y_max_->setGeometry(520, 410, 80, 20);
+   y_max_->setRange(-1000000, 1000000);
+   y_max_->setValue(0);
+   y_max_->setStyleSheet("background: #008080; color: white; font: 10pt");
 };
 
 void s21::ViewSmartCalc::AddWidgetAtScene() {
@@ -280,6 +321,16 @@ void s21::ViewSmartCalc::AddWidgetAtScene() {
   scene_.addWidget(display_down_);
   scene_.addWidget(display_x_var_);
   scene_.addWidget(nickname_);
+
+  scene_.addWidget(x_min_);
+  scene_.addWidget(x_max_);
+  scene_.addWidget(y_min_);
+  scene_.addWidget(y_max_);
+
+  scene_.addWidget(x_min_label_);
+  scene_.addWidget(x_max_label_);
+  scene_.addWidget(y_min_label_);
+  scene_.addWidget(y_max_label_);
 }
 
 void s21::ViewSmartCalc::DisplayChange() {

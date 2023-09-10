@@ -34,7 +34,6 @@ private:
   QColor color_;
   QList<QString> *outline_;
 
-
 private:
   void hoverEnterEvent(QGraphicsSceneHoverEvent *) override;
   void hoverLeaveEvent(QGraphicsSceneHoverEvent *) override;
@@ -43,6 +42,7 @@ private:
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *) override;
 
   void EqCase() noexcept;
+  void DefaultMode() noexcept;
   void Adder() const noexcept;
   void PointAdder() const noexcept;
   bool CheckCloseBracketEvent() const noexcept;

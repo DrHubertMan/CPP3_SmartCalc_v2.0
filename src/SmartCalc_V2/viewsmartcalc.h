@@ -34,7 +34,6 @@ public:
   QTextEdit *display_hystory_;
 
   QLabel *oper_;
-  QLabel *nickname_;
 
   QRadioButton *x_var_;
   QRadioButton *x_func_;
@@ -61,6 +60,11 @@ private:
   void DisplayChange();
 
 private:
+  QLabel *nickname_;
+  QLabel *x_min_label_;
+  QLabel *x_max_label_;
+  QLabel *y_min_label_;
+  QLabel *y_max_label_;
   //    QGraphicsProxyWidget *x_var_proxy_widget_;
   CalculatorButton btn_eq_{this};
 
