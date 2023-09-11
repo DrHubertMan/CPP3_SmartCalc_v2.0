@@ -145,37 +145,37 @@ void s21::Calculation::FuncCase(std::stack<double> &calc_stack,
 void s21::Calculation::SinCase(std::stack<double> &calc_stack) noexcept {
   double val = calc_stack.top();
   calc_stack.pop();
-  calc_stack.push(sin(val * M_PI / 180));
+  calc_stack.push(sin(val /** M_PI / 180*/));
 };
 
 void s21::Calculation::CosCase(std::stack<double> &calc_stack) noexcept {
   double val = calc_stack.top();
   calc_stack.pop();
-  calc_stack.push(cos(val * M_PI / 180));
+  calc_stack.push(cos(val /** M_PI / 180*/));
 };
 
 void s21::Calculation::TanCase(std::stack<double> &calc_stack) noexcept {
   double val = calc_stack.top();
   calc_stack.pop();
-  calc_stack.push(tan(val * M_PI / 180));
+  calc_stack.push(tan(val /** M_PI / 180*/));
 };
 
 void s21::Calculation::AsinCase(std::stack<double> &calc_stack) noexcept {
   double val = calc_stack.top();
   calc_stack.pop();
-  calc_stack.push(asin(val * M_PI / 180));
+  calc_stack.push(asin(val /** M_PI / 180*/));
 };
 
 void s21::Calculation::AcosCase(std::stack<double> &calc_stack) noexcept {
   double val = calc_stack.top();
   calc_stack.pop();
-  calc_stack.push(acos(val * M_PI / 180));
+  calc_stack.push(acos(val /** M_PI / 180*/));
 };
 
 void s21::Calculation::AtanCase(std::stack<double> &calc_stack) noexcept {
   double val = calc_stack.top();
   calc_stack.pop();
-  calc_stack.push(atan(val * M_PI / 180));
+  calc_stack.push(atan(val /** M_PI / 180*/));
 };
 
 void s21::Calculation::SqrtCase(std::stack<double> &calc_stack) noexcept {

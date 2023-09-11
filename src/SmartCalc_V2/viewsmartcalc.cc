@@ -23,7 +23,7 @@ s21::ViewSmartCalc::~ViewSmartCalc() {
     delete display_down_;
   if (oper_)
       delete oper_;
-}
+};
 
 void s21::ViewSmartCalc::GraphShow(QVector<double> x, QVector<double> y) noexcept{
     graph_ = new QCustomPlot;
@@ -35,6 +35,10 @@ void s21::ViewSmartCalc::GraphShow(QVector<double> x, QVector<double> y) noexcep
     graph_->yAxis->setRange(y_min_->value(), y_max_->value());
     graph_->resize(800, 800);
     graph_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    graph_->graph(0)->setLineStyle(QCPGraph::lsNone);
+    QCPScatterStyle scatter_style = QCPScatterStyle(QCPScatterStyle::ssDisc, Qt::darkGreen, 3.0);
+    graph_->graph(0)->setScatterStyle(scatter_style);
+    display_down_->clear();
     graph_->show();
 };
 
@@ -91,7 +95,7 @@ void s21::ViewSmartCalc::InitNumberButtton() {
   btn_point_.setPos(130, 250);
   btn_point_.SetGeometry(50, 50);
   btn_point_.setText(".");
-}
+};
 
 void s21::ViewSmartCalc::InitOperatorButton() {
   btn_mod_.setPos(10, 10);
@@ -202,6 +206,8 @@ void s21::ViewSmartCalc::InitTextElement() {
   display_x_var_->setStyleSheet(
       "background: #326759; color: white; font: 15pt");
 
+//  fake_display = new QLineEdit();
+
   display_hystory_ = new QTextEdit();
   display_hystory_->setGeometry(10, 440, 290, 290);
   display_hystory_->setReadOnly(true);
@@ -262,7 +268,7 @@ void s21::ViewSmartCalc::InitTextElement() {
   x_group_->addButton(x_var_);
   x_group_->addButton(x_func_);
   x_group_->addButton(default_mode_);
-}
+};
 
 void s21::ViewSmartCalc::InitSpinBox() {
    x_min_ = new QSpinBox();
@@ -344,13 +350,15 @@ void s21::ViewSmartCalc::AddWidgetAtScene() {
   scene_.addWidget(x_max_label_);
   scene_.addWidget(y_min_label_);
   scene_.addWidget(y_max_label_);
-}
+};
 
 void s21::ViewSmartCalc::DisplayChange() {
   display_up_->clear();
-  display_up_ = fake_display;
+  if (display_up_ == display_x_var_) {
+    display_up_ = fake_display;
+  }
   x_var_->setStyleSheet("background: #008080; color: white; font: 12pt");
-}
+};
 
 void s21::ViewSmartCalc::RadioClicked() {
   if (x_var_->isChecked()) {
@@ -362,6 +370,10 @@ void s21::ViewSmartCalc::RadioClicked() {
   } else if (default_mode_->isChecked()) {
     DisplayChange();
   } else if (x_func_->isChecked()) {
+    display_down_->setText(display_down_->text() + display_up_->text());
+    output_line_.push_back(display_up_->text());
+    oper_->clear();
+    display_hystory_->append(display_down_->text() + "(function graph)");
     DisplayChange();
   }
 };

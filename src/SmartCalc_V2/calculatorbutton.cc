@@ -5,7 +5,7 @@ s21::CalculatorButton::CalculatorButton(ViewSmartCalc *calculation_view)
     : calculation_view_(calculation_view) {
   color_.setRgb(58, 120, 101);
   setAcceptHoverEvents(true);
-}
+};
 
 s21::CalculatorButton::~CalculatorButton() {}
 
@@ -23,27 +23,27 @@ void s21::CalculatorButton::paint(QPainter *painter,
     painter->setFont(QFont("Monaco", 12));
     painter->drawText(QRectF(0, 0, width_, heigth_), Qt::AlignCenter, text_);
   }
-}
+};
 
 void s21::CalculatorButton::SetGeometry(int heigth, int width) noexcept {
   heigth_ = heigth;
   width_ = width;
-}
+};
 
 void s21::CalculatorButton::setText(const QString &text) noexcept {
   text_ = text;
   update();
-}
+};
 
 void s21::CalculatorButton::hoverEnterEvent(QGraphicsSceneHoverEvent *) {
   color_.setRgb(83, 172, 147);
   update();
-}
+};
 
 void s21::CalculatorButton::hoverLeaveEvent(QGraphicsSceneHoverEvent *) {
   color_.setRgb(58, 120, 101);
   update();
-}
+};
 
 void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
   color_.setRgb(33, 69, 59);
@@ -119,7 +119,7 @@ void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
       }
     }
   }
-}
+};
 
 void s21::CalculatorButton::mouseReleaseEvent(QGraphicsSceneMouseEvent *) {
   color_.setRgb(58, 120, 101);
@@ -144,7 +144,7 @@ void s21::CalculatorButton::EqCase() noexcept {
     calculation_view_->display_up_ = calculation_view_->fake_display;
   }
   calculation_view_->x_var_->setStyleSheet("background: #008080; color: white; font: 12pt");
-}
+};
 
 void s21::CalculatorButton::DefaultMode() noexcept {
     bool check_conversion = true;
@@ -179,21 +179,23 @@ void s21::CalculatorButton::DefaultMode() noexcept {
       calculation_view_->display_down_->clear();
       (new QErrorMessage())->showMessage("Wrong expression");
     }
-}
+};
 
 void s21::CalculatorButton::FunctionMode() noexcept {
     double x_min_value = calculation_view_->x_min_->value();
     double x_max_value = calculation_view_->x_max_->value();
 
-    QVector<double> x(2*(x_max_value - x_min_value));
-    QVector<double> y(2*(x_max_value - x_min_value));
+    QVector<double> x(8*(x_max_value - x_min_value));
+    QVector<double> y(8*(x_max_value - x_min_value));
     bool check_conversion = true;
-    for (int i = 0; x_min_value < x_max_value; x_min_value += 0.5, i++) {
+    for (int i = 0; x_min_value < x_max_value; x_min_value += 0.125, i++) {
         x[i] = x_min_value;
         std::list<std::string> stdList;
         for (const QString &qString : calculation_view_->output_line_) {
           if (qString == "x") {
-              stdList.push_back(std::to_string(x[i]));
+              stdList.push_back(std::to_string(x_min_value));
+              std::cout << "lol";
+//              qWarning() << x_min_value;
           } else {
               stdList.push_back(qString.toStdString());
           }
@@ -215,10 +217,12 @@ void s21::CalculatorButton::FunctionMode() noexcept {
         }
     }
     if (check_conversion) calculation_view_->GraphShow(x, y);
-}
+};
 
 void s21::CalculatorButton::Adder() const noexcept {
-  PointAdder();
+  if (calculation_view_->display_up_) {
+    PointAdder();
+  }
   if (!calculation_view_->display_up_->text().isEmpty()) {
     calculation_view_->output_line_.push_back(
         calculation_view_->display_up_->text());
@@ -235,7 +239,7 @@ void s21::CalculatorButton::Adder() const noexcept {
   }
   calculation_view_->display_up_->clear();
   //  if (calculation_view_->display_up_ != calculation_view_->display_x_var_) calculation_view_->display_up_->clear();
-}
+};
 
 void s21::CalculatorButton::PointAdder() const noexcept {
     if (!calculation_view_->display_up_->text().isEmpty()) {
@@ -246,7 +250,7 @@ void s21::CalculatorButton::PointAdder() const noexcept {
             calculation_view_->display_up_->text() + "0");
       }
     }
-}
+};
 
 bool s21::CalculatorButton::CheckDisplaysStatus() const noexcept {
   bool check_one = false;
@@ -263,7 +267,7 @@ bool s21::CalculatorButton::CheckDisplaysStatus() const noexcept {
       check_one = true;
   }
   return (check_one);
-}
+};
 
 bool s21::CalculatorButton::CheckForAdd() const noexcept {
     bool check_one = false;
