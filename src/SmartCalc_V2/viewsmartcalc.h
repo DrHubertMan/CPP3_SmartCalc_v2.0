@@ -106,7 +106,7 @@ private:
   CalculatorButton btn_mc_{this};
   CalculatorButton btn_x_{this};
 
-  QGraphicsScene scene_;
+  QGraphicsScene *scene_;
   QButtonGroup *x_group_;
 
 public slots:

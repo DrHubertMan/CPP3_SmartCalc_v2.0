@@ -15,6 +15,9 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets PrintSupport)
 
 
 set(PROJECT_SOURCES
+
+    mainwindow.h
+    mainwindow.cc
     qcustomplot.cpp
     qcustomplot.h
     calculatorbutton.cc

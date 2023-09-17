@@ -1,6 +1,7 @@
 #include "viewsmartcalc.h"
 #include <QGraphicsProxyWidget>
 
+
 s21::ViewSmartCalc::ViewSmartCalc(QWidget *parent) : QGraphicsView(parent) {
 
   setRenderHint(QPainter::Antialiasing);
@@ -10,10 +11,12 @@ s21::ViewSmartCalc::ViewSmartCalc(QWidget *parent) : QGraphicsView(parent) {
   setSceneRect(0, 0, 800, 800);
   setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
   setFixedSize(800, 800);
-  scene_.setItemIndexMethod(QGraphicsScene::NoIndex);
-  setScene(&scene_);
+  scene_ = new QGraphicsScene();
+  scene_->setItemIndexMethod(QGraphicsScene::NoIndex);
+  setScene(scene_);
   InitViewElement();
   setBackgroundBrush(QBrush(Qt::darkCyan));
+  show();
 };
 
 s21::ViewSmartCalc::~ViewSmartCalc() {
@@ -297,59 +300,59 @@ void s21::ViewSmartCalc::InitSpinBox() {
 };
 
 void s21::ViewSmartCalc::AddWidgetAtScene() {
-  scene_.addItem(&btn_7_);
-  scene_.addItem(&btn_8_);
-  scene_.addItem(&btn_9_);
-  scene_.addItem(&btn_4_);
-  scene_.addItem(&btn_5_);
-  scene_.addItem(&btn_6_);
-  scene_.addItem(&btn_1_);
-  scene_.addItem(&btn_2_);
-  scene_.addItem(&btn_3_);
-  scene_.addItem(&btn_0_);
-  scene_.addItem(&btn_mod_);
-  scene_.addItem(&btn_div_);
-  scene_.addItem(&btn_mul_);
-  scene_.addItem(&btn_minus_);
-  scene_.addItem(&btn_plus_);
-  scene_.addItem(&btn_point_);
-  scene_.addItem(&btn_open_br_);
-  scene_.addItem(&btn_closed_br_);
-  scene_.addItem(&btn_eq_);
-  scene_.addItem(&btn_unar_);
-  scene_.addItem(&btn_exp_);
-  scene_.addItem(&btn_sin_);
-  scene_.addItem(&btn_cos_);
-  scene_.addItem(&btn_tan_);
-  scene_.addItem(&btn_asin_);
-  scene_.addItem(&btn_acos_);
-  scene_.addItem(&btn_atan_);
-  scene_.addItem(&btn_sqrt_);
-  scene_.addItem(&btn_ln_);
-  scene_.addItem(&btn_log_);
-  scene_.addItem(&btn_ac_);
-  scene_.addItem(&btn_mc_);
-  scene_.addItem(&btn_x_);
+  scene_->addItem(&btn_7_);
+  scene_->addItem(&btn_8_);
+  scene_->addItem(&btn_9_);
+  scene_->addItem(&btn_4_);
+  scene_->addItem(&btn_5_);
+  scene_->addItem(&btn_6_);
+  scene_->addItem(&btn_1_);
+  scene_->addItem(&btn_2_);
+  scene_->addItem(&btn_3_);
+  scene_->addItem(&btn_0_);
+  scene_->addItem(&btn_mod_);
+  scene_->addItem(&btn_div_);
+  scene_->addItem(&btn_mul_);
+  scene_->addItem(&btn_minus_);
+  scene_->addItem(&btn_plus_);
+  scene_->addItem(&btn_point_);
+  scene_->addItem(&btn_open_br_);
+  scene_->addItem(&btn_closed_br_);
+  scene_->addItem(&btn_eq_);
+  scene_->addItem(&btn_unar_);
+  scene_->addItem(&btn_exp_);
+  scene_->addItem(&btn_sin_);
+  scene_->addItem(&btn_cos_);
+  scene_->addItem(&btn_tan_);
+  scene_->addItem(&btn_asin_);
+  scene_->addItem(&btn_acos_);
+  scene_->addItem(&btn_atan_);
+  scene_->addItem(&btn_sqrt_);
+  scene_->addItem(&btn_ln_);
+  scene_->addItem(&btn_log_);
+  scene_->addItem(&btn_ac_);
+  scene_->addItem(&btn_mc_);
+  scene_->addItem(&btn_x_);
 
-  scene_.addWidget(x_var_);
-  scene_.addWidget(x_func_);
-  scene_.addWidget(default_mode_);
-  scene_.addWidget(oper_);
-  scene_.addWidget(display_hystory_);
-  scene_.addWidget(display_up_);
-  scene_.addWidget(display_down_);
-  scene_.addWidget(display_x_var_);
-  scene_.addWidget(nickname_);
+  scene_->addWidget(x_var_);
+  scene_->addWidget(x_func_);
+  scene_->addWidget(default_mode_);
+  scene_->addWidget(oper_);
+  scene_->addWidget(display_hystory_);
+  scene_->addWidget(display_up_);
+  scene_->addWidget(display_down_);
+  scene_->addWidget(display_x_var_);
+  scene_->addWidget(nickname_);
 
-  scene_.addWidget(x_min_);
-  scene_.addWidget(x_max_);
-  scene_.addWidget(y_min_);
-  scene_.addWidget(y_max_);
+  scene_->addWidget(x_min_);
+  scene_->addWidget(x_max_);
+  scene_->addWidget(y_min_);
+  scene_->addWidget(y_max_);
 
-  scene_.addWidget(x_min_label_);
-  scene_.addWidget(x_max_label_);
-  scene_.addWidget(y_min_label_);
-  scene_.addWidget(y_max_label_);
+  scene_->addWidget(x_min_label_);
+  scene_->addWidget(x_max_label_);
+  scene_->addWidget(y_min_label_);
+  scene_->addWidget(y_max_label_);
 };
 
 void s21::ViewSmartCalc::DisplayChange() {
