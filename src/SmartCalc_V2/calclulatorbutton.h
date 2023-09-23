@@ -14,11 +14,13 @@
 namespace s21 {
 class ViewSmartCalc;
 class ViewCreditCalc;
+class ViewDepositCalc;
 
 class CalculatorButton : public QGraphicsItem {
 public:
   CalculatorButton(ViewSmartCalc *parent = nullptr);
   CalculatorButton(ViewCreditCalc *parent = nullptr);
+  CalculatorButton(ViewDepositCalc *parent = nullptr);
   ~CalculatorButton();
 
   QRectF boundingRect() const override;
@@ -33,6 +35,7 @@ private:
   Calculation *calculator_;
   ViewSmartCalc *parent_ = nullptr;
   ViewCreditCalc *parent_cred_ = nullptr;
+  ViewDepositCalc *parent_deposit_ = nullptr;
 
   int width_{0};
   int heigth_{0};

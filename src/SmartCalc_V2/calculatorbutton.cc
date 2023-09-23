@@ -1,6 +1,7 @@
 #include "calclulatorbutton.h"
 #include "viewsmartcalc.h"
 #include "viewcreditcalc.h"
+#include "viewdepositcalc.h"
 
 s21::CalculatorButton::CalculatorButton(ViewSmartCalc *parent)
     : parent_(parent) {
@@ -12,6 +13,11 @@ s21::CalculatorButton::CalculatorButton(ViewCreditCalc *parent)
     : parent_cred_(parent) {
   color_.setRgb(58, 120, 101);
   setAcceptHoverEvents(true);
+}
+
+s21::CalculatorButton::CalculatorButton(ViewDepositCalc *parent) :parent_deposit_(parent) {
+    color_.setRgb(58, 120, 101);
+    setAcceptHoverEvents(true);
 };
 
 s21::CalculatorButton::~CalculatorButton() {}
@@ -149,6 +155,8 @@ void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
         }
         delete credit;
     }
+  } else if (parent_deposit_ != nullptr) {
+
   }
 };
 
