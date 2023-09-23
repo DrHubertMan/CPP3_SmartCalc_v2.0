@@ -8,15 +8,14 @@ s21::ViewSmartCalc::ViewSmartCalc(QWidget *parent) : QGraphicsView(parent) {
   setCacheMode(QGraphicsView::CacheNone);
   setWindowTitle("SmartCalc v2.0");
   setFrameStyle(0);
-  setSceneRect(0, 0, 800, 800);
+  setSceneRect(0, 0, 650, 800);
   setSizePolicy(QSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed));
-  setFixedSize(800, 800);
+  setFixedSize(650, 800);
   scene_ = new QGraphicsScene();
   scene_->setItemIndexMethod(QGraphicsScene::NoIndex);
   setScene(scene_);
   InitViewElement();
   setBackgroundBrush(QBrush(Qt::darkCyan));
-  show();
 };
 
 s21::ViewSmartCalc::~ViewSmartCalc() {
@@ -190,6 +189,14 @@ void s21::ViewSmartCalc::InitFunctionButton() {
   btn_x_.setPos(10, 250);
   btn_x_.SetGeometry(50, 50);
   btn_x_.setText("x");
+
+  btn_show_credit_.setPos(330, 450);
+  btn_show_credit_.SetGeometry(50, 310);
+  btn_show_credit_.setText("Credit_Calc");
+
+  btn_show_deposit_.setPos(330, 510);
+  btn_show_deposit_.SetGeometry(50, 310);
+  btn_show_deposit_.setText("Deposit_calc");
 };
 
 void s21::ViewSmartCalc::InitTextElement() {
@@ -292,6 +299,7 @@ void s21::ViewSmartCalc::InitSpinBox() {
    y_min_->setValue(0);
    y_min_->setStyleSheet("background: #008080; color: white; font: 10pt");
 
+
    y_max_ = new QSpinBox();
    y_max_->setGeometry(520, 410, 80, 20);
    y_max_->setRange(-1000000, 1000000);
@@ -333,6 +341,8 @@ void s21::ViewSmartCalc::AddWidgetAtScene() {
   scene_->addItem(&btn_ac_);
   scene_->addItem(&btn_mc_);
   scene_->addItem(&btn_x_);
+  scene_->addItem(&btn_show_credit_);
+  scene_->addItem(&btn_show_deposit_);
 
   scene_->addWidget(x_var_);
   scene_->addWidget(x_func_);

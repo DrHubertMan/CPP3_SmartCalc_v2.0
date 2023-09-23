@@ -3,7 +3,6 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
-//#include <QCheckBox>
 #include <QButtonGroup>
 #include <QColor>
 #include <QDebug>
@@ -19,12 +18,15 @@
 
 #include "calclulatorbutton.h"
 #include "qcustomplot.h"
+#include "viewcreditcalc.h"
 
 namespace s21 {
 class ViewSmartCalc : public QGraphicsView {
 public:
   ViewSmartCalc(QWidget *parent = nullptr);
   ~ViewSmartCalc();
+
+  ViewCreditCalc credit_calc_;
 
   QCustomPlot *graph_;
   QLineEdit *display_up_;
@@ -56,6 +58,7 @@ private:
   void InitTextElement();
   void InitQCheckBox();
   void InitSpinBox();
+  void InitModeButton();
 
   void AddWidgetAtScene();
   void AddLineAtScene();
@@ -67,8 +70,10 @@ private:
   QLabel *x_max_label_;
   QLabel *y_min_label_;
   QLabel *y_max_label_;
-  //    QGraphicsProxyWidget *x_var_proxy_widget_;
   CalculatorButton btn_eq_{this};
+
+  CalculatorButton btn_show_credit_{this};
+  CalculatorButton btn_show_deposit_{this};
 
   CalculatorButton btn_1_{this};
   CalculatorButton btn_2_{this};

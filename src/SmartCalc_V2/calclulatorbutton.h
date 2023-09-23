@@ -7,13 +7,18 @@
 
 #include "../model/calculation.h"
 #include "../model/expressionConverter.h"
+#include "../model/anuitetcalc.h"
+#include "../model/diferentcalc.h"
+
 
 namespace s21 {
 class ViewSmartCalc;
+class ViewCreditCalc;
 
 class CalculatorButton : public QGraphicsItem {
 public:
-  CalculatorButton(ViewSmartCalc *calculation_view = nullptr);
+  CalculatorButton(ViewSmartCalc *parent = nullptr);
+  CalculatorButton(ViewCreditCalc *parent = nullptr);
   ~CalculatorButton();
 
   QRectF boundingRect() const override;
@@ -26,7 +31,8 @@ public:
 private:
   ExpressionConverter *converter_;
   Calculation *calculator_;
-  ViewSmartCalc *calculation_view_;
+  ViewSmartCalc *parent_ = nullptr;
+  ViewCreditCalc *parent_cred_ = nullptr;
 
   int width_{0};
   int heigth_{0};

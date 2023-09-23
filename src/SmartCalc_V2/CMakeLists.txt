@@ -15,22 +15,27 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets PrintSupport)
 
 
 set(PROJECT_SOURCES
-
-    mainwindow.h
-    mainwindow.cc
-    qcustomplot.cpp
-    qcustomplot.h
-    calculatorbutton.cc
-    calclulatorbutton.h
-    main.cpp
-    ../model/expressionConverter.cc
-    ../model/expressionConverter.h
-    ../model/calculation.cc
-    ../model/calculation.h
-    ../model/element.cc
-    ../model/element.h
-    viewsmartcalc.cc
     viewsmartcalc.h
+    viewdepositcalc.h
+    viewcreditcalc.h
+    qcustomplot.h
+    calclulatorbutton.h
+    ../model/expressionConverter.h
+    ../model/calculation.h
+    ../model/element.h
+    ../model/anuitetcalc.h
+    ../model/diferentcalc.h
+    viewsmartcalc.cc
+    viewcreditcalc.cc
+    viewdepositcalc.cc
+    qcustomplot.cpp
+    calculatorbutton.cc
+    ../model/expressionConverter.cc
+    ../model/calculation.cc
+    ../model/element.cc
+    ../model/anuitetcalc.cc
+    ../model/diferentcalc.cc
+    main.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
