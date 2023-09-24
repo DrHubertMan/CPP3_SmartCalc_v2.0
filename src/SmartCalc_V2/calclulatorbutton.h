@@ -7,6 +7,7 @@
 
 #include "../model/anuitetcalc.h"
 #include "../model/calculation.h"
+#include "../model/deposit.h"
 #include "../model/diferentcalc.h"
 #include "../model/expressionConverter.h"
 
@@ -16,7 +17,7 @@ class ViewCreditCalc;
 class ViewDepositCalc;
 
 class CalculatorButton : public QGraphicsItem {
-public:
+ public:
   CalculatorButton(ViewSmartCalc *parent = nullptr);
   CalculatorButton(ViewCreditCalc *parent = nullptr);
   CalculatorButton(ViewDepositCalc *parent = nullptr);
@@ -29,7 +30,7 @@ public:
   void SetGeometry(int heigth, int width) noexcept;
   void setText(const QString &text) noexcept;
 
-private:
+ private:
   ExpressionConverter *converter_;
   Calculation *calculator_;
   ViewSmartCalc *parent_ = nullptr;
@@ -42,7 +43,7 @@ private:
   QColor color_;
   QList<QString> *outline_;
 
-private:
+ private:
   void hoverEnterEvent(QGraphicsSceneHoverEvent *) override;
   void hoverLeaveEvent(QGraphicsSceneHoverEvent *) override;
 
@@ -58,6 +59,6 @@ private:
   bool CheckDisplaysStatus() const noexcept;
   bool CheckForAdd() const noexcept;
 };
-}; // namespace s21
+};  // namespace s21
 
-#endif // CPP3_SMARTCALC_V2_1_CALCLULATORBUTTON_H
+#endif  // CPP3_SMARTCALC_V2_1_CALCLULATORBUTTON_H

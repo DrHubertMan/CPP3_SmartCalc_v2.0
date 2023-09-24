@@ -157,6 +157,17 @@ void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
       delete credit;
     }
   } else if (parent_deposit_ != nullptr) {
+    if (text_ == "add upload") {
+      parent_deposit_->AddDeposit();
+      parent_deposit_->SetUpoloadList();
+    } else if (text_ == "add drop") {
+      parent_deposit_->AddWithdrawal();
+      parent_deposit_->SetDropedList();
+    } else if (text_ == "clear") {
+      parent_deposit_->AllClear();
+    } else {
+      parent_deposit_->Calculate();
+    }
   }
 };
 
@@ -250,8 +261,7 @@ void s21::CalculatorButton::FunctionMode() noexcept {
       break;
     }
   }
-  if (check_conversion)
-    parent_->GraphShow(x, y);
+  if (check_conversion) parent_->GraphShow(x, y);
 };
 
 void s21::CalculatorButton::Adder() const noexcept {

@@ -25,6 +25,7 @@ set(PROJECT_SOURCES
     ../model/element.h
     ../model/anuitetcalc.h
     ../model/diferentcalc.h
+    ../model/deposit.h
     viewsmartcalc.cc
     viewcreditcalc.cc
     viewdepositcalc.cc
@@ -35,6 +36,7 @@ set(PROJECT_SOURCES
     ../model/element.cc
     ../model/anuitetcalc.cc
     ../model/diferentcalc.cc
+    ../model/deposit.cc
     main.cpp
 )
 

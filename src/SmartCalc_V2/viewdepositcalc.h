@@ -15,25 +15,35 @@
 
 namespace s21 {
 class ViewDepositCalc : public QGraphicsView {
-
-public:
+ public:
   ViewDepositCalc();
 
   int GetBoxIndex() const noexcept;
   bool GetCapitalizationCheck() const noexcept;
 
-  void SetUploadList() noexcept;
+  void SetUpoloadList() noexcept;
   void SetDropedList() noexcept;
   void SetOuput() noexcept;
+  void AddDeposit() noexcept;
+  void AddWithdrawal() noexcept;
+  void AllClear() noexcept;
+  void Calculate() noexcept;
 
-private:
+  int GetAddMonth() noexcept;
+  int GetDropMonth() noexcept;
+  double GetAddSum() noexcept;
+  double GetDropSum() noexcept;
+
+ private:
   void InitElement();
   void InitButton();
   void InitTextElement();
   void InitSpinBox();
   void AddAtScene();
 
-private:
+ private:
+  DepositCalc deposit_calc;
+
   QLabel *sum_deposit_label_;
   QDoubleSpinBox *sum_deposit_;
 
@@ -80,6 +90,6 @@ private:
 
   QGraphicsScene *scene_;
 };
-}; // namespace s21
+};  // namespace s21
 
-#endif // CPP3_SMARTCALC_V2_1_VIEWDEPOSITCALC_H
+#endif  // CPP3_SMARTCALC_V2_1_VIEWDEPOSITCALC_H

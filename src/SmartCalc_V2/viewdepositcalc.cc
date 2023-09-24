@@ -17,6 +17,72 @@ s21::ViewDepositCalc::ViewDepositCalc() {
   InitElement();
 }
 
+void s21::ViewDepositCalc::SetUpoloadList() noexcept {
+  upload_list_->append(QString::number(upload_mounth_->value()) +
+                       ". Month: sum - " +
+                       QString::number(upload_sum_->value(), 'f', 2));
+  upload_mounth_->setValue(0);
+  upload_sum_->setValue(0);
+}
+
+void s21::ViewDepositCalc::SetDropedList() noexcept {
+  drop_list_->append(QString::number(droped_mounth_->value()) +
+                     ". Month: sum - " +
+                     QString::number(droped_sum_->value(), 'f', 2));
+  droped_mounth_->setValue(0);
+  droped_sum_->setValue(0);
+}
+
+void s21::ViewDepositCalc::AddDeposit() noexcept {
+  deposit_calc.AddDeposit(upload_mounth_->value(), upload_sum_->value());
+}
+
+void s21::ViewDepositCalc::AddWithdrawal() noexcept {
+  deposit_calc.AddWithdrawal(droped_mounth_->value(), droped_sum_->value());
+}
+
+void s21::ViewDepositCalc::AllClear() noexcept {
+  sum_deposit_->setValue(0);
+  term_->setValue(0);
+  percent_rate_->setValue(0);
+  tax_rate_->setValue(0);
+  capitalization_->setCheckState(Qt::Unchecked);
+
+  upload_mounth_->setValue(0);
+  upload_sum_->setValue(0);
+  upload_list_->clear();
+
+  droped_mounth_->setValue(0);
+  droped_sum_->setValue(0);
+  drop_list_->clear();
+
+  output_->clear();
+}
+
+void s21::ViewDepositCalc::Calculate() noexcept {
+  deposit_calc.SetPrincipal(sum_deposit_->value());
+  deposit_calc.SetTerm(term_->value());
+  deposit_calc.SetPercentRate(percent_rate_->value());
+  deposit_calc.SetCaptalization(capitalization_->checkState());
+  deposit_calc.SetPeriodicity(payment_frequency_->currentIndex());
+}
+
+int s21::ViewDepositCalc::GetAddMonth() noexcept {
+  return upload_mounth_->value();
+}
+
+int s21::ViewDepositCalc::GetDropMonth() noexcept {
+  return droped_mounth_->value();
+}
+
+double s21::ViewDepositCalc::GetAddSum() noexcept {
+  return upload_sum_->value();
+}
+
+double s21::ViewDepositCalc::GetDropSum() noexcept {
+  return droped_sum_->value();
+}
+
 void s21::ViewDepositCalc::InitElement() {
   InitTextElement();
   InitSpinBox();
