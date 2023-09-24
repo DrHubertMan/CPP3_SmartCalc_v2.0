@@ -1,15 +1,14 @@
-#ifndef CALCLULATORBUTTON_H
-#define CALCLULATORBUTTON_H
+#ifndef CPP3_SMARTCALC_V2_1_CALCLULATORBUTTON_H
+#define CPP3_SMARTCALC_V2_1_CALCLULATORBUTTON_H
 
 #include <QErrorMessage>
 #include <QGraphicsItem>
 #include <QPainter>
 
-#include "../model/calculation.h"
-#include "../model/expressionConverter.h"
 #include "../model/anuitetcalc.h"
+#include "../model/calculation.h"
 #include "../model/diferentcalc.h"
-
+#include "../model/expressionConverter.h"
 
 namespace s21 {
 class ViewSmartCalc;
@@ -61,4 +60,4 @@ private:
 };
 }; // namespace s21
 
-#endif // CALCLULATORBUTTON_H
+#endif // CPP3_SMARTCALC_V2_1_CALCLULATORBUTTON_H

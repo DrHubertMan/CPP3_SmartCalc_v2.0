@@ -13,6 +13,7 @@ public:
   double GetMountlyPay(int mounth);
   double GetAllPay();
   double GetOverPay();
+
 private:
   void Calculation();
 

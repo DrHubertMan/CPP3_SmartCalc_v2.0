@@ -86,7 +86,7 @@ bool s21::Element::IsEqualPriority(Element &other) const noexcept {
   return GetPriority() == other.GetPriority();
 };
 
-void s21::Element::SetData(std::string value) noexcept{
+void s21::Element::SetData(std::string value) noexcept {
   data_.clear();
   data_ = value;
 }

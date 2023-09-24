@@ -1,24 +1,25 @@
-#ifndef VIEWSMARTCALC_H
-#define VIEWSMARTCALC_H
+#ifndef CPP3_SMARTCALC_V2_1_VIEWSMARTCALC_H
+#define CPP3_SMARTCALC_V2_1_VIEWSMARTCALC_H
 
-#include <QGraphicsScene>
-#include <QGraphicsView>
 #include <QButtonGroup>
 #include <QColor>
 #include <QDebug>
 #include <QErrorMessage>
 #include <QGraphicsItem>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 #include <QLabel>
 #include <QLineEdit>
 #include <QList>
 #include <QRadioButton>
+#include <QSpinBox>
 #include <QTextEdit>
 #include <QWidget>
-#include <QSpinBox>
 
 #include "calclulatorbutton.h"
 #include "qcustomplot.h"
 #include "viewcreditcalc.h"
+#include "viewdepositcalc.h"
 
 namespace s21 {
 class ViewSmartCalc : public QGraphicsView {
@@ -26,30 +27,35 @@ public:
   ViewSmartCalc(QWidget *parent = nullptr);
   ~ViewSmartCalc();
 
-  ViewCreditCalc credit_calc_;
-
-  QCustomPlot *graph_;
-  QLineEdit *display_up_;
-  QLineEdit *display_down_;
-  QLineEdit *display_x_var_;
-  QLineEdit *fake_display;
-
-  QTextEdit *display_hystory_;
-
-  QLabel *oper_;
-
-  QRadioButton *x_var_;
-  QRadioButton *x_func_;
-  QRadioButton *default_mode_;
-
   QList<QString> output_line_;
 
-  QSpinBox *x_min_;
-  QSpinBox *x_max_;
-  QSpinBox *y_min_;
-  QSpinBox *y_max_;
 public:
   void GraphShow(QVector<double> x, QVector<double> y) noexcept;
+
+  double GetXMin();
+  double GetXmax();
+  QString GetDisplayUpText();
+  QString GetDisplayDownText();
+  QString GetDisplayXvarText();
+  bool DisplayUpIsDisplayXvar();
+  bool DisplayUpIsNull();
+  bool DefaultModeIsChecked();
+  bool XvarIsChecked();
+
+  void ShowCredit();
+  void ShowDeposit();
+  void SetDisplayUpText(QString text);
+  void SetDisplayDownText(QString text);
+  void SetDisplayHistoryText(QString text);
+  void SetOperatorText(QString text);
+  void ClearOperatorLabel();
+  void ClearDisplayUp();
+  void ClearDisplayDown();
+  void ClearDisplayHistory();
+  void SetDisplayUpFake();
+  void SetStyleSheetXvar(QString text);
+  void SetDefaultModeChecked(bool value);
+
 private:
   void InitViewElement();
   void InitNumberButtton();
@@ -65,11 +71,33 @@ private:
   void DisplayChange();
 
 private:
+  QRadioButton *x_var_;
+  QRadioButton *x_func_;
+  QRadioButton *default_mode_;
+
   QLabel *nickname_;
   QLabel *x_min_label_;
   QLabel *x_max_label_;
   QLabel *y_min_label_;
   QLabel *y_max_label_;
+  QLabel *oper_;
+
+  QTextEdit *display_hystory_;
+  QLineEdit *display_x_var_;
+  QLineEdit *display_down_;
+  QLineEdit *fake_display;
+  QLineEdit *display_up_;
+
+  QCustomPlot *graph_;
+
+  QSpinBox *x_min_;
+  QSpinBox *x_max_;
+  QSpinBox *y_min_;
+  QSpinBox *y_max_;
+
+  ViewCreditCalc credit_calc_;
+  ViewDepositCalc deposit_calc_;
+
   CalculatorButton btn_eq_{this};
 
   CalculatorButton btn_show_credit_{this};
@@ -119,4 +147,4 @@ public slots:
 };
 }; // namespace s21
 
-#endif // VIEWSMARTCALC_H
+#endif // CPP3_SMARTCALC_V2_1_VIEWSMARTCALC_H

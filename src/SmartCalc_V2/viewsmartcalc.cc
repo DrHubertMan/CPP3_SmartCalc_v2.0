@@ -1,7 +1,6 @@
 #include "viewsmartcalc.h"
 #include <QGraphicsProxyWidget>
 
-
 s21::ViewSmartCalc::ViewSmartCalc(QWidget *parent) : QGraphicsView(parent) {
 
   setRenderHint(QPainter::Antialiasing);
@@ -24,24 +23,93 @@ s21::ViewSmartCalc::~ViewSmartCalc() {
   if (display_down_)
     delete display_down_;
   if (oper_)
-      delete oper_;
+    delete oper_;
 };
 
-void s21::ViewSmartCalc::GraphShow(QVector<double> x, QVector<double> y) noexcept{
-    graph_ = new QCustomPlot;
-    graph_->addGraph();
-    graph_->graph(0)->setData(x, y);
-    graph_->xAxis->setLabel("x");
-    graph_->yAxis->setLabel("y");
-    graph_->xAxis->setRange(x_min_->value(), x_max_->value());
-    graph_->yAxis->setRange(y_min_->value(), y_max_->value());
-    graph_->resize(800, 800);
-    graph_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-    graph_->graph(0)->setLineStyle(QCPGraph::lsNone);
-    QCPScatterStyle scatter_style = QCPScatterStyle(QCPScatterStyle::ssDisc, Qt::darkGreen, 3.0);
-    graph_->graph(0)->setScatterStyle(scatter_style);
-    display_down_->clear();
-    graph_->show();
+void s21::ViewSmartCalc::GraphShow(QVector<double> x,
+                                   QVector<double> y) noexcept {
+  graph_ = new QCustomPlot;
+  graph_->addGraph();
+  graph_->graph(0)->setData(x, y);
+  graph_->xAxis->setLabel("x");
+  graph_->yAxis->setLabel("y");
+  graph_->xAxis->setRange(x_min_->value(), x_max_->value());
+  graph_->yAxis->setRange(y_min_->value(), y_max_->value());
+  graph_->resize(800, 800);
+  graph_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  graph_->graph(0)->setLineStyle(QCPGraph::lsNone);
+  QCPScatterStyle scatter_style =
+      QCPScatterStyle(QCPScatterStyle::ssDisc, Qt::darkGreen, 3.0);
+  graph_->graph(0)->setScatterStyle(scatter_style);
+  display_down_->clear();
+  graph_->setStyleSheet("background: #008080; color: white; font: 12pt");
+  graph_->show();
+}
+
+double s21::ViewSmartCalc::GetXMin() {
+  return static_cast<double>(x_min_->value());
+}
+
+double s21::ViewSmartCalc::GetXmax() {
+  return static_cast<double>(x_max_->value());
+}
+
+QString s21::ViewSmartCalc::GetDisplayUpText() { return display_up_->text(); }
+
+QString s21::ViewSmartCalc::GetDisplayDownText() {
+  return display_down_->text();
+}
+
+QString s21::ViewSmartCalc::GetDisplayXvarText() {
+  return display_x_var_->text();
+}
+
+bool s21::ViewSmartCalc::DisplayUpIsDisplayXvar() {
+  return display_up_ == display_x_var_;
+}
+
+bool s21::ViewSmartCalc::DisplayUpIsNull() { return display_up_ == nullptr; }
+
+bool s21::ViewSmartCalc::DefaultModeIsChecked() {
+  return default_mode_->isChecked();
+}
+
+bool s21::ViewSmartCalc::XvarIsChecked() { return x_var_->isChecked(); }
+
+void s21::ViewSmartCalc::ShowCredit() { credit_calc_.show(); }
+
+void s21::ViewSmartCalc::ShowDeposit() { deposit_calc_.show(); }
+
+void s21::ViewSmartCalc::SetDisplayUpText(QString text) {
+  display_up_->setText(text);
+}
+
+void s21::ViewSmartCalc::SetDisplayDownText(QString text) {
+  display_down_->setText(text);
+}
+
+void s21::ViewSmartCalc::SetDisplayHistoryText(QString text) {
+  display_hystory_->append(text);
+}
+
+void s21::ViewSmartCalc::SetOperatorText(QString text) { oper_->setText(text); }
+
+void s21::ViewSmartCalc::ClearOperatorLabel() { oper_->clear(); }
+
+void s21::ViewSmartCalc::ClearDisplayUp() { display_up_->clear(); }
+
+void s21::ViewSmartCalc::ClearDisplayDown() { display_down_->clear(); }
+
+void s21::ViewSmartCalc::ClearDisplayHistory() { display_hystory_->clear(); }
+
+void s21::ViewSmartCalc::SetDisplayUpFake() { display_up_ = fake_display; }
+
+void s21::ViewSmartCalc::SetStyleSheetXvar(QString text) {
+  x_var_->setStyleSheet(text);
+}
+
+void s21::ViewSmartCalc::SetDefaultModeChecked(bool value) {
+  default_mode_->setChecked(value);
 };
 
 void s21::ViewSmartCalc::InitViewElement() {
@@ -216,8 +284,6 @@ void s21::ViewSmartCalc::InitTextElement() {
   display_x_var_->setStyleSheet(
       "background: #326759; color: white; font: 15pt");
 
-//  fake_display = new QLineEdit();
-
   display_hystory_ = new QTextEdit();
   display_hystory_->setGeometry(10, 440, 290, 290);
   display_hystory_->setReadOnly(true);
@@ -234,22 +300,22 @@ void s21::ViewSmartCalc::InitTextElement() {
   nickname_->setFont(QFont("Veranda", 40, QFont::StyleItalic));
   nickname_->setText("@mammiemi");
 
-  x_min_label_= new QLabel();
+  x_min_label_ = new QLabel();
   x_min_label_->setGeometry(330, 380, 45, 20);
   x_min_label_->setStyleSheet("background: #008080; color: white; font: 12pt");
   x_min_label_->setText("x.min:");
 
-  x_max_label_= new QLabel();
+  x_max_label_ = new QLabel();
   x_max_label_->setGeometry(470, 380, 45, 20);
   x_max_label_->setStyleSheet("background: #008080; color: white; font: 12pt");
   x_max_label_->setText("x.max:");
 
-  y_min_label_= new QLabel();
+  y_min_label_ = new QLabel();
   y_min_label_->setGeometry(330, 410, 45, 20);
   y_min_label_->setStyleSheet("background: #008080; color: white; font: 12pt");
   y_min_label_->setText("y.min:");
 
-  y_max_label_= new QLabel();
+  y_max_label_ = new QLabel();
   y_max_label_->setGeometry(470, 410, 45, 20);
   y_max_label_->setStyleSheet("background: #008080; color: white; font: 12pt");
   y_max_label_->setText("y.max:");
@@ -281,30 +347,29 @@ void s21::ViewSmartCalc::InitTextElement() {
 };
 
 void s21::ViewSmartCalc::InitSpinBox() {
-   x_min_ = new QSpinBox();
-   x_min_->setGeometry(380, 380, 80, 20);
-   x_min_->setRange(-1000000, 1000000);
-   x_min_->setValue(0);
-   x_min_->setStyleSheet("background: #008080; color: white; font: 10pt");
+  x_min_ = new QSpinBox();
+  x_min_->setGeometry(380, 380, 80, 20);
+  x_min_->setRange(-1000000, 1000000);
+  x_min_->setValue(0);
+  x_min_->setStyleSheet("background: #008080; color: white; font: 10pt");
 
-   x_max_ = new QSpinBox();
-   x_max_->setGeometry(520, 380, 80, 20);
-   x_max_->setRange(-1000000, 1000000);
-   x_max_->setValue(0);
-   x_max_->setStyleSheet("background: #008080; color: white; font: 10pt");
+  x_max_ = new QSpinBox();
+  x_max_->setGeometry(520, 380, 80, 20);
+  x_max_->setRange(-1000000, 1000000);
+  x_max_->setValue(0);
+  x_max_->setStyleSheet("background: #008080; color: white; font: 10pt");
 
-   y_min_ = new QSpinBox();
-   y_min_->setGeometry(380, 410, 80, 20);
-   y_min_->setRange(-1000000, 1000000);
-   y_min_->setValue(0);
-   y_min_->setStyleSheet("background: #008080; color: white; font: 10pt");
+  y_min_ = new QSpinBox();
+  y_min_->setGeometry(380, 410, 80, 20);
+  y_min_->setRange(-1000000, 1000000);
+  y_min_->setValue(0);
+  y_min_->setStyleSheet("background: #008080; color: white; font: 10pt");
 
-
-   y_max_ = new QSpinBox();
-   y_max_->setGeometry(520, 410, 80, 20);
-   y_max_->setRange(-1000000, 1000000);
-   y_max_->setValue(0);
-   y_max_->setStyleSheet("background: #008080; color: white; font: 10pt");
+  y_max_ = new QSpinBox();
+  y_max_->setGeometry(520, 410, 80, 20);
+  y_max_->setRange(-1000000, 1000000);
+  y_max_->setValue(0);
+  y_max_->setStyleSheet("background: #008080; color: white; font: 10pt");
 };
 
 void s21::ViewSmartCalc::AddWidgetAtScene() {
