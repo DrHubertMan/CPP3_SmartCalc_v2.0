@@ -296,8 +296,8 @@ void s21::ViewSmartCalc::InitTextElement() {
 
   nickname_ = new QLabel();
   nickname_->setGeometry(10, 700, 780, 70);
-  nickname_->setStyleSheet("background: #008080; color: #140033");
-  nickname_->setFont(QFont("Veranda", 40, QFont::StyleItalic));
+  nickname_->setStyleSheet("background: #008080; color: #140033: font: 40pt");
+  // nickname_->setFont(QFont("Veranda", 40, QFont::StyleItalic));
   nickname_->setText("@mammiemi");
 
   x_min_label_ = new QLabel();

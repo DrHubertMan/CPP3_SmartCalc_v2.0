@@ -1,7 +1,7 @@
 all: test
 
 test:
-	g++ tests/tests.cc model/element.cc model/expressionConverter.cc model/calculation.cc -lgtest -lgtest_main
+	clang++ tests/tests.cc model/element.cc model/expressionConverter.cc model/calculation.cc -lgtest -I/usr/local/include -L/usr/local/lib/
 	./a.out
 
 clean:
