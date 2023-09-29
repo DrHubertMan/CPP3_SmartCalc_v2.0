@@ -56,6 +56,9 @@ public:
   void SetStyleSheetXvar(QString text);
   void SetDefaultModeChecked(bool value);
 
+// public slots:
+//   void Key(); 
+
 private:
   void InitViewElement();
   void InitNumberButtton();

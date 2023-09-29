@@ -13,6 +13,8 @@
 
 #include "calclulatorbutton.h"
 
+#include <iostream>
+
 namespace s21 {
 class ViewDepositCalc : public QGraphicsView {
  public:

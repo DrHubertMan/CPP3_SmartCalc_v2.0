@@ -203,10 +203,15 @@ void s21::ViewSmartCalc::InitOperatorButton() {
   btn_exp_.setPos(250, 130);
   btn_exp_.SetGeometry(50, 50);
   btn_exp_.setText("^");
+  connect(&btn_exp_, &CalculatorButton::mousePressEvent, this, [=](){ Key();});
 
   btn_unar_.setPos(250, 190);
   btn_unar_.SetGeometry(50, 50);
   btn_unar_.setText(QChar(0x000000B1));
+};
+
+void s21::ViewSmartCalc::Key(){
+  std::cout << "lol" << std::endl;
 };
 
 void s21::ViewSmartCalc::InitFunctionButton() {

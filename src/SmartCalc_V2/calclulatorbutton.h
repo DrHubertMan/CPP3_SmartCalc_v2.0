@@ -16,7 +16,8 @@ class ViewSmartCalc;
 class ViewCreditCalc;
 class ViewDepositCalc;
 
-class CalculatorButton : public QGraphicsItem {
+class CalculatorButton : public QObject, public QGraphicsItem {
+    Q_OBJECT
  public:
   CalculatorButton(ViewSmartCalc *parent = nullptr);
   CalculatorButton(ViewCreditCalc *parent = nullptr);
@@ -46,9 +47,9 @@ class CalculatorButton : public QGraphicsItem {
  private:
   void hoverEnterEvent(QGraphicsSceneHoverEvent *) override;
   void hoverLeaveEvent(QGraphicsSceneHoverEvent *) override;
-
-  void mousePressEvent(QGraphicsSceneMouseEvent *) override;
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *) override;
+public signals:
+  void mousePressEvent(QGraphicsSceneMouseEvent *) override;
 
   void EqCase() noexcept;
   void DefaultMode() noexcept;
