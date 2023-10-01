@@ -179,6 +179,7 @@ void s21::ViewSmartCalc::InitNumberButtton() {
   btn_point_.setPos(130, 250);
   btn_point_.SetGeometry(50, 50);
   btn_point_.setText(".");
+  connect(&btn_point_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Dot);
 };
 
 void s21::ViewSmartCalc::InitOperatorButton() {
@@ -263,6 +264,7 @@ void s21::ViewSmartCalc::InitFunctionButton() {
   btn_ac_.setPos(250, 10);
   btn_ac_.SetGeometry(50, 50);
   btn_ac_.setText("AC");
+  connect(&btn_ac_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Clear);
 
   btn_mc_.setPos(250, 70);
   btn_mc_.SetGeometry(50, 50);
@@ -271,6 +273,7 @@ void s21::ViewSmartCalc::InitFunctionButton() {
   btn_x_.setPos(10, 250);
   btn_x_.SetGeometry(50, 50);
   btn_x_.setText("x");
+  connect(&btn_x_, &CalculatorButton::KeyPressed, &control_, &CalcControl::XVar);
 
   btn_show_credit_.setPos(330, 450);
   btn_show_credit_.SetGeometry(50, 310);

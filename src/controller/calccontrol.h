@@ -19,7 +19,11 @@ public:
   CalcControl &operator=(CalcControl &&c);
   ~CalcControl();
 public slots:
-  void Num(QString text);
+  void Num(QString text) noexcept;
+  void Dot(QString text) noexcept;
+  void Clear() noexcept;
+  void XVar(QString text) noexcept;
+  void UnarClicked(QString text) noexcept;
 
 private:
   ViewSmartCalc *calculator_ = nullptr;

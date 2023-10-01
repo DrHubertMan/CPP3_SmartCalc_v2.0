@@ -34,6 +34,28 @@ void s21::CalcControl::swap(CalcControl &other) {
   std::swap(calculator_, other.calculator_);
 };
 
-void s21::CalcControl::Num(QString text) {
+void s21::CalcControl::Dot(QString text) noexcept {
+  if (calculator_->GetDisplayUpText().isEmpty()) {
+    calculator_->SetDisplayUpText("0.");
+  } else if (!calculator_->GetDisplayUpText().contains('.') &&
+             !calculator_->GetDisplayUpText().contains('x')) {
+    calculator_->SetDisplayUpText(calculator_->GetDisplayUpText() + text);
+  }
+}
+
+void s21::CalcControl::Clear() noexcept {
+  calculator_->ClearDisplayDown();
+  calculator_->ClearDisplayUp();
+  calculator_->ClearOperatorLabel();
+  calculator_->SetStyleSheetXvar("background: #008080; color: white; font: 12pt");
+}
+
+void s21::CalcControl::XVar(QString text) noexcept {
+  if (calculator_->GetDisplayUpText().isEmpty()) {
+    calculator_->SetDisplayUpText(text);
+  }
+} 
+
+void s21::CalcControl::Num(QString text) noexcept {
   calculator_->SetDisplayUpText(calculator_->GetDisplayUpText() + text);
 }
