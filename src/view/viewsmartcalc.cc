@@ -110,6 +110,10 @@ void s21::ViewSmartCalc::SetStyleSheetXvar(QString text) {
 
 void s21::ViewSmartCalc::SetDefaultModeChecked(bool value) {
   default_mode_->setChecked(value);
+}
+
+void s21::ViewSmartCalc::SetController(CalcControl &control) {
+ control_ = control;
 };
 
 void s21::ViewSmartCalc::InitViewElement() {
@@ -125,42 +129,52 @@ void s21::ViewSmartCalc::InitNumberButtton() {
   btn_7_.setPos(10, 70);
   btn_7_.SetGeometry(50, 50);
   btn_7_.setText("7");
+  connect(&btn_7_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Num);
 
   btn_8_.setPos(70, 70);
   btn_8_.SetGeometry(50, 50);
   btn_8_.setText("8");
+  connect(&btn_8_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Num);
 
   btn_9_.setPos(130, 70);
   btn_9_.SetGeometry(50, 50);
   btn_9_.setText("9");
+  connect(&btn_9_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Num);
 
   btn_4_.setPos(10, 130);
   btn_4_.SetGeometry(50, 50);
   btn_4_.setText("4");
+  connect(&btn_4_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Num);
 
   btn_5_.setPos(70, 130);
   btn_5_.SetGeometry(50, 50);
   btn_5_.setText("5");
+  connect(&btn_5_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Num);
 
   btn_6_.setPos(130, 130);
   btn_6_.SetGeometry(50, 50);
   btn_6_.setText("6");
+  connect(&btn_6_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Num);
 
   btn_1_.setPos(10, 190);
   btn_1_.SetGeometry(50, 50);
   btn_1_.setText("1");
+  connect(&btn_1_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Num);
 
   btn_2_.setPos(70, 190);
   btn_2_.SetGeometry(50, 50);
   btn_2_.setText("2");
+  connect(&btn_2_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Num);
 
   btn_3_.setPos(130, 190);
   btn_3_.SetGeometry(50, 50);
   btn_3_.setText("3");
+  connect(&btn_3_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Num);
 
   btn_0_.setPos(70, 250);
   btn_0_.SetGeometry(50, 50);
   btn_0_.setText("0");
+  connect(&btn_0_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Num);
 
   btn_point_.setPos(130, 250);
   btn_point_.SetGeometry(50, 50);
@@ -203,15 +217,10 @@ void s21::ViewSmartCalc::InitOperatorButton() {
   btn_exp_.setPos(250, 130);
   btn_exp_.SetGeometry(50, 50);
   btn_exp_.setText("^");
-  connect(&btn_exp_, &CalculatorButton::mousePressEvent, this, [=](){ Key();});
 
   btn_unar_.setPos(250, 190);
   btn_unar_.SetGeometry(50, 50);
   btn_unar_.setText(QChar(0x000000B1));
-};
-
-void s21::ViewSmartCalc::Key(){
-  std::cout << "lol" << std::endl;
 };
 
 void s21::ViewSmartCalc::InitFunctionButton() {

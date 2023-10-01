@@ -31,6 +31,9 @@ class CalculatorButton : public QObject, public QGraphicsItem {
   void SetGeometry(int heigth, int width) noexcept;
   void setText(const QString &text) noexcept;
 
+signals:
+  void KeyPressed(QString text);
+
  private:
   ExpressionConverter *converter_;
   Calculation *calculator_;
@@ -48,7 +51,6 @@ class CalculatorButton : public QObject, public QGraphicsItem {
   void hoverEnterEvent(QGraphicsSceneHoverEvent *) override;
   void hoverLeaveEvent(QGraphicsSceneHoverEvent *) override;
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *) override;
-public signals:
   void mousePressEvent(QGraphicsSceneMouseEvent *) override;
 
   void EqCase() noexcept;

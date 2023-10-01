@@ -1,0 +1,13 @@
+#ifndef CPP3_SMARTCALC_V2_1_CONTROLLER_DEPOSITCONTROL_H
+#define CPP3_SMARTCALC_V2_1_CONTROLLER_DEPOSITCONTROL_H
+
+namespace s21 {
+  class DepositControl: public QObject {
+    Q_OBJECT
+    public slots:
+
+  };
+}
+
+
+#endif // CPP3_SMARTCALC_V2_1_CONTROLLER_DEPOSITCONTROL_H

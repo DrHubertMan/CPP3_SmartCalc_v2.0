@@ -16,13 +16,16 @@
 #include <QTextEdit>
 #include <QWidget>
 
+#include "../controller/calccontrol.h"
 #include "calclulatorbutton.h"
 #include "qcustomplot.h"
 #include "viewcreditcalc.h"
 #include "viewdepositcalc.h"
 
 namespace s21 {
+class CalcControl;
 class ViewSmartCalc : public QGraphicsView {
+
 public:
   ViewSmartCalc(QWidget *parent = nullptr);
   ~ViewSmartCalc();
@@ -56,10 +59,13 @@ public:
   void SetStyleSheetXvar(QString text);
   void SetDefaultModeChecked(bool value);
 
+  void SetController(CalcControl &control);
+
 // public slots:
-//   void Key(); 
+//   void Key();
 
 private:
+  CalcControl control_;
   void InitViewElement();
   void InitNumberButtton();
   void InitOperatorButton();

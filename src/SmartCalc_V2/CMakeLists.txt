@@ -15,22 +15,24 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets PrintSupport)
 
 
 set(PROJECT_SOURCES
-    viewsmartcalc.h
-    viewdepositcalc.h
-    viewcreditcalc.h
-    qcustomplot.h
-    calclulatorbutton.h
+    ../controller/calccontrol.h
+    ../view/viewsmartcalc.h
+    ../view/viewdepositcalc.h
+    ../view/viewcreditcalc.h
+    ../view/qcustomplot.h
+    ../view/calclulatorbutton.h
     ../model/expressionConverter.h
     ../model/calculation.h
     ../model/element.h
     ../model/anuitetcalc.h
     ../model/diferentcalc.h
     ../model/deposit.h
-    viewsmartcalc.cc
-    viewcreditcalc.cc
-    viewdepositcalc.cc
-    qcustomplot.cpp
-    calculatorbutton.cc
+    ../controller/calccontrol.cc
+    ../view/viewsmartcalc.cc
+    ../view/viewcreditcalc.cc
+    ../view/viewdepositcalc.cc
+    ../view/qcustomplot.cpp
+    ../view/calculatorbutton.cc
     ../model/expressionConverter.cc
     ../model/calculation.cc
     ../model/element.cc

@@ -62,113 +62,114 @@ void s21::CalculatorButton::hoverLeaveEvent(QGraphicsSceneHoverEvent *) {
 void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
   color_.setRgb(33, 69, 59);
   update();
-  if (parent_ != nullptr) {
-    Element token(text_.toStdString());
-    if (token.IsEq()) {
-      EqCase();
-    } else if (token.IsNumber() && CheckForAdd()) {
-      parent_->ClearOperatorLabel();
-      parent_->SetDisplayUpText(parent_->GetDisplayUpText() + text_);
-    } else if (token.IsX()) {
-      if (CheckForAdd()) {
-        parent_->SetDisplayUpText(text_);
-        parent_->SetStyleSheetXvar(
-            "background: #008080; color: red; font: 12pt");
-      }
-    } else if (token.IsOperator() && CheckDisplaysStatus()) {
-      parent_->SetOperatorText(text_);
-      Adder();
-    } else if (token.IsFunciotn() && parent_->GetDisplayUpText().isEmpty()) {
-      parent_->ClearOperatorLabel();
-      parent_->output_line_.push_back(text_);
-      parent_->output_line_.push_back("(");
-      parent_->SetDisplayDownText(parent_->GetDisplayDownText() + text_ + " (");
-    } else if (token.IsClosedBracket()) {
-      Adder();
-    } else if (token.IsPoint()) {
-      if (parent_->GetDisplayUpText().isEmpty()) {
-        parent_->SetDisplayUpText("0.");
-      } else if (!parent_->GetDisplayUpText().contains('.')) {
-        parent_->SetDisplayUpText(parent_->GetDisplayUpText() + ".");
-      }
-    } else if (token.IsOpenBracket()) {
-      QChar last_char;
-      bool digit_end_input_line = false;
-      bool display_down_is_empty = parent_->GetDisplayDownText().isEmpty();
-      if (!display_down_is_empty) {
-        last_char = parent_->GetDisplayDownText().at(
-            parent_->GetDisplayDownText().length() - 1);
-        if (last_char.isDigit()) {
-          digit_end_input_line = true;
-        }
-      }
-      if ((display_down_is_empty || !digit_end_input_line) &&
-          last_char != ')') {
-        parent_->SetDisplayDownText(parent_->GetDisplayDownText() + text_);
-        parent_->output_line_.push_back(text_);
-      }
-    } else if (text_ == "AC") {
-      parent_->ClearDisplayDown();
-      parent_->ClearDisplayUp();
-      parent_->ClearOperatorLabel();
-      parent_->SetStyleSheetXvar(
-          "background: #008080; color: white; font: 12pt");
-      //      parent_->x_var_->update();
-    } else if (text_ == "MC") {
-      parent_->ClearDisplayHistory();
-    } else if (text_.at(0) == QChar(0x000000B1)) {
-      if (!parent_->GetDisplayUpText().isEmpty()) {
-        QChar first_char = parent_->GetDisplayUpText().at(0);
-        if (first_char.isDigit()) {
-          parent_->SetDisplayUpText("-" + parent_->GetDisplayUpText());
-        } else {
-          parent_->SetDisplayUpText(parent_->GetDisplayUpText().remove(0, 1));
-        }
-      }
-    } else if (text_ == "Credit_Calc") {
-      parent_->ShowCredit();
-    } else if (text_ == "Deposit_calc") {
-      parent_->ShowDeposit();
-    }
-  } else if (parent_cred_ != nullptr) {
-    if (text_ == "Clear") {
-      parent_cred_->SetEveryMonthPay(0);
-      parent_cred_->SetOverpay(0);
-      parent_cred_->SetOverpaySum(0);
-      parent_cred_->SetZeroSpin();
-    } else if (parent_cred_->GetChecked()) {
-      AnuitetCalc *credit =
-          new AnuitetCalc(parent_cred_->GetAllSum(), parent_cred_->GetPercent(),
-                          parent_cred_->GetTerm());
-      parent_cred_->SetEveryMonthPay(credit->GetMountlyPay());
-      parent_cred_->SetOverpaySum(credit->GetAllPay());
-      parent_cred_->SetOverpay(credit->GetOverPay());
-      delete credit;
-    } else {
-      DiferenttCalc *credit = new DiferenttCalc(parent_cred_->GetAllSum(),
-                                                parent_cred_->GetPercent(),
-                                                parent_cred_->GetTerm());
-      parent_cred_->SetDiferentEveryMountPayGraph();
-      parent_cred_->SetOverpaySum(credit->GetAllPay());
-      parent_cred_->SetOverpay(credit->GetOverPay());
-      for (int i = 0; i < parent_cred_->GetTerm(); ++i) {
-        parent_cred_->SetDifMounthPay(i + 1, credit->GetMountlyPay(i));
-      }
-      delete credit;
-    }
-  } else if (parent_deposit_ != nullptr) {
-    if (text_ == "add upload") {
-      parent_deposit_->AddDeposit();
-      parent_deposit_->SetUpoloadList();
-    } else if (text_ == "add drop") {
-      parent_deposit_->AddWithdrawal();
-      parent_deposit_->SetDropedList();
-    } else if (text_ == "clear") {
-      parent_deposit_->AllClear();
-    } else {
-      parent_deposit_->Calculate();
-    }
-  }
+  // if (parent_ != nullptr) {
+  //   Element token(text_.toStdString());
+  //   if (token.IsEq()) {
+  //     EqCase();
+  //   } else if (token.IsNumber() && CheckForAdd()) {
+  //     parent_->ClearOperatorLabel();
+  //     parent_->SetDisplayUpText(parent_->GetDisplayUpText() + text_);
+  //   } else if (token.IsX()) {
+  //     if (CheckForAdd()) {
+  //       parent_->SetDisplayUpText(text_);
+  //       parent_->SetStyleSheetXvar(
+  //           "background: #008080; color: red; font: 12pt");
+  //     }
+  //   } else if (token.IsOperator() && CheckDisplaysStatus()) {
+  //     parent_->SetOperatorText(text_);
+  //     Adder();
+  //   } else if (token.IsFunciotn() && parent_->GetDisplayUpText().isEmpty()) {
+  //     parent_->ClearOperatorLabel();
+  //     parent_->output_line_.push_back(text_);
+  //     parent_->output_line_.push_back("(");
+  //     parent_->SetDisplayDownText(parent_->GetDisplayDownText() + text_ + " (");
+  //   } else if (token.IsClosedBracket()) {
+  //     Adder();
+  //   } else if (token.IsPoint()) {
+  //     if (parent_->GetDisplayUpText().isEmpty()) {
+  //       parent_->SetDisplayUpText("0.");
+  //     } else if (!parent_->GetDisplayUpText().contains('.')) {
+  //       parent_->SetDisplayUpText(parent_->GetDisplayUpText() + ".");
+  //     }
+  //   } else if (token.IsOpenBracket()) {
+  //     QChar last_char;
+  //     bool digit_end_input_line = false;
+  //     bool display_down_is_empty = parent_->GetDisplayDownText().isEmpty();
+  //     if (!display_down_is_empty) {
+  //       last_char = parent_->GetDisplayDownText().at(
+  //           parent_->GetDisplayDownText().length() - 1);
+  //       if (last_char.isDigit()) {
+  //         digit_end_input_line = true;
+  //       }
+  //     }
+  //     if ((display_down_is_empty || !digit_end_input_line) &&
+  //         last_char != ')') {
+  //       parent_->SetDisplayDownText(parent_->GetDisplayDownText() + text_);
+  //       parent_->output_line_.push_back(text_);
+  //     }
+  //   } else if (text_ == "AC") {
+  //     parent_->ClearDisplayDown();
+  //     parent_->ClearDisplayUp();
+  //     parent_->ClearOperatorLabel();
+  //     parent_->SetStyleSheetXvar(
+  //         "background: #008080; color: white; font: 12pt");
+  //     //      parent_->x_var_->update();
+  //   } else if (text_ == "MC") {
+  //     parent_->ClearDisplayHistory();
+  //   } else if (text_.at(0) == QChar(0x000000B1)) {
+  //     if (!parent_->GetDisplayUpText().isEmpty()) {
+  //       QChar first_char = parent_->GetDisplayUpText().at(0);
+  //       if (first_char.isDigit()) {
+  //         parent_->SetDisplayUpText("-" + parent_->GetDisplayUpText());
+  //       } else {
+  //         parent_->SetDisplayUpText(parent_->GetDisplayUpText().remove(0, 1));
+  //       }
+  //     }
+  //   } else if (text_ == "Credit_Calc") {
+  //     parent_->ShowCredit();
+  //   } else if (text_ == "Deposit_calc") {
+  //     parent_->ShowDeposit();
+  //   }
+  // } else if (parent_cred_ != nullptr) {
+  //   if (text_ == "Clear") {
+  //     parent_cred_->SetEveryMonthPay(0);
+  //     parent_cred_->SetOverpay(0);
+  //     parent_cred_->SetOverpaySum(0);
+  //     parent_cred_->SetZeroSpin();
+  //   } else if (parent_cred_->GetChecked()) {
+  //     AnuitetCalc *credit =
+  //         new AnuitetCalc(parent_cred_->GetAllSum(), parent_cred_->GetPercent(),
+  //                         parent_cred_->GetTerm());
+  //     parent_cred_->SetEveryMonthPay(credit->GetMountlyPay());
+  //     parent_cred_->SetOverpaySum(credit->GetAllPay());
+  //     parent_cred_->SetOverpay(credit->GetOverPay());
+  //     delete credit;
+  //   } else {
+  //     DiferenttCalc *credit = new DiferenttCalc(parent_cred_->GetAllSum(),
+  //                                               parent_cred_->GetPercent(),
+  //                                               parent_cred_->GetTerm());
+  //     parent_cred_->SetDiferentEveryMountPayGraph();
+  //     parent_cred_->SetOverpaySum(credit->GetAllPay());
+  //     parent_cred_->SetOverpay(credit->GetOverPay());
+  //     for (int i = 0; i < parent_cred_->GetTerm(); ++i) {
+  //       parent_cred_->SetDifMounthPay(i + 1, credit->GetMountlyPay(i));
+  //     }
+  //     delete credit;
+  //   }
+  // } else if (parent_deposit_ != nullptr) {
+  //   if (text_ == "add upload") {
+  //     parent_deposit_->AddDeposit();
+  //     parent_deposit_->SetUpoloadList();
+  //   } else if (text_ == "add drop") {
+  //     parent_deposit_->AddWithdrawal();
+  //     parent_deposit_->SetDropedList();
+  //   } else if (text_ == "clear") {
+  //     parent_deposit_->AllClear();
+  //   } else {
+  //     parent_deposit_->Calculate();
+  //   }
+  // }
+  emit KeyPressed(text_);
 };
 
 void s21::CalculatorButton::mouseReleaseEvent(QGraphicsSceneMouseEvent *) {
