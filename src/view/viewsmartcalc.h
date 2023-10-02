@@ -34,6 +34,12 @@ public:
 
 public:
   void GraphShow(QVector<double> x, QVector<double> y) noexcept;
+  void SetNumOnDisplay(QString text) noexcept;
+  void SetXVarOnDisplay(QString text) noexcept;
+  void DisplayInputClear() noexcept;
+  void SetDotOnDisplay() noexcept;
+  void SetUnarSign() noexcept;
+  bool SetFunction(QString text) noexcept;
 
   double GetXMin();
   double GetXmax();
@@ -61,8 +67,6 @@ public:
 
   void SetController(CalcControl &control);
 
-// public slots:
-//   void Key();
 
 private:
   CalcControl control_;

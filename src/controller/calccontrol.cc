@@ -25,37 +25,34 @@ s21::CalcControl &s21::CalcControl::operator=(CalcControl &&c) {
 }
 
 s21::CalcControl::~CalcControl() {
-  // if (calculator_ != nullptr) {
-  //   delete calculator_;
-  // }
-}
+  calculator_ = nullptr;
+};
 
 void s21::CalcControl::swap(CalcControl &other) {
   std::swap(calculator_, other.calculator_);
 };
 
 void s21::CalcControl::Dot(QString text) noexcept {
-  if (calculator_->GetDisplayUpText().isEmpty()) {
-    calculator_->SetDisplayUpText("0.");
-  } else if (!calculator_->GetDisplayUpText().contains('.') &&
-             !calculator_->GetDisplayUpText().contains('x')) {
-    calculator_->SetDisplayUpText(calculator_->GetDisplayUpText() + text);
-  }
-}
+  calculator_->SetDotOnDisplay();
+};
 
 void s21::CalcControl::Clear() noexcept {
-  calculator_->ClearDisplayDown();
-  calculator_->ClearDisplayUp();
-  calculator_->ClearOperatorLabel();
-  calculator_->SetStyleSheetXvar("background: #008080; color: white; font: 12pt");
-}
+  calculator_->DisplayInputClear();
+};
 
 void s21::CalcControl::XVar(QString text) noexcept {
-  if (calculator_->GetDisplayUpText().isEmpty()) {
-    calculator_->SetDisplayUpText(text);
-  }
-} 
+  calculator_->SetXVarOnDisplay(text);
+};
 
 void s21::CalcControl::Num(QString text) noexcept {
-  calculator_->SetDisplayUpText(calculator_->GetDisplayUpText() + text);
+  //clear oper
+  calculator_->SetNumOnDisplay(text);
+};
+
+void s21::CalcControl::UnarClicked(QString text) noexcept {
+  calculator_->SetUnarSign();
+}
+
+void s21::CalcControl::Function(QString text) noexcept {
+  if (calculator_->SetFunction(text)) // add text in model;
 }

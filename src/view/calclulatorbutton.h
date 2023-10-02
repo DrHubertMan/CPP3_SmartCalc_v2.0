@@ -53,14 +53,14 @@ signals:
   void mouseReleaseEvent(QGraphicsSceneMouseEvent *) override;
   void mousePressEvent(QGraphicsSceneMouseEvent *) override;
 
-  void EqCase() noexcept;
-  void DefaultMode() noexcept;
-  void FunctionMode() noexcept;
-  void Adder() const noexcept;
-  void PointAdder() const noexcept;
-  bool CheckCloseBracketEvent() const noexcept;
-  bool CheckDisplaysStatus() const noexcept;
-  bool CheckForAdd() const noexcept;
+  // void EqCase() noexcept;
+  // void DefaultMode() noexcept;
+  // void FunctionMode() noexcept;
+  // void Adder() const noexcept;
+  // void PointAdder() const noexcept;
+  // bool CheckCloseBracketEvent() const noexcept;
+  // bool CheckDisplaysStatus() const noexcept;
+  // bool CheckForAdd() const noexcept;
 };
 };  // namespace s21
 

@@ -24,9 +24,11 @@ public slots:
   void Clear() noexcept;
   void XVar(QString text) noexcept;
   void UnarClicked(QString text) noexcept;
+  void Function(QString text) noexcept;
 
 private:
   ViewSmartCalc *calculator_ = nullptr;
+  // Qlist<Qstring> ouput_line_;
 
 private:
   void swap(CalcControl &other);

@@ -177,152 +177,152 @@ void s21::CalculatorButton::mouseReleaseEvent(QGraphicsSceneMouseEvent *) {
   update();
 }
 
-void s21::CalculatorButton::EqCase() noexcept {
-  if (parent_->DisplayUpIsDisplayXvar()) {
-    parent_->SetDisplayDownText(parent_->GetDisplayDownText() + "=");
-  } else {
-    Adder();
-  }
-  if (parent_->DefaultModeIsChecked() || parent_->XvarIsChecked()) {
-    DefaultMode();
-  } else {
-    FunctionMode();
-  }
-  parent_->output_line_.clear();
-  parent_->SetDefaultModeChecked(true);
-  parent_->ClearDisplayUp();
-  if (parent_->DisplayUpIsDisplayXvar()) {
-    parent_->SetDisplayUpFake();
-  }
-  parent_->SetStyleSheetXvar("background: #008080; color: white; font: 12pt");
-};
+// void s21::CalculatorButton::EqCase() noexcept {
+//   if (parent_->DisplayUpIsDisplayXvar()) {
+//     parent_->SetDisplayDownText(parent_->GetDisplayDownText() + "=");
+//   } else {
+//     Adder();
+//   }
+//   if (parent_->DefaultModeIsChecked() || parent_->XvarIsChecked()) {
+//     DefaultMode();
+//   } else {
+//     FunctionMode();
+//   }
+//   parent_->output_line_.clear();
+//   parent_->SetDefaultModeChecked(true);
+//   parent_->ClearDisplayUp();
+//   if (parent_->DisplayUpIsDisplayXvar()) {
+//     parent_->SetDisplayUpFake();
+//   }
+//   parent_->SetStyleSheetXvar("background: #008080; color: white; font: 12pt");
+// };
 
-void s21::CalculatorButton::DefaultMode() noexcept {
-  bool check_conversion = true;
-  std::list<std::string> stdList;
-  for (const QString &qString : parent_->output_line_) {
-    if (qString == "x") {
-      stdList.push_back(parent_->GetDisplayXvarText().toStdString());
-    } else {
-      stdList.push_back(qString.toStdString());
-    }
-  }
-  try {
-    converter_ = new ExpressionConverter(stdList);
-  } catch (...) {
-    check_conversion = false;
-  }
-  if (check_conversion) {
-    calculator_ = new Calculation(converter_->GetOut());
-    parent_->SetDisplayDownText(parent_->GetDisplayDownText() +
-                                QString::number(calculator_->GetValue(), 'f', 7)
-                                    .remove(QRegularExpression("0+$"))
-                                    .remove(QRegularExpression("\\.$")));
-    parent_->SetDisplayHistoryText(parent_->GetDisplayDownText());
-    parent_->ClearDisplayDown();
-    delete calculator_;
-    delete converter_;
-  } else {
-    parent_->SetDisplayHistoryText(parent_->GetDisplayDownText() +
-                                   "(Wrong expression)");
-    parent_->ClearDisplayDown();
-    (new QErrorMessage())->showMessage("Wrong expression");
-  }
-};
+// void s21::CalculatorButton::DefaultMode() noexcept {
+//   bool check_conversion = true;
+//   std::list<std::string> stdList;
+//   for (const QString &qString : parent_->output_line_) {
+//     if (qString == "x") {
+//       stdList.push_back(parent_->GetDisplayXvarText().toStdString());
+//     } else {
+//       stdList.push_back(qString.toStdString());
+//     }
+//   }
+//   try {
+//     converter_ = new ExpressionConverter(stdList);
+//   } catch (...) {
+//     check_conversion = false;
+//   }
+//   if (check_conversion) {
+//     calculator_ = new Calculation(converter_->GetOut());
+//     parent_->SetDisplayDownText(parent_->GetDisplayDownText() +
+//                                 QString::number(calculator_->GetValue(), 'f', 7)
+//                                     .remove(QRegularExpression("0+$"))
+//                                     .remove(QRegularExpression("\\.$")));
+//     parent_->SetDisplayHistoryText(parent_->GetDisplayDownText());
+//     parent_->ClearDisplayDown();
+//     delete calculator_;
+//     delete converter_;
+//   } else {
+//     parent_->SetDisplayHistoryText(parent_->GetDisplayDownText() +
+//                                    "(Wrong expression)");
+//     parent_->ClearDisplayDown();
+//     (new QErrorMessage())->showMessage("Wrong expression");
+//   }
+// };
 
-void s21::CalculatorButton::FunctionMode() noexcept {
-  double x_min_value = parent_->GetXMin();
-  double x_max_value = parent_->GetXmax();
+// void s21::CalculatorButton::FunctionMode() noexcept {
+//   double x_min_value = parent_->GetXMin();
+//   double x_max_value = parent_->GetXmax();
 
-  QVector<double> x(8 * (x_max_value - x_min_value));
-  QVector<double> y(8 * (x_max_value - x_min_value));
-  bool check_conversion = true;
-  for (int i = 0; x_min_value < x_max_value; x_min_value += 0.125, i++) {
-    x[i] = x_min_value;
-    std::list<std::string> stdList;
-    for (const QString &qString : parent_->output_line_) {
-      if (qString == "x") {
-        stdList.push_back(std::to_string(x_min_value));
-      } else {
-        stdList.push_back(qString.toStdString());
-      }
-    }
-    try {
-      converter_ = new ExpressionConverter(stdList);
-    } catch (...) {
-      check_conversion = false;
-    }
-    if (check_conversion) {
-      calculator_ = new Calculation(converter_->GetOut());
-      y[i] = calculator_->GetValue();
-      delete calculator_;
-      delete converter_;
-    } else {
-      (new QErrorMessage())->showMessage("Wrong expression");
-      break;
-    }
-  }
-  if (check_conversion) parent_->GraphShow(x, y);
-};
+//   QVector<double> x(8 * (x_max_value - x_min_value));
+//   QVector<double> y(8 * (x_max_value - x_min_value));
+//   bool check_conversion = true;
+//   for (int i = 0; x_min_value < x_max_value; x_min_value += 0.125, i++) {
+//     x[i] = x_min_value;
+//     std::list<std::string> stdList;
+//     for (const QString &qString : parent_->output_line_) {
+//       if (qString == "x") {
+//         stdList.push_back(std::to_string(x_min_value));
+//       } else {
+//         stdList.push_back(qString.toStdString());
+//       }
+//     }
+//     try {
+//       converter_ = new ExpressionConverter(stdList);
+//     } catch (...) {
+//       check_conversion = false;
+//     }
+//     if (check_conversion) {
+//       calculator_ = new Calculation(converter_->GetOut());
+//       y[i] = calculator_->GetValue();
+//       delete calculator_;
+//       delete converter_;
+//     } else {
+//       (new QErrorMessage())->showMessage("Wrong expression");
+//       break;
+//     }
+//   }
+//   if (check_conversion) parent_->GraphShow(x, y);
+// };
 
-void s21::CalculatorButton::Adder() const noexcept {
-  if (!parent_->DisplayUpIsNull()) {
-    PointAdder();
-  }
-  if (!parent_->GetDisplayUpText().isEmpty()) {
-    parent_->output_line_.push_back(parent_->GetDisplayUpText());
-  }
-  parent_->output_line_.push_back(text_);
-  if (!parent_->GetDisplayUpText().isEmpty() &&
-      parent_->GetDisplayUpText().at(0) == '-') {
-    parent_->SetDisplayDownText(parent_->GetDisplayDownText() + "(" +
-                                parent_->GetDisplayUpText() + ")" + text_);
-  } else {
-    parent_->SetDisplayDownText(parent_->GetDisplayDownText() +
-                                parent_->GetDisplayUpText() + text_);
-  }
-  parent_->ClearDisplayUp();
-  //  if (parent_->display_up_ != parent_->display_x_var_)
-  //  parent_->display_up_->clear();
-};
+// void s21::CalculatorButton::Adder() const noexcept {
+//   if (!parent_->DisplayUpIsNull()) {
+//     PointAdder();
+//   }
+//   if (!parent_->GetDisplayUpText().isEmpty()) {
+//     parent_->output_line_.push_back(parent_->GetDisplayUpText());
+//   }
+//   parent_->output_line_.push_back(text_);
+//   if (!parent_->GetDisplayUpText().isEmpty() &&
+//       parent_->GetDisplayUpText().at(0) == '-') {
+//     parent_->SetDisplayDownText(parent_->GetDisplayDownText() + "(" +
+//                                 parent_->GetDisplayUpText() + ")" + text_);
+//   } else {
+//     parent_->SetDisplayDownText(parent_->GetDisplayDownText() +
+//                                 parent_->GetDisplayUpText() + text_);
+//   }
+//   parent_->ClearDisplayUp();
+//   //  if (parent_->display_up_ != parent_->display_x_var_)
+//   //  parent_->display_up_->clear();
+// };
 
-void s21::CalculatorButton::PointAdder() const noexcept {
-  if (!parent_->GetDisplayUpText().isEmpty()) {
-    QChar last_char = parent_->GetDisplayUpText().at(
-        parent_->GetDisplayUpText().length() - 1);
-    if (last_char == '.') {
-      parent_->SetDisplayUpText(parent_->GetDisplayUpText() + "0");
-    }
-  }
-};
+// void s21::CalculatorButton::PointAdder() const noexcept {
+//   if (!parent_->GetDisplayUpText().isEmpty()) {
+//     QChar last_char = parent_->GetDisplayUpText().at(
+//         parent_->GetDisplayUpText().length() - 1);
+//     if (last_char == '.') {
+//       parent_->SetDisplayUpText(parent_->GetDisplayUpText() + "0");
+//     }
+//   }
+// };
 
-bool s21::CalculatorButton::CheckDisplaysStatus() const noexcept {
-  bool check_one = false;
-  if (!parent_->GetDisplayUpText().isEmpty()) {
-    QChar last_char_one = parent_->GetDisplayUpText().at(
-        parent_->GetDisplayUpText().length() - 1);
-    if (last_char_one.isDigit() || last_char_one == '.' || last_char_one == 'x')
-      check_one = true;
-  }
-  if (!parent_->GetDisplayDownText().isEmpty()) {
-    QChar last_char_two = parent_->GetDisplayDownText().at(
-        parent_->GetDisplayDownText().length() - 1);
-    if (last_char_two.isDigit() || last_char_two == ')' || last_char_two == '(')
-      check_one = true;
-  }
-  return (check_one);
-};
+// bool s21::CalculatorButton::CheckDisplaysStatus() const noexcept {
+//   bool check_one = false;
+//   if (!parent_->GetDisplayUpText().isEmpty()) {
+//     QChar last_char_one = parent_->GetDisplayUpText().at(
+//         parent_->GetDisplayUpText().length() - 1);
+//     if (last_char_one.isDigit() || last_char_one == '.' || last_char_one == 'x')
+//       check_one = true;
+//   }
+//   if (!parent_->GetDisplayDownText().isEmpty()) {
+//     QChar last_char_two = parent_->GetDisplayDownText().at(
+//         parent_->GetDisplayDownText().length() - 1);
+//     if (last_char_two.isDigit() || last_char_two == ')' || last_char_two == '(')
+//       check_one = true;
+//   }
+//   return (check_one);
+// };
 
-bool s21::CalculatorButton::CheckForAdd() const noexcept {
-  bool check_one = false;
-  bool check_two = false;
-  if (parent_->GetDisplayUpText().isEmpty()) {
-    check_one = true;
-  }
-  if (!parent_->GetDisplayUpText().isEmpty()) {
-    if (parent_->GetDisplayUpText().at(0) != 'x') {
-      check_two = true;
-    }
-  }
-  return (check_one || check_two);
-};
+// bool s21::CalculatorButton::CheckForAdd() const noexcept {
+//   bool check_one = false;
+//   bool check_two = false;
+//   if (parent_->GetDisplayUpText().isEmpty()) {
+//     check_one = true;
+//   }
+//   if (!parent_->GetDisplayUpText().isEmpty()) {
+//     if (parent_->GetDisplayUpText().at(0) != 'x') {
+//       check_two = true;
+//     }
+//   }
+//   return (check_one || check_two);
+// };
