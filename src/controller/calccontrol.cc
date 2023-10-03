@@ -54,5 +54,13 @@ void s21::CalcControl::UnarClicked(QString text) noexcept {
 }
 
 void s21::CalcControl::Function(QString text) noexcept {
-  if (calculator_->SetFunction(text)) // add text in model;
+  if (calculator_->SetFunction(text)) {
+    int add_in_model = 0;
+  } // add text in model;
+}
+
+void s21::CalcControl::OperPressed(QString text) noexcept {
+  if (calculator_->SetOper(text))  {
+    int add_in_model = 0;
+  }// add number in model;
 }

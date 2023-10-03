@@ -95,6 +95,28 @@ bool s21::ViewSmartCalc::SetFunction(QString text) noexcept {
   return result;
 }
 
+bool s21::ViewSmartCalc::SetOper(QString text) noexcept {
+  bool result = false;
+  if (!display_up_->text().isEmpty() ) {
+    oper_->setText(text);
+    AddNumber();
+    display_down_->setText(display_down_->text() + text);
+    display_up_->clear();
+    result = true;
+  }
+  return result;
+}
+
+void s21::ViewSmartCalc::AddNumber() noexcept {
+  if (!display_up_->text().isEmpty()) {
+    if (display_up_->text().at(0) == '-') {
+      display_down_->setText(display_down_->text() + "(" + display_up_->text() + ")");
+    } else {
+      display_down_->setText(display_down_->text() + display_up_->text());
+    }
+  }
+}
+
 double s21::ViewSmartCalc::GetXMin() {
   return static_cast<double>(x_min_->value());
 }
@@ -234,30 +256,38 @@ void s21::ViewSmartCalc::InitOperatorButton() {
   btn_mod_.setPos(10, 10);
   btn_mod_.SetGeometry(50, 50);
   btn_mod_.setText("%");
+  connect(&btn_mod_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::OperPressed);
 
   btn_div_.setPos(70, 10);
   btn_div_.SetGeometry(50, 50);
   btn_div_.setText("/");
+  connect(&btn_div_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
 
   btn_mul_.setPos(130, 10);
   btn_mul_.SetGeometry(50, 50);
   btn_mul_.setText("*");
+  connect(&btn_mul_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
 
   btn_minus_.setPos(190, 10);
   btn_minus_.SetGeometry(50, 50);
   btn_minus_.setText("-");
+  connect(&btn_minus_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
 
   btn_plus_.setPos(190, 70);
   btn_plus_.SetGeometry(50, 50);
   btn_plus_.setText("+");
+  connect(&btn_plus_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
 
   btn_open_br_.setPos(190, 130);
   btn_open_br_.SetGeometry(50, 50);
   btn_open_br_.setText("(");
+  // connect(&btn_mod_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
 
   btn_closed_br_.setPos(190, 190);
   btn_closed_br_.SetGeometry(50, 50);
   btn_closed_br_.setText(")");
+  // connect(&btn_mod_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
 
   btn_eq_.setPos(190, 250);
   btn_eq_.SetGeometry(50, 110);
@@ -266,6 +296,7 @@ void s21::ViewSmartCalc::InitOperatorButton() {
   btn_exp_.setPos(250, 130);
   btn_exp_.SetGeometry(50, 50);
   btn_exp_.setText("^");
+  connect(&btn_exp_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
 
   btn_unar_.setPos(250, 190);
   btn_unar_.SetGeometry(50, 50);
@@ -278,47 +309,56 @@ void s21::ViewSmartCalc::InitFunctionButton() {
   btn_sin_.setPos(330, 10);
   btn_sin_.SetGeometry(50, 150);
   btn_sin_.setText("sin");
-  connect(&btn_sin_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Function);
+  connect(&btn_sin_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::Function);
 
   btn_cos_.setPos(330, 70);
   btn_cos_.SetGeometry(50, 150);
   btn_cos_.setText("cos");
-  connect(&btn_cos_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Function);
+  connect(&btn_cos_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::Function);
 
   btn_tan_.setPos(330, 130);
   btn_tan_.SetGeometry(50, 150);
   btn_tan_.setText("tan");
-  connect(&btn_tan_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Function);
+  connect(&btn_tan_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::Function);
 
   btn_asin_.setPos(490, 10);
   btn_asin_.SetGeometry(50, 150);
   btn_asin_.setText("asin");
-  connect(&btn_asin_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Function);
+  connect(&btn_asin_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::Function);
 
   btn_acos_.setPos(490, 70);
   btn_acos_.SetGeometry(50, 150);
   btn_acos_.setText("acos");
-  connect(&btn_acos_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Function);
+  connect(&btn_acos_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::Function);
 
   btn_atan_.setPos(490, 130);
   btn_atan_.SetGeometry(50, 150);
   btn_atan_.setText("atan");
-  connect(&btn_atan_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Function);
+  connect(&btn_atan_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::Function);
 
   btn_ln_.setPos(330, 190);
   btn_ln_.SetGeometry(50, 150);
   btn_ln_.setText("ln");
-  connect(&btn_ln_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Function);
+  connect(&btn_ln_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::Function);
 
   btn_log_.setPos(490, 190);
   btn_log_.SetGeometry(50, 150);
   btn_log_.setText("log");
-  connect(&btn_log_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Function);
+  connect(&btn_log_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::Function);
 
   btn_sqrt_.setPos(330, 250);
   btn_sqrt_.SetGeometry(50, 310);
   btn_sqrt_.setText("sqrt");
-  connect(&btn_sqrt_, &CalculatorButton::KeyPressed, &control_, &CalcControl::Function);
+  connect(&btn_sqrt_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::Function);
 
   btn_ac_.setPos(250, 10);
   btn_ac_.SetGeometry(50, 50);
@@ -347,12 +387,12 @@ void s21::ViewSmartCalc::InitFunctionButton() {
 
 void s21::ViewSmartCalc::InitTextElement() {
   display_up_ = new QLineEdit();
-  display_up_->setGeometry(10, 310, 290, 30);
+  display_up_->setGeometry(10, 400, 290, 30);
   display_up_->setReadOnly(true);
   display_up_->setStyleSheet("background: #326759; color: white; font: 15pt");
 
   display_down_ = new QLineEdit();
-  display_down_->setGeometry(10, 400, 290, 30);
+  display_down_->setGeometry(10, 310, 290, 30);
   display_down_->setReadOnly(true);
   display_down_->setStyleSheet("background: #326759; color: white; font: 15pt");
 

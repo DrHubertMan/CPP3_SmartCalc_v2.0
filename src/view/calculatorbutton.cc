@@ -67,8 +67,7 @@ void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
   //   if (token.IsEq()) {
   //     EqCase();
   //   } else if (token.IsNumber() && CheckForAdd()) {
-  //     parent_->ClearOperatorLabel();
-  //     parent_->SetDisplayUpText(parent_->GetDisplayUpText() + text_);
+
   //   } else if (token.IsX()) {
   //     if (CheckForAdd()) {
   //       parent_->SetDisplayUpText(text_);
@@ -79,18 +78,9 @@ void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
   //     parent_->SetOperatorText(text_);
   //     Adder();
   //   } else if (token.IsFunciotn() && parent_->GetDisplayUpText().isEmpty()) {
-  //     parent_->ClearOperatorLabel();
-  //     parent_->output_line_.push_back(text_);
-  //     parent_->output_line_.push_back("(");
-  //     parent_->SetDisplayDownText(parent_->GetDisplayDownText() + text_ + " (");
   //   } else if (token.IsClosedBracket()) {
   //     Adder();
   //   } else if (token.IsPoint()) {
-  //     if (parent_->GetDisplayUpText().isEmpty()) {
-  //       parent_->SetDisplayUpText("0.");
-  //     } else if (!parent_->GetDisplayUpText().contains('.')) {
-  //       parent_->SetDisplayUpText(parent_->GetDisplayUpText() + ".");
-  //     }
   //   } else if (token.IsOpenBracket()) {
   //     QChar last_char;
   //     bool digit_end_input_line = false;
@@ -108,12 +98,6 @@ void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
   //       parent_->output_line_.push_back(text_);
   //     }
   //   } else if (text_ == "AC") {
-  //     parent_->ClearDisplayDown();
-  //     parent_->ClearDisplayUp();
-  //     parent_->ClearOperatorLabel();
-  //     parent_->SetStyleSheetXvar(
-  //         "background: #008080; color: white; font: 12pt");
-  //     //      parent_->x_var_->update();
   //   } else if (text_ == "MC") {
   //     parent_->ClearDisplayHistory();
   //   } else if (text_.at(0) == QChar(0x000000B1)) {

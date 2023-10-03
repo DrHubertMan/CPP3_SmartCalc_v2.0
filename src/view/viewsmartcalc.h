@@ -40,6 +40,7 @@ public:
   void SetDotOnDisplay() noexcept;
   void SetUnarSign() noexcept;
   bool SetFunction(QString text) noexcept;
+  bool SetOper(QString text) noexcept;
 
   double GetXMin();
   double GetXmax();
@@ -69,7 +70,6 @@ public:
 
 
 private:
-  CalcControl control_;
   void InitViewElement();
   void InitNumberButtton();
   void InitOperatorButton();
@@ -82,8 +82,11 @@ private:
   void AddWidgetAtScene();
   void AddLineAtScene();
   void DisplayChange();
+  void AddNumber() noexcept;
 
 private:
+  CalcControl control_;
+
   QRadioButton *x_var_;
   QRadioButton *x_func_;
   QRadioButton *default_mode_;

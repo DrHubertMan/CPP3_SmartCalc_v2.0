@@ -25,6 +25,7 @@ public slots:
   void XVar(QString text) noexcept;
   void UnarClicked(QString text) noexcept;
   void Function(QString text) noexcept;
+  void OperPressed(QString text) noexcept;
 
 private:
   ViewSmartCalc *calculator_ = nullptr;
