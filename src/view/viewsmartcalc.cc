@@ -124,11 +124,11 @@ void s21::ViewSmartCalc::AddNumber() noexcept {
       display_down_->setText(display_down_->text() + "(" + display_up_->text() +
                              ")");
       control_.AddValueInModel("(");
-      control_.AddValueInModel(display_down_->text());
+      control_.AddValueInModel(display_up_->text());
       control_.AddValueInModel(")");
     } else {
       display_down_->setText(display_down_->text() + display_up_->text());
-      control_.AddValueInModel(display_down_->text());
+      control_.AddValueInModel(display_up_->text());
     }
     display_up_->clear();
   }

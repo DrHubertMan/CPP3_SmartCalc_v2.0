@@ -26,7 +26,6 @@ s21::CalcControl &s21::CalcControl::operator=(CalcControl &&c) {
 
 s21::CalcControl::~CalcControl() {
   calculator_ = nullptr;
-  calculator_model_.print();
 };
 
 void s21::CalcControl::SetModel(Calculation &c) noexcept {

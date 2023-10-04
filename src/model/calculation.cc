@@ -33,13 +33,6 @@ s21::Calculation &s21::Calculation::operator=(Calculation &&c) {
 
 double s21::Calculation::GetValue() const noexcept { return value_; };
 
-void s21::Calculation::print() {
-  for (const auto &item: input_string_) {
-    std::cout << item;
-  }
-  std::cout << std::endl;
-}
-
 void s21::Calculation::AddTokenInModel(std::string token) noexcept {
   input_string_.push_back(token);
 }

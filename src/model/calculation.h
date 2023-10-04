@@ -35,7 +35,7 @@ public:
   double GetValue() const noexcept;
 
   void AddTokenInModel(std::string token) noexcept;
-  void print();
+
 private:
   std::list<std::string> input_string_;
   /// @brief Список токенов выражения для вычисления
