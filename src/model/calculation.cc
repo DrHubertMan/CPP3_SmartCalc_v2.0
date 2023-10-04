@@ -2,12 +2,12 @@
 
 s21::Calculation::Calculation(std::list<std::string> input)
     : input_string_(input), value_(0) {
-  Calc();
+  // Calc();
 };
 
 s21::Calculation::Calculation(const Calculation &c)
     : input_string_(c.input_string_), value_(c.value_) {
-  Calc();
+  // Calc();
 };
 
 s21::Calculation &s21::Calculation::operator=(const Calculation &c) {
@@ -20,7 +20,7 @@ s21::Calculation &s21::Calculation::operator=(const Calculation &c) {
 
 s21::Calculation::Calculation(Calculation &&c) : Calculation() {
   swap(c);
-  Calc();
+  // Calc();
 };
 
 s21::Calculation &s21::Calculation::operator=(Calculation &&c) {
@@ -32,6 +32,17 @@ s21::Calculation &s21::Calculation::operator=(Calculation &&c) {
 };
 
 double s21::Calculation::GetValue() const noexcept { return value_; };
+
+void s21::Calculation::print() {
+  for (const auto &item: input_string_) {
+    std::cout << item;
+  }
+  std::cout << std::endl;
+}
+
+void s21::Calculation::AddTokenInModel(std::string token) noexcept {
+  input_string_.push_back(token);
+}
 
 void s21::Calculation::swap(Calculation &other) {
   std::swap(input_string_, other.input_string_);

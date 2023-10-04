@@ -7,6 +7,7 @@
 #include <string>
 
 #include "element.h"
+#include <iostream>
 
 namespace s21 {
 /// @brief Класс служащий для вычисления выражения записаного в постфиксной нотации
@@ -33,9 +34,11 @@ public:
   /// @brief Функция возвращающая вычисленное значение
   double GetValue() const noexcept;
 
+  void AddTokenInModel(std::string token) noexcept;
+  void print();
 private:
-  /// @brief Список токенов выражения для вычисления
   std::list<std::string> input_string_;
+  /// @brief Список токенов выражения для вычисления
   /// @brief Вычисленное значение
   double value_;
 

@@ -4,6 +4,8 @@
 #include <QObject>
 #include <iostream>
 
+#include "../model/calculation.h"
+
 namespace s21 {
 class ViewSmartCalc;
 class CalcControl : public QObject {
@@ -18,6 +20,9 @@ public:
   CalcControl(CalcControl &&c);
   CalcControl &operator=(CalcControl &&c);
   ~CalcControl();
+
+  void AddValueInModel(QString text) noexcept;
+  void SetModel(Calculation &c) noexcept;
 public slots:
   void Num(QString text) noexcept;
   void Dot(QString text) noexcept;
@@ -26,9 +31,12 @@ public slots:
   void UnarClicked(QString text) noexcept;
   void Function(QString text) noexcept;
   void OperPressed(QString text) noexcept;
+  void OpenBraketPressed(QString text) noexcept;
+  void ClosedBraketPressed(QString text) noexcept;
 
 private:
   ViewSmartCalc *calculator_ = nullptr;
+  Calculation calculator_model_;
   // Qlist<Qstring> ouput_line_;
 
 private:

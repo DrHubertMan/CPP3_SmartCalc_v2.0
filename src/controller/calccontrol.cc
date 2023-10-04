@@ -4,7 +4,7 @@
 s21::CalcControl::CalcControl(ViewSmartCalc *calc) : calculator_(calc) {}
 
 s21::CalcControl::CalcControl(const CalcControl &c)
-    : calculator_(c.calculator_) {}
+    : calculator_(c.calculator_), calculator_model_(c.calculator_model_) {}
 
 s21::CalcControl &s21::CalcControl::operator=(const CalcControl &c) {
   if (this != &c) {
@@ -26,10 +26,16 @@ s21::CalcControl &s21::CalcControl::operator=(CalcControl &&c) {
 
 s21::CalcControl::~CalcControl() {
   calculator_ = nullptr;
+  calculator_model_.print();
 };
+
+void s21::CalcControl::SetModel(Calculation &c) noexcept {
+  calculator_model_ = c;
+}
 
 void s21::CalcControl::swap(CalcControl &other) {
   std::swap(calculator_, other.calculator_);
+  std::swap(calculator_model_, other.calculator_model_);
 };
 
 void s21::CalcControl::Dot(QString text) noexcept {
@@ -54,13 +60,21 @@ void s21::CalcControl::UnarClicked(QString text) noexcept {
 }
 
 void s21::CalcControl::Function(QString text) noexcept {
-  if (calculator_->SetFunction(text)) {
-    int add_in_model = 0;
-  } // add text in model;
+  calculator_->SetFunction(text);
 }
 
 void s21::CalcControl::OperPressed(QString text) noexcept {
-  if (calculator_->SetOper(text))  {
-    int add_in_model = 0;
-  }// add number in model;
+  calculator_->SetOper(text);
+}
+
+void s21::CalcControl::OpenBraketPressed(QString text) noexcept {
+  calculator_->SetOpenBracket(text);
+}
+
+void s21::CalcControl::ClosedBraketPressed(QString text) noexcept {
+  calculator_->SetClosedBracket(text);
+}
+
+void s21::CalcControl::AddValueInModel(QString text) noexcept {
+  calculator_model_.AddTokenInModel(text.toStdString());
 }

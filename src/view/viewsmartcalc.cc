@@ -49,12 +49,14 @@ void s21::ViewSmartCalc::GraphShow(QVector<double> x,
 void s21::ViewSmartCalc::SetNumOnDisplay(QString text) noexcept {
   if (!display_up_->text().contains('x')) {
     display_up_->setText(display_up_->text() + text);
+    oper_->clear();
   }
 }
 
 void s21::ViewSmartCalc::SetXVarOnDisplay(QString text) noexcept {
   if (display_up_->text().isEmpty()) {
     display_up_->setText(text);
+    oper_->clear();
   }
 }
 
@@ -85,101 +87,122 @@ void s21::ViewSmartCalc::SetUnarSign() noexcept {
   }
 }
 
-bool s21::ViewSmartCalc::SetFunction(QString text) noexcept {
-  bool result = false;
+void s21::ViewSmartCalc::SetFunction(QString text) noexcept {
   if (display_up_->text().isEmpty()) {
     oper_->clear();
     display_down_->setText(display_down_->text() + text + "(");
-    result = true;
+    control_.AddValueInModel(text);
+    control_.AddValueInModel("(");
   }
-  return result;
 }
 
-bool s21::ViewSmartCalc::SetOper(QString text) noexcept {
-  bool result = false;
-  if (!display_up_->text().isEmpty() ) {
+void s21::ViewSmartCalc::SetOper(QString text) noexcept {
+  if (!display_up_->text().isEmpty() || !display_down_->text().isEmpty()) {
     oper_->setText(text);
     AddNumber();
     display_down_->setText(display_down_->text() + text);
     display_up_->clear();
-    result = true;
+    control_.AddValueInModel(text);
   }
-  return result;
+}
+
+void s21::ViewSmartCalc::SetOpenBracket(QString text) noexcept {
+  display_down_->setText(display_down_->text() + text);
+  AddNumber();
+  control_.AddValueInModel(text);
+}
+
+void s21::ViewSmartCalc::SetClosedBracket(QString text) noexcept {
+  AddNumber();
+  display_down_->setText(display_down_->text() + text);
+  control_.AddValueInModel(text);
 }
 
 void s21::ViewSmartCalc::AddNumber() noexcept {
   if (!display_up_->text().isEmpty()) {
     if (display_up_->text().at(0) == '-') {
-      display_down_->setText(display_down_->text() + "(" + display_up_->text() + ")");
+      display_down_->setText(display_down_->text() + "(" + display_up_->text() +
+                             ")");
+      control_.AddValueInModel("(");
+      control_.AddValueInModel(display_down_->text());
+      control_.AddValueInModel(")");
     } else {
       display_down_->setText(display_down_->text() + display_up_->text());
+      control_.AddValueInModel(display_down_->text());
     }
+    display_up_->clear();
   }
 }
 
-double s21::ViewSmartCalc::GetXMin() {
-  return static_cast<double>(x_min_->value());
-}
+// bool s21::ViewSmartCalc::CharIsOper(QChar c) noexcept {
+//   return (c == '+' || c == '-' || c == '*' || c == '/' || c == '%' || c ==
+//   '^');
+// }
 
-double s21::ViewSmartCalc::GetXmax() {
-  return static_cast<double>(x_max_->value());
-}
+// double s21::ViewSmartCalc::GetXMin() {
+//   return static_cast<double>(x_min_->value());
+// }
 
-QString s21::ViewSmartCalc::GetDisplayDownText() {
-  return display_down_->text();
-}
+// double s21::ViewSmartCalc::GetXmax() {
+//   return static_cast<double>(x_max_->value());
+// }
 
-QString s21::ViewSmartCalc::GetDisplayXvarText() {
-  return display_x_var_->text();
-}
+// QString s21::ViewSmartCalc::GetDisplayDownText() {
+//   return display_down_->text();
+// }
 
-bool s21::ViewSmartCalc::DisplayUpIsDisplayXvar() {
-  return display_up_ == display_x_var_;
-}
+// QString s21::ViewSmartCalc::GetDisplayXvarText() {
+//   return display_x_var_->text();
+// }
 
-bool s21::ViewSmartCalc::DisplayUpIsNull() { return display_up_ == nullptr; }
+// bool s21::ViewSmartCalc::DisplayUpIsDisplayXvar() {
+//   return display_up_ == display_x_var_;
+// }
 
-bool s21::ViewSmartCalc::DefaultModeIsChecked() {
-  return default_mode_->isChecked();
-}
+// bool s21::ViewSmartCalc::DisplayUpIsNull() { return display_up_ == nullptr; }
 
-bool s21::ViewSmartCalc::XvarIsChecked() { return x_var_->isChecked(); }
+// bool s21::ViewSmartCalc::DefaultModeIsChecked() {
+//   return default_mode_->isChecked();
+// }
 
-void s21::ViewSmartCalc::ShowCredit() { credit_calc_.show(); }
+// bool s21::ViewSmartCalc::XvarIsChecked() { return x_var_->isChecked(); }
 
-void s21::ViewSmartCalc::ShowDeposit() { deposit_calc_.show(); }
+// void s21::ViewSmartCalc::ShowCredit() { credit_calc_.show(); }
 
-void s21::ViewSmartCalc::SetDisplayUpText(QString text) {
-  display_up_->setText(text);
-}
+// void s21::ViewSmartCalc::ShowDeposit() { deposit_calc_.show(); }
 
-void s21::ViewSmartCalc::SetDisplayDownText(QString text) {
-  display_down_->setText(text);
-}
+// void s21::ViewSmartCalc::SetDisplayUpText(QString text) {
+//   display_up_->setText(text);
+// }
 
-void s21::ViewSmartCalc::SetDisplayHistoryText(QString text) {
-  display_hystory_->append(text);
-}
+// void s21::ViewSmartCalc::SetDisplayDownText(QString text) {
+//   display_down_->setText(text);
+// }
 
-void s21::ViewSmartCalc::SetOperatorText(QString text) { oper_->setText(text); }
+// void s21::ViewSmartCalc::SetDisplayHistoryText(QString text) {
+//   display_hystory_->append(text);
+// }
 
-void s21::ViewSmartCalc::ClearOperatorLabel() { oper_->clear(); }
+// void s21::ViewSmartCalc::SetOperatorText(QString text) {
+// oper_->setText(text); }
 
-void s21::ViewSmartCalc::ClearDisplayUp() { display_up_->clear(); }
+// void s21::ViewSmartCalc::ClearOperatorLabel() { oper_->clear(); }
 
-void s21::ViewSmartCalc::ClearDisplayDown() { display_down_->clear(); }
+// void s21::ViewSmartCalc::ClearDisplayUp() { display_up_->clear(); }
 
-void s21::ViewSmartCalc::ClearDisplayHistory() { display_hystory_->clear(); }
+// void s21::ViewSmartCalc::ClearDisplayDown() { display_down_->clear(); }
 
-void s21::ViewSmartCalc::SetDisplayUpFake() { display_up_ = fake_display; }
+// void s21::ViewSmartCalc::ClearDisplayHistory() { display_hystory_->clear(); }
 
-void s21::ViewSmartCalc::SetStyleSheetXvar(QString text) {
-  x_var_->setStyleSheet(text);
-}
+// void s21::ViewSmartCalc::SetDisplayUpFake() { display_up_ = fake_display; }
 
-void s21::ViewSmartCalc::SetDefaultModeChecked(bool value) {
-  default_mode_->setChecked(value);
-}
+// void s21::ViewSmartCalc::SetStyleSheetXvar(QString text) {
+//   x_var_->setStyleSheet(text);
+// }
+
+// void s21::ViewSmartCalc::SetDefaultModeChecked(bool value) {
+//   default_mode_->setChecked(value);
+// }
 
 void s21::ViewSmartCalc::SetController(CalcControl &control) {
   control_ = control;
@@ -262,32 +285,38 @@ void s21::ViewSmartCalc::InitOperatorButton() {
   btn_div_.setPos(70, 10);
   btn_div_.SetGeometry(50, 50);
   btn_div_.setText("/");
-  connect(&btn_div_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
+  connect(&btn_div_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::OperPressed);
 
   btn_mul_.setPos(130, 10);
   btn_mul_.SetGeometry(50, 50);
   btn_mul_.setText("*");
-  connect(&btn_mul_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
+  connect(&btn_mul_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::OperPressed);
 
   btn_minus_.setPos(190, 10);
   btn_minus_.SetGeometry(50, 50);
   btn_minus_.setText("-");
-  connect(&btn_minus_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
+  connect(&btn_minus_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::OperPressed);
 
   btn_plus_.setPos(190, 70);
   btn_plus_.SetGeometry(50, 50);
   btn_plus_.setText("+");
-  connect(&btn_plus_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
+  connect(&btn_plus_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::OperPressed);
 
   btn_open_br_.setPos(190, 130);
   btn_open_br_.SetGeometry(50, 50);
   btn_open_br_.setText("(");
-  // connect(&btn_mod_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
+  connect(&btn_open_br_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::OpenBraketPressed);
 
   btn_closed_br_.setPos(190, 190);
   btn_closed_br_.SetGeometry(50, 50);
   btn_closed_br_.setText(")");
-  // connect(&btn_mod_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
+  connect(&btn_closed_br_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::ClosedBraketPressed);
 
   btn_eq_.setPos(190, 250);
   btn_eq_.SetGeometry(50, 110);
@@ -296,7 +325,8 @@ void s21::ViewSmartCalc::InitOperatorButton() {
   btn_exp_.setPos(250, 130);
   btn_exp_.SetGeometry(50, 50);
   btn_exp_.setText("^");
-  connect(&btn_exp_, &CalculatorButton::KeyPressed, &control_, &CalcControl::OperPressed);
+  connect(&btn_exp_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::OperPressed);
 
   btn_unar_.setPos(250, 190);
   btn_unar_.SetGeometry(50, 50);
