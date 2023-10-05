@@ -24,12 +24,15 @@ public:
 
   std::list<std::string> GetOut();
 
+  void AddTokenInModel(std::string token) noexcept;
+  void Clear() noexcept;
+
+  void Conversion();
 private:
   std::list<std::string> input_string_;
   std::list<std::string> output_string_;
 
 private:
-  void Conversion();
 
   void swap(ExpressionConverter &other) noexcept;
   void AddOperatorInStack(std::stack<std::string> &transformator,

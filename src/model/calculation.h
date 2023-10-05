@@ -34,8 +34,6 @@ public:
   /// @brief Функция возвращающая вычисленное значение
   double GetValue() const noexcept;
 
-  void AddTokenInModel(std::string token) noexcept;
-
 private:
   std::list<std::string> input_string_;
   /// @brief Список токенов выражения для вычисления

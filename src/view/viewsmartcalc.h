@@ -43,30 +43,19 @@ public:
   void SetOper(QString text) noexcept;
   void SetOpenBracket(QString text) noexcept;
   void SetClosedBracket(QString text) noexcept;
+  void ClearHystoryDisplay() noexcept;
+  void CalculateCase() noexcept;
+  void RadioClicked();
+  void SetAnswer(double value) noexcept;
 
-  double GetXMin();
-  double GetXmax();
-  QString GetDisplayUpText();
-  QString GetDisplayDownText();
-  QString GetDisplayXvarText();
-  bool DisplayUpIsDisplayXvar();
-  bool DisplayUpIsNull();
-  bool DefaultModeIsChecked();
-  bool XvarIsChecked();
+  // double GetXMin();
+  // double GetXmax();
+  // QString GetDisplayXvarText();
+  // bool DisplayUpIsDisplayXvar();
+  // bool DisplayUpIsNull();
+  // bool DefaultModeIsChecked();
+  // bool XvarIsChecked();
 
-  // void ShowCredit();
-  // void ShowDeposit();
-  // void SetDisplayUpText(QString text);
-  // void SetDisplayDownText(QString text);
-  // void SetDisplayHistoryText(QString text);
-  // void SetOperatorText(QString text);
-  // void ClearOperatorLabel();
-  // void ClearDisplayUp();
-  // void ClearDisplayDown();
-  // void ClearDisplayHistory();
-  // void SetDisplayUpFake();
-  // void SetStyleSheetXvar(QString text);
-  // void SetDefaultModeChecked(bool value);
 
   void SetController(CalcControl &control);
 
@@ -161,8 +150,6 @@ private:
   QGraphicsScene *scene_;
   QButtonGroup *x_group_;
 
-public slots:
-  void RadioClicked();
 };
 }; // namespace s21
 

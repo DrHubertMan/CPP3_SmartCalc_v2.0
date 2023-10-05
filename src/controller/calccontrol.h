@@ -5,6 +5,7 @@
 #include <iostream>
 
 #include "../model/calculation.h"
+#include "../model/expressionConverter.h"
 
 namespace s21 {
 class ViewSmartCalc;
@@ -22,21 +23,24 @@ public:
   ~CalcControl();
 
   void AddValueInModel(QString text) noexcept;
-  void SetModel(Calculation &c) noexcept;
+  void SetModel(ExpressionConverter &e) noexcept;
 public slots:
-  void Num(QString text) noexcept;
-  void Dot(QString text) noexcept;
-  void Clear() noexcept;
-  void XVar(QString text) noexcept;
-  void UnarClicked(QString text) noexcept;
-  void Function(QString text) noexcept;
-  void OperPressed(QString text) noexcept;
-  void OpenBraketPressed(QString text) noexcept;
-  void ClosedBraketPressed(QString text) noexcept;
+  void Num(QString text) const noexcept;
+  void Dot(QString text) const noexcept;
+  void Clear() const noexcept;
+  void XVar(QString text) const noexcept;
+  void UnarClicked(QString text) const noexcept;
+  void Function(QString text) const noexcept;
+  void OperPressed(QString text) const noexcept;
+  void OpenBraketPressed(QString text) const noexcept;
+  void ClosedBraketPressed(QString text) const noexcept;
+  void EqualPressed(QString text);
+  void MemoryClear() const noexcept;
+  void ModeSelect() noexcept;
 
 private:
   ViewSmartCalc *calculator_ = nullptr;
-  Calculation calculator_model_;
+  ExpressionConverter converter_model_;
   // Qlist<Qstring> ouput_line_;
 
 private:

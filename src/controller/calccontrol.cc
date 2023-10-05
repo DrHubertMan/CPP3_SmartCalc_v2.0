@@ -4,7 +4,7 @@
 s21::CalcControl::CalcControl(ViewSmartCalc *calc) : calculator_(calc) {}
 
 s21::CalcControl::CalcControl(const CalcControl &c)
-    : calculator_(c.calculator_), calculator_model_(c.calculator_model_) {}
+    : calculator_(c.calculator_), converter_model_(c.converter_model_) {}
 
 s21::CalcControl &s21::CalcControl::operator=(const CalcControl &c) {
   if (this != &c) {
@@ -28,52 +28,67 @@ s21::CalcControl::~CalcControl() {
   calculator_ = nullptr;
 };
 
-void s21::CalcControl::SetModel(Calculation &c) noexcept {
-  calculator_model_ = c;
+void s21::CalcControl::SetModel(ExpressionConverter &e) noexcept {
+  converter_model_ = e;
 }
 
 void s21::CalcControl::swap(CalcControl &other) {
   std::swap(calculator_, other.calculator_);
-  std::swap(calculator_model_, other.calculator_model_);
+  std::swap(converter_model_, other.converter_model_);
 };
 
-void s21::CalcControl::Dot(QString text) noexcept {
+void s21::CalcControl::Dot(QString text) const noexcept {
   calculator_->SetDotOnDisplay();
 };
 
-void s21::CalcControl::Clear() noexcept {
+void s21::CalcControl::Clear() const noexcept {
   calculator_->DisplayInputClear();
 };
 
-void s21::CalcControl::XVar(QString text) noexcept {
+void s21::CalcControl::XVar(QString text) const noexcept {
   calculator_->SetXVarOnDisplay(text);
 };
 
-void s21::CalcControl::Num(QString text) noexcept {
-  //clear oper
+void s21::CalcControl::Num(QString text) const noexcept {
   calculator_->SetNumOnDisplay(text);
 };
 
-void s21::CalcControl::UnarClicked(QString text) noexcept {
+void s21::CalcControl::UnarClicked(QString text) const noexcept {
   calculator_->SetUnarSign();
 }
 
-void s21::CalcControl::Function(QString text) noexcept {
+void s21::CalcControl::Function(QString text) const noexcept {
   calculator_->SetFunction(text);
 }
 
-void s21::CalcControl::OperPressed(QString text) noexcept {
+void s21::CalcControl::OperPressed(QString text) const noexcept {
   calculator_->SetOper(text);
 }
 
-void s21::CalcControl::OpenBraketPressed(QString text) noexcept {
+void s21::CalcControl::OpenBraketPressed(QString text) const noexcept {
   calculator_->SetOpenBracket(text);
 }
 
-void s21::CalcControl::ClosedBraketPressed(QString text) noexcept {
+void s21::CalcControl::ClosedBraketPressed(QString text) const noexcept {
   calculator_->SetClosedBracket(text);
 }
 
 void s21::CalcControl::AddValueInModel(QString text) noexcept {
-  calculator_model_.AddTokenInModel(text.toStdString());
+  converter_model_.AddTokenInModel(text.toStdString());
+}
+
+void s21::CalcControl::EqualPressed(QString text) {
+  calculator_->CalculateCase();
+  converter_model_.Conversion();
+  Calculation expression_calculate(converter_model_.GetOut());
+  calculator_->SetAnswer(expression_calculate.GetValue());
+  converter_model_.Clear();
+}
+
+void s21::CalcControl::MemoryClear() const noexcept {
+  calculator_->ClearHystoryDisplay();
+}
+
+void s21::CalcControl::ModeSelect() noexcept {
+  calculator_->RadioClicked();
 }

@@ -118,6 +118,20 @@ void s21::ViewSmartCalc::SetClosedBracket(QString text) noexcept {
   control_.AddValueInModel(text);
 }
 
+void s21::ViewSmartCalc::ClearHystoryDisplay() noexcept {
+  display_hystory_->clear();
+}
+
+void s21::ViewSmartCalc::CalculateCase() noexcept { AddNumber(); }
+
+void s21::ViewSmartCalc::SetAnswer(double value) noexcept {
+  display_hystory_->append(display_down_->text() + "=" +
+                          QString::number(value, 'f', 7)
+                              .remove(QRegularExpression("0+$"))
+                              .remove(QRegularExpression("\\.$")));
+  display_down_->clear();
+}
+
 void s21::ViewSmartCalc::AddNumber() noexcept {
   if (!display_up_->text().isEmpty()) {
     if (display_up_->text().at(0) == '-') {
@@ -133,76 +147,6 @@ void s21::ViewSmartCalc::AddNumber() noexcept {
     display_up_->clear();
   }
 }
-
-// bool s21::ViewSmartCalc::CharIsOper(QChar c) noexcept {
-//   return (c == '+' || c == '-' || c == '*' || c == '/' || c == '%' || c ==
-//   '^');
-// }
-
-// double s21::ViewSmartCalc::GetXMin() {
-//   return static_cast<double>(x_min_->value());
-// }
-
-// double s21::ViewSmartCalc::GetXmax() {
-//   return static_cast<double>(x_max_->value());
-// }
-
-// QString s21::ViewSmartCalc::GetDisplayDownText() {
-//   return display_down_->text();
-// }
-
-// QString s21::ViewSmartCalc::GetDisplayXvarText() {
-//   return display_x_var_->text();
-// }
-
-// bool s21::ViewSmartCalc::DisplayUpIsDisplayXvar() {
-//   return display_up_ == display_x_var_;
-// }
-
-// bool s21::ViewSmartCalc::DisplayUpIsNull() { return display_up_ == nullptr; }
-
-// bool s21::ViewSmartCalc::DefaultModeIsChecked() {
-//   return default_mode_->isChecked();
-// }
-
-// bool s21::ViewSmartCalc::XvarIsChecked() { return x_var_->isChecked(); }
-
-// void s21::ViewSmartCalc::ShowCredit() { credit_calc_.show(); }
-
-// void s21::ViewSmartCalc::ShowDeposit() { deposit_calc_.show(); }
-
-// void s21::ViewSmartCalc::SetDisplayUpText(QString text) {
-//   display_up_->setText(text);
-// }
-
-// void s21::ViewSmartCalc::SetDisplayDownText(QString text) {
-//   display_down_->setText(text);
-// }
-
-// void s21::ViewSmartCalc::SetDisplayHistoryText(QString text) {
-//   display_hystory_->append(text);
-// }
-
-// void s21::ViewSmartCalc::SetOperatorText(QString text) {
-// oper_->setText(text); }
-
-// void s21::ViewSmartCalc::ClearOperatorLabel() { oper_->clear(); }
-
-// void s21::ViewSmartCalc::ClearDisplayUp() { display_up_->clear(); }
-
-// void s21::ViewSmartCalc::ClearDisplayDown() { display_down_->clear(); }
-
-// void s21::ViewSmartCalc::ClearDisplayHistory() { display_hystory_->clear(); }
-
-// void s21::ViewSmartCalc::SetDisplayUpFake() { display_up_ = fake_display; }
-
-// void s21::ViewSmartCalc::SetStyleSheetXvar(QString text) {
-//   x_var_->setStyleSheet(text);
-// }
-
-// void s21::ViewSmartCalc::SetDefaultModeChecked(bool value) {
-//   default_mode_->setChecked(value);
-// }
 
 void s21::ViewSmartCalc::SetController(CalcControl &control) {
   control_ = control;
@@ -321,6 +265,8 @@ void s21::ViewSmartCalc::InitOperatorButton() {
   btn_eq_.setPos(190, 250);
   btn_eq_.SetGeometry(50, 110);
   btn_eq_.setText("=");
+  connect(&btn_eq_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::EqualPressed);
 
   btn_exp_.setPos(250, 130);
   btn_exp_.SetGeometry(50, 50);
@@ -399,6 +345,8 @@ void s21::ViewSmartCalc::InitFunctionButton() {
   btn_mc_.setPos(250, 70);
   btn_mc_.SetGeometry(50, 50);
   btn_mc_.setText("MC");
+  connect(&btn_mc_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::MemoryClear);
 
   btn_x_.setPos(10, 250);
   btn_x_.SetGeometry(50, 50);
@@ -471,21 +419,21 @@ void s21::ViewSmartCalc::InitTextElement() {
   x_var_->setGeometry(330, 310, 80, 20);
   x_var_->setText("x-var");
   x_var_->setStyleSheet("background: #008080; color: white; font: 12pt");
-  connect(x_var_, &QRadioButton::clicked, this, [=]() { RadioClicked(); });
+  connect(x_var_, &QRadioButton::clicked, &control_, &CalcControl::ModeSelect);
 
   x_func_ = new QRadioButton();
   x_func_->setGeometry(330, 330, 80, 20);
   x_func_->setText("x-func");
   x_func_->setStyleSheet("background: #008080; color: white; font: 12pt");
-  connect(x_func_, &QRadioButton::clicked, this, [=]() { RadioClicked(); });
+  connect(x_func_, &QRadioButton::clicked, &control_, &CalcControl::ModeSelect);
 
   default_mode_ = new QRadioButton();
   default_mode_->setGeometry(330, 350, 80, 20);
   default_mode_->setText("default");
   default_mode_->setChecked(true);
   default_mode_->setStyleSheet("background: #008080; color: white; font: 12pt");
-  connect(default_mode_, &QRadioButton::clicked, this,
-          [=]() { RadioClicked(); });
+  connect(default_mode_, &QRadioButton::clicked, &control_,
+          &CalcControl::ModeSelect);
 
   x_group_ = new QButtonGroup();
   x_group_->addButton(x_var_);
