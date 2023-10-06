@@ -24,9 +24,7 @@ s21::CalcControl &s21::CalcControl::operator=(CalcControl &&c) {
   return *this;
 }
 
-s21::CalcControl::~CalcControl() {
-  calculator_ = nullptr;
-};
+s21::CalcControl::~CalcControl() { calculator_ = nullptr; };
 
 void s21::CalcControl::SetModel(ExpressionConverter &e) noexcept {
   converter_model_ = e;
@@ -79,9 +77,21 @@ void s21::CalcControl::AddValueInModel(QString text) noexcept {
 
 void s21::CalcControl::EqualPressed(QString text) {
   calculator_->CalculateCase();
-  converter_model_.Conversion();
-  Calculation expression_calculate(converter_model_.GetOut());
-  calculator_->SetAnswer(expression_calculate.GetValue());
+
+  bool check_conversion = true;
+  try {
+    converter_model_.Conversion();
+  } catch (std::invalid_argument) {
+    check_conversion = false;
+  }
+  if (check_conversion) {
+    Calculation expression_calculate(converter_model_.GetOut());
+    calculator_->SetAnswer(QString::number(expression_calculate.GetValue(), 'f', 7)
+                              .remove(QRegularExpression("0+$"))
+                              .remove(QRegularExpression("\\.$")));
+  } else {
+    calculator_->SetAnswer("Wrong expression");
+  }
   converter_model_.Clear();
 }
 
@@ -89,6 +99,4 @@ void s21::CalcControl::MemoryClear() const noexcept {
   calculator_->ClearHystoryDisplay();
 }
 
-void s21::CalcControl::ModeSelect() noexcept {
-  calculator_->RadioClicked();
-}
+void s21::CalcControl::ModeSelect() noexcept { calculator_->RadioClicked(); }

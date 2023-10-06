@@ -46,7 +46,7 @@ public:
   void ClearHystoryDisplay() noexcept;
   void CalculateCase() noexcept;
   void RadioClicked();
-  void SetAnswer(double value) noexcept;
+  void SetAnswer(QString value) noexcept;
 
   // double GetXMin();
   // double GetXmax();
@@ -74,6 +74,7 @@ private:
   void AddLineAtScene();
   void DisplayChange();
   void AddNumber() noexcept;
+  bool CheckState()const noexcept;
   // bool CharIsOper(QChar c) noexcept;
 
 private:

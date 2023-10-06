@@ -97,7 +97,8 @@ void s21::ViewSmartCalc::SetFunction(QString text) noexcept {
 }
 
 void s21::ViewSmartCalc::SetOper(QString text) noexcept {
-  if (!display_up_->text().isEmpty() || !display_down_->text().isEmpty()) {
+  bool check_oper = CheckState();
+  if ((!display_up_->text().isEmpty() || !display_down_->text().isEmpty()) && !check_oper) {
     oper_->setText(text);
     AddNumber();
     display_down_->setText(display_down_->text() + text);
@@ -124,11 +125,8 @@ void s21::ViewSmartCalc::ClearHystoryDisplay() noexcept {
 
 void s21::ViewSmartCalc::CalculateCase() noexcept { AddNumber(); }
 
-void s21::ViewSmartCalc::SetAnswer(double value) noexcept {
-  display_hystory_->append(display_down_->text() + "=" +
-                          QString::number(value, 'f', 7)
-                              .remove(QRegularExpression("0+$"))
-                              .remove(QRegularExpression("\\.$")));
+void s21::ViewSmartCalc::SetAnswer(QString value) noexcept {
+  display_hystory_->append(display_down_->text() + "=" + value);
   display_down_->clear();
 }
 
@@ -550,3 +548,14 @@ void s21::ViewSmartCalc::RadioClicked() {
     DisplayChange();
   }
 };
+
+bool s21::ViewSmartCalc::CheckState() const noexcept {
+  bool result = false;
+  if (!display_down_->text().isEmpty()) {
+    QChar last_char =
+        display_down_->text().at(display_down_->text().length() - 1);
+    result = (last_char == '-' || last_char == '+' || last_char == '/' ||
+              last_char == '*' || last_char == '%' || last_char == '^');
+  }
+  return result;
+}
