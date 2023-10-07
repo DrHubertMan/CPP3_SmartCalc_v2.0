@@ -37,6 +37,8 @@ void s21::CalculatorButton::paint(QPainter *painter,
     painter->setFont(QFont("Monaco", 12));
     painter->drawText(QRectF(0, 0, width_, heigth_), Qt::AlignCenter, text_);
   }
+  option = nullptr;
+  widget = nullptr;
 };
 
 void s21::CalculatorButton::SetGeometry(int heigth, int width) noexcept {
@@ -64,51 +66,13 @@ void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
   update();
   // if (parent_ != nullptr) {
   //   Element token(text_.toStdString());
-  //   if (token.IsEq()) {
-  //     EqCase();
-  //   } else if (token.IsNumber() && CheckForAdd()) {
-
   //   } else if (token.IsX()) {
   //     if (CheckForAdd()) {
   //       parent_->SetDisplayUpText(text_);
   //       parent_->SetStyleSheetXvar(
   //           "background: #008080; color: red; font: 12pt");
   //     }
-  //   } else if (token.IsOperator() && CheckDisplaysStatus()) {
-  //     parent_->SetOperatorText(text_);
-  //     Adder();
-  //   } else if (token.IsFunciotn() && parent_->GetDisplayUpText().isEmpty()) {
-  //   } else if (token.IsClosedBracket()) {
-  //     Adder();
-  //   } else if (token.IsPoint()) {
-  //   } else if (token.IsOpenBracket()) {
-  //     QChar last_char;
-  //     bool digit_end_input_line = false;
-  //     bool display_down_is_empty = parent_->GetDisplayDownText().isEmpty();
-  //     if (!display_down_is_empty) {
-  //       last_char = parent_->GetDisplayDownText().at(
-  //           parent_->GetDisplayDownText().length() - 1);
-  //       if (last_char.isDigit()) {
-  //         digit_end_input_line = true;
-  //       }
-  //     }
-  //     if ((display_down_is_empty || !digit_end_input_line) &&
-  //         last_char != ')') {
-  //       parent_->SetDisplayDownText(parent_->GetDisplayDownText() + text_);
-  //       parent_->output_line_.push_back(text_);
-  //     }
-  //   } else if (text_ == "AC") {
-  //   } else if (text_ == "MC") {
-  //     parent_->ClearDisplayHistory();
   //   } else if (text_.at(0) == QChar(0x000000B1)) {
-  //     if (!parent_->GetDisplayUpText().isEmpty()) {
-  //       QChar first_char = parent_->GetDisplayUpText().at(0);
-  //       if (first_char.isDigit()) {
-  //         parent_->SetDisplayUpText("-" + parent_->GetDisplayUpText());
-  //       } else {
-  //         parent_->SetDisplayUpText(parent_->GetDisplayUpText().remove(0, 1));
-  //       }
-  //     }
   //   } else if (text_ == "Credit_Calc") {
   //     parent_->ShowCredit();
   //   } else if (text_ == "Deposit_calc") {

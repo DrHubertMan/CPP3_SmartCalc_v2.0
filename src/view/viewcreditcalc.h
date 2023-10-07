@@ -17,7 +17,7 @@ namespace s21 {
 
 class ViewCreditCalc : public QGraphicsView {
 public:
-  ViewCreditCalc(QWidget *parent = nullptr);
+  ViewCreditCalc();
 
   bool GetChecked() const noexcept;
   double GetAllSum() const noexcept;

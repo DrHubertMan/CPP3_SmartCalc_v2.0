@@ -1,6 +1,6 @@
 #include "viewcreditcalc.h"
 
-s21::ViewCreditCalc::ViewCreditCalc(QWidget *parent) {
+s21::ViewCreditCalc::ViewCreditCalc() {
   setAttribute(Qt::WA_QuitOnClose, false);
   setRenderHint(QPainter::Antialiasing);
   setCacheMode(QGraphicsView::CacheNone);

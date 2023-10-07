@@ -35,14 +35,15 @@ void s21::ViewSmartCalc::GraphShow(QVector<double> x,
   graph_->yAxis->setLabel("y");
   graph_->xAxis->setRange(x_min_->value(), x_max_->value());
   graph_->yAxis->setRange(y_min_->value(), y_max_->value());
-  graph_->resize(800, 800);
-  graph_->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+  graph_->resize(300, 300);
+  graph_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
   graph_->graph(0)->setLineStyle(QCPGraph::lsNone);
   QCPScatterStyle scatter_style =
       QCPScatterStyle(QCPScatterStyle::ssDisc, Qt::darkGreen, 3.0);
   graph_->graph(0)->setScatterStyle(scatter_style);
   display_down_->clear();
   graph_->setStyleSheet("background: #008080; color: white; font: 12pt");
+  graph_->setGeometry();
   graph_->show();
 }
 
@@ -65,6 +66,7 @@ void s21::ViewSmartCalc::DisplayInputClear() noexcept {
   display_down_->clear();
   oper_->clear();
   x_var_->setStyleSheet("background: #008080; color: white; font: 12pt");
+  control_.ClearModel();
 }
 
 void s21::ViewSmartCalc::SetDotOnDisplay() noexcept {
@@ -97,10 +99,10 @@ void s21::ViewSmartCalc::SetFunction(QString text) noexcept {
 }
 
 void s21::ViewSmartCalc::SetOper(QString text) noexcept {
+  AddNumber();
   bool check_oper = CheckState();
-  if ((!display_up_->text().isEmpty() || !display_down_->text().isEmpty()) && !check_oper) {
+  if (!check_oper) {
     oper_->setText(text);
-    AddNumber();
     display_down_->setText(display_down_->text() + text);
     display_up_->clear();
     control_.AddValueInModel(text);
@@ -115,8 +117,11 @@ void s21::ViewSmartCalc::SetOpenBracket(QString text) noexcept {
 
 void s21::ViewSmartCalc::SetClosedBracket(QString text) noexcept {
   AddNumber();
-  display_down_->setText(display_down_->text() + text);
-  control_.AddValueInModel(text);
+  bool check_oper = CheckState();
+  if (!check_oper) {
+    display_down_->setText(display_down_->text() + text);
+    control_.AddValueInModel(text);
+  }
 }
 
 void s21::ViewSmartCalc::ClearHystoryDisplay() noexcept {

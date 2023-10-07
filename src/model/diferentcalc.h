@@ -34,8 +34,6 @@ private:
   double percent_;
   /// @brief Срок кредитования в месяцах
   int term_;
-  /// @brief Ежемесячный платеж
-  double mountly_pay_;
 
   /// @brief Общая сумма выплат
   double all_pay_;

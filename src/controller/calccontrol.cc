@@ -35,7 +35,7 @@ void s21::CalcControl::swap(CalcControl &other) {
   std::swap(converter_model_, other.converter_model_);
 };
 
-void s21::CalcControl::Dot(QString text) const noexcept {
+void s21::CalcControl::Dot() const noexcept {
   calculator_->SetDotOnDisplay();
 };
 
@@ -51,7 +51,7 @@ void s21::CalcControl::Num(QString text) const noexcept {
   calculator_->SetNumOnDisplay(text);
 };
 
-void s21::CalcControl::UnarClicked(QString text) const noexcept {
+void s21::CalcControl::UnarClicked() const noexcept {
   calculator_->SetUnarSign();
 }
 
@@ -75,7 +75,7 @@ void s21::CalcControl::AddValueInModel(QString text) noexcept {
   converter_model_.AddTokenInModel(text.toStdString());
 }
 
-void s21::CalcControl::EqualPressed(QString text) {
+void s21::CalcControl::EqualPressed() {
   calculator_->CalculateCase();
 
   bool check_conversion = true;
@@ -92,11 +92,15 @@ void s21::CalcControl::EqualPressed(QString text) {
   } else {
     calculator_->SetAnswer("Wrong expression");
   }
-  converter_model_.Clear();
+  ClearModel();
 }
 
 void s21::CalcControl::MemoryClear() const noexcept {
   calculator_->ClearHystoryDisplay();
+}
+
+void s21::CalcControl::ClearModel() noexcept {
+  converter_model_.Clear();
 }
 
 void s21::CalcControl::ModeSelect() noexcept { calculator_->RadioClicked(); }

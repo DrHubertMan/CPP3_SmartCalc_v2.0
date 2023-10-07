@@ -24,17 +24,18 @@ public:
 
   void AddValueInModel(QString text) noexcept;
   void SetModel(ExpressionConverter &e) noexcept;
+  void ClearModel() noexcept;
 public slots:
   void Num(QString text) const noexcept;
-  void Dot(QString text) const noexcept;
+  void Dot() const noexcept;
   void Clear() const noexcept;
   void XVar(QString text) const noexcept;
-  void UnarClicked(QString text) const noexcept;
+  void UnarClicked() const noexcept;
   void Function(QString text) const noexcept;
   void OperPressed(QString text) const noexcept;
   void OpenBraketPressed(QString text) const noexcept;
   void ClosedBraketPressed(QString text) const noexcept;
-  void EqualPressed(QString text);
+  void EqualPressed();
   void MemoryClear() const noexcept;
   void ModeSelect() noexcept;
 

@@ -49,11 +49,14 @@ void s21::ExpressionConverter::Clear() noexcept {
 
 void s21::ExpressionConverter::Conversion() {
   std::stack<std::string> transformator;
+  if (input_string_.size() == 1) {
+    Check();
+  }
   while (!input_string_.empty()) {
     Element token(input_string_.front());
     input_string_.pop_front();
 
-    if (token.IsNumber()) {
+    if (token.IsNumber() || token.IsX()) {
 
       output_string_.push_back(token.GetData());
     } else if (token.IsFunciotn()) {
@@ -76,6 +79,13 @@ void s21::ExpressionConverter::Conversion() {
   }
   EmptyTheStack(transformator);
 };
+
+void s21::ExpressionConverter::Check() {
+  Element token(input_string_.front());
+  if (token.IsOperator()) {
+    throw std::invalid_argument("\nInvalid expression_0\n");
+  }
+}
 
 void s21::ExpressionConverter::PullOverStack(
     std::stack<std::string> &transformator) {
