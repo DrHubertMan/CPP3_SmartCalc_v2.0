@@ -8,13 +8,16 @@ s21::GraphModel::GraphModel(double min, double max,
 
 void s21::GraphModel::Calculate() noexcept {
   for (; x_min_ < x_max_; x_min_ += 0.125) {
+    std::list<std::string> expression;
     x_coordinate_.push_back(x_min_);
     for (auto &item : postfix_expression_) {
       if (item == "x") {
-        item = std::to_string(x_min_);
+        expression.push_back(std::to_string(x_min_));
+      } else {
+        expression.push_back(item);
       }
     }
-    Calculation y_value(postfix_expression_);
+    Calculation y_value(expression);
     y_coordinate.push_back(y_value.GetValue());
   }
 };

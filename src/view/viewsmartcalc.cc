@@ -31,17 +31,13 @@ s21::ViewSmartCalc::~ViewSmartCalc() {
 
 void s21::ViewSmartCalc::GraphShow() noexcept {
   graph_->addGraph();
-  // graph_->graph(0)->setData(x, y);
   graph_->xAxis->setLabel("x");
   graph_->yAxis->setLabel("y");
   graph_->xAxis->setRange(x_min_->value(), x_max_->value());
   graph_->yAxis->setRange(y_min_->value(), y_max_->value());
-  // graph_->resize(300, 300);
   graph_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  // display_down_->clear();
   graph_->setBackground(QBrush(Qt::darkCyan));
   graph_->setGeometry(300, 450, 350, 350);
-  // graph_->show();
 }
 
 void s21::ViewSmartCalc::SetNumOnDisplay(QString text) noexcept {
@@ -156,9 +152,6 @@ void s21::ViewSmartCalc::UpdateGraph(std::vector<double> x,
                                      std::vector<double> y) noexcept {
   graph_->clearGraphs();
   graph_->addGraph();
-  for (const auto &item : y) {
-    std::cout << item << " ";
-  }
   std::cout << std::endl;
   QVector<double> q_x(x.begin(), x.end());
   QVector<double> q_y(y.begin(), y.end());
