@@ -14,6 +14,9 @@ s21::ViewSmartCalc::ViewSmartCalc(QWidget *parent) : QGraphicsView(parent) {
   scene_->setItemIndexMethod(QGraphicsScene::NoIndex);
   setScene(scene_);
   InitViewElement();
+  graph_ = new QCustomPlot;
+  GraphShow();
+  AddWidgetAtScene();
   setBackgroundBrush(QBrush(Qt::darkCyan));
 };
 
@@ -26,25 +29,19 @@ s21::ViewSmartCalc::~ViewSmartCalc() {
     delete oper_;
 };
 
-void s21::ViewSmartCalc::GraphShow(QVector<double> x,
-                                   QVector<double> y) noexcept {
-  graph_ = new QCustomPlot;
+void s21::ViewSmartCalc::GraphShow() noexcept {
   graph_->addGraph();
-  graph_->graph(0)->setData(x, y);
+  // graph_->graph(0)->setData(x, y);
   graph_->xAxis->setLabel("x");
   graph_->yAxis->setLabel("y");
   graph_->xAxis->setRange(x_min_->value(), x_max_->value());
   graph_->yAxis->setRange(y_min_->value(), y_max_->value());
-  graph_->resize(300, 300);
+  // graph_->resize(300, 300);
   graph_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-  graph_->graph(0)->setLineStyle(QCPGraph::lsNone);
-  QCPScatterStyle scatter_style =
-      QCPScatterStyle(QCPScatterStyle::ssDisc, Qt::darkGreen, 3.0);
-  graph_->graph(0)->setScatterStyle(scatter_style);
-  display_down_->clear();
-  graph_->setStyleSheet("background: #008080; color: white; font: 12pt");
-  graph_->setGeometry();
-  graph_->show();
+  // display_down_->clear();
+  graph_->setBackground(QBrush(Qt::darkCyan));
+  graph_->setGeometry(300, 450, 350, 350);
+  // graph_->show();
 }
 
 void s21::ViewSmartCalc::SetNumOnDisplay(QString text) noexcept {
@@ -155,13 +152,30 @@ void s21::ViewSmartCalc::SetController(CalcControl &control) {
   control_ = control;
 };
 
+void s21::ViewSmartCalc::UpdateGraph(std::vector<double> x,
+                                     std::vector<double> y) noexcept {
+  graph_->clearGraphs();
+  graph_->addGraph();
+  for (const auto &item : y) {
+    std::cout << item << " ";
+  }
+  std::cout << std::endl;
+  QVector<double> q_x(x.begin(), x.end());
+  QVector<double> q_y(y.begin(), y.end());
+  graph_->graph(0)->setData(q_x, q_y);
+  graph_->graph(0)->setLineStyle(QCPGraph::lsNone);
+  QCPScatterStyle scatter_style =
+      QCPScatterStyle(QCPScatterStyle::ssDisc, Qt::white, 3.0);
+  graph_->graph(0)->setScatterStyle(scatter_style);
+  graph_->replot();
+}
+
 void s21::ViewSmartCalc::InitViewElement() {
   InitNumberButtton();
   InitOperatorButton();
   InitFunctionButton();
   InitTextElement();
   InitSpinBox();
-  AddWidgetAtScene();
 };
 
 void s21::ViewSmartCalc::InitNumberButtton() {
@@ -333,8 +347,8 @@ void s21::ViewSmartCalc::InitFunctionButton() {
   connect(&btn_log_, &CalculatorButton::KeyPressed, &control_,
           &CalcControl::Function);
 
-  btn_sqrt_.setPos(330, 250);
-  btn_sqrt_.SetGeometry(50, 310);
+  btn_sqrt_.setPos(490, 250);
+  btn_sqrt_.SetGeometry(50, 150);
   btn_sqrt_.setText("sqrt");
   connect(&btn_sqrt_, &CalculatorButton::KeyPressed, &control_,
           &CalcControl::Function);
@@ -357,12 +371,18 @@ void s21::ViewSmartCalc::InitFunctionButton() {
   connect(&btn_x_, &CalculatorButton::KeyPressed, &control_,
           &CalcControl::XVar);
 
-  btn_show_credit_.setPos(330, 450);
-  btn_show_credit_.SetGeometry(50, 310);
+  btn_graph_.setPos(330, 250);
+  btn_graph_.SetGeometry(50, 150);
+  btn_graph_.setText("Graph");
+  connect(&btn_graph_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::GraphPressed);
+
+  btn_show_credit_.setPos(490, 310);
+  btn_show_credit_.SetGeometry(25, 150);
   btn_show_credit_.setText("Credit_Calc");
 
-  btn_show_deposit_.setPos(330, 510);
-  btn_show_deposit_.SetGeometry(50, 310);
+  btn_show_deposit_.setPos(490, 340);
+  btn_show_deposit_.SetGeometry(25, 150);
   btn_show_deposit_.setText("Deposit_calc");
 };
 
@@ -378,7 +398,7 @@ void s21::ViewSmartCalc::InitTextElement() {
   display_down_->setStyleSheet("background: #326759; color: white; font: 15pt");
 
   display_x_var_ = new QLineEdit();
-  display_x_var_->setGeometry(420, 310, 80, 30);
+  display_x_var_->setGeometry(400, 310, 80, 30);
   display_x_var_->setReadOnly(true);
   display_x_var_->setStyleSheet(
       "background: #326759; color: white; font: 15pt");
@@ -424,14 +444,15 @@ void s21::ViewSmartCalc::InitTextElement() {
   x_var_->setStyleSheet("background: #008080; color: white; font: 12pt");
   connect(x_var_, &QRadioButton::clicked, &control_, &CalcControl::ModeSelect);
 
-  x_func_ = new QRadioButton();
-  x_func_->setGeometry(330, 330, 80, 20);
-  x_func_->setText("x-func");
-  x_func_->setStyleSheet("background: #008080; color: white; font: 12pt");
-  connect(x_func_, &QRadioButton::clicked, &control_, &CalcControl::ModeSelect);
+  // x_func_ = new QRadioButton();
+  // x_func_->setGeometry(330, 330, 80, 20);
+  // x_func_->setText("x-func");
+  // x_func_->setStyleSheet("background: #008080; color: white; font: 12pt");
+  // connect(x_func_, &QRadioButton::clicked, &control_,
+  // &CalcControl::ModeSelect);
 
   default_mode_ = new QRadioButton();
-  default_mode_->setGeometry(330, 350, 80, 20);
+  default_mode_->setGeometry(330, 330, 80, 20);
   default_mode_->setText("default");
   default_mode_->setChecked(true);
   default_mode_->setStyleSheet("background: #008080; color: white; font: 12pt");
@@ -440,7 +461,7 @@ void s21::ViewSmartCalc::InitTextElement() {
 
   x_group_ = new QButtonGroup();
   x_group_->addButton(x_var_);
-  x_group_->addButton(x_func_);
+  // x_group_->addButton(x_func_);
   x_group_->addButton(default_mode_);
 };
 
@@ -448,26 +469,26 @@ void s21::ViewSmartCalc::InitSpinBox() {
   x_min_ = new QSpinBox();
   x_min_->setGeometry(380, 380, 80, 20);
   x_min_->setRange(-1000000, 1000000);
-  x_min_->setValue(0);
-  x_min_->setStyleSheet("background: #008080; color: white; font: 10pt");
+  x_min_->setValue(-10);
+  x_min_->setStyleSheet("background: #326759; color: white; font: 10pt");
 
   x_max_ = new QSpinBox();
   x_max_->setGeometry(520, 380, 80, 20);
   x_max_->setRange(-1000000, 1000000);
-  x_max_->setValue(0);
-  x_max_->setStyleSheet("background: #008080; color: white; font: 10pt");
+  x_max_->setValue(10);
+  x_max_->setStyleSheet("background: #326759; color: white; font: 10pt");
 
   y_min_ = new QSpinBox();
   y_min_->setGeometry(380, 410, 80, 20);
   y_min_->setRange(-1000000, 1000000);
-  y_min_->setValue(0);
-  y_min_->setStyleSheet("background: #008080; color: white; font: 10pt");
+  y_min_->setValue(-3);
+  y_min_->setStyleSheet("background: #326759; color: white; font: 10pt");
 
   y_max_ = new QSpinBox();
   y_max_->setGeometry(520, 410, 80, 20);
   y_max_->setRange(-1000000, 1000000);
-  y_max_->setValue(0);
-  y_max_->setStyleSheet("background: #008080; color: white; font: 10pt");
+  y_max_->setValue(3);
+  y_max_->setStyleSheet("background: #326759; color: white; font: 10pt");
 };
 
 void s21::ViewSmartCalc::AddWidgetAtScene() {
@@ -506,9 +527,10 @@ void s21::ViewSmartCalc::AddWidgetAtScene() {
   scene_->addItem(&btn_x_);
   scene_->addItem(&btn_show_credit_);
   scene_->addItem(&btn_show_deposit_);
+  scene_->addItem(&btn_graph_);
 
   scene_->addWidget(x_var_);
-  scene_->addWidget(x_func_);
+  // scene_->addWidget(x_func_);
   scene_->addWidget(default_mode_);
   scene_->addWidget(oper_);
   scene_->addWidget(display_hystory_);
@@ -526,6 +548,8 @@ void s21::ViewSmartCalc::AddWidgetAtScene() {
   scene_->addWidget(x_max_label_);
   scene_->addWidget(y_min_label_);
   scene_->addWidget(y_max_label_);
+
+  scene_->addWidget(graph_);
 };
 
 void s21::ViewSmartCalc::DisplayChange() {
@@ -538,20 +562,19 @@ void s21::ViewSmartCalc::DisplayChange() {
 
 void s21::ViewSmartCalc::RadioClicked() {
   if (x_var_->isChecked()) {
-    display_down_->setText(display_down_->text() + display_up_->text());
-    output_line_.push_back(display_up_->text());
-    display_up_->clear();
+    AddNumber();
     fake_display = display_up_;
     display_up_ = display_x_var_;
   } else if (default_mode_->isChecked()) {
     DisplayChange();
-  } else if (x_func_->isChecked()) {
-    display_down_->setText(display_down_->text() + display_up_->text());
-    output_line_.push_back(display_up_->text());
-    oper_->clear();
-    display_hystory_->append(display_down_->text() + "(function graph)");
-    DisplayChange();
   }
+  // else if (x_func_->isChecked()) {
+  //   display_down_->setText(display_down_->text() + display_up_->text());
+  //   output_line_.push_back(display_up_->text());
+  //   oper_->clear();
+  //   display_hystory_->append(display_down_->text() + "(function graph)");
+  //   DisplayChange();
+  // }
 };
 
 bool s21::ViewSmartCalc::CheckState() const noexcept {
@@ -564,3 +587,6 @@ bool s21::ViewSmartCalc::CheckState() const noexcept {
   }
   return result;
 }
+
+double s21::ViewSmartCalc::GetXMin() { return x_min_->value(); }
+double s21::ViewSmartCalc::GetXmax() { return x_max_->value(); }

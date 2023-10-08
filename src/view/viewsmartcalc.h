@@ -15,6 +15,7 @@
 #include <QSpinBox>
 #include <QTextEdit>
 #include <QWidget>
+#include <vector>
 
 #include "../controller/calccontrol.h"
 #include "calclulatorbutton.h"
@@ -30,10 +31,8 @@ public:
   ViewSmartCalc(QWidget *parent = nullptr);
   ~ViewSmartCalc();
 
-  QList<QString> output_line_;
-
 public:
-  void GraphShow(QVector<double> x, QVector<double> y) noexcept;
+  void GraphShow() noexcept;
   void SetNumOnDisplay(QString text) noexcept;
   void SetXVarOnDisplay(QString text) noexcept;
   void DisplayInputClear() noexcept;
@@ -47,18 +46,17 @@ public:
   void CalculateCase() noexcept;
   void RadioClicked();
   void SetAnswer(QString value) noexcept;
+  void UpdateGraph(std::vector<double> x, std::vector<double> y) noexcept;
 
-  // double GetXMin();
-  // double GetXmax();
+  double GetXMin();
+  double GetXmax();
   // QString GetDisplayXvarText();
   // bool DisplayUpIsDisplayXvar();
   // bool DisplayUpIsNull();
   // bool DefaultModeIsChecked();
   // bool XvarIsChecked();
 
-
   void SetController(CalcControl &control);
-
 
 private:
   void InitViewElement();
@@ -147,6 +145,8 @@ private:
   CalculatorButton btn_ac_{this};
   CalculatorButton btn_mc_{this};
   CalculatorButton btn_x_{this};
+
+  CalculatorButton btn_graph_{this};
 
   QGraphicsScene *scene_;
   QButtonGroup *x_group_;

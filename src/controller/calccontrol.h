@@ -6,6 +6,7 @@
 
 #include "../model/calculation.h"
 #include "../model/expressionConverter.h"
+#include "../model/graph_model.h"
 
 namespace s21 {
 class ViewSmartCalc;
@@ -38,6 +39,7 @@ public slots:
   void EqualPressed();
   void MemoryClear() const noexcept;
   void ModeSelect() noexcept;
+  void GraphPressed();
 
 private:
   ViewSmartCalc *calculator_ = nullptr;
@@ -46,6 +48,7 @@ private:
 
 private:
   void swap(CalcControl &other);
+  bool CheckConversion();
 };
 } // namespace s21
 

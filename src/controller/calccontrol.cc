@@ -35,9 +35,7 @@ void s21::CalcControl::swap(CalcControl &other) {
   std::swap(converter_model_, other.converter_model_);
 };
 
-void s21::CalcControl::Dot() const noexcept {
-  calculator_->SetDotOnDisplay();
-};
+void s21::CalcControl::Dot() const noexcept { calculator_->SetDotOnDisplay(); };
 
 void s21::CalcControl::Clear() const noexcept {
   calculator_->DisplayInputClear();
@@ -78,17 +76,12 @@ void s21::CalcControl::AddValueInModel(QString text) noexcept {
 void s21::CalcControl::EqualPressed() {
   calculator_->CalculateCase();
 
-  bool check_conversion = true;
-  try {
-    converter_model_.Conversion();
-  } catch (std::invalid_argument) {
-    check_conversion = false;
-  }
-  if (check_conversion) {
+  if (CheckConversion()) {
     Calculation expression_calculate(converter_model_.GetOut());
-    calculator_->SetAnswer(QString::number(expression_calculate.GetValue(), 'f', 7)
-                              .remove(QRegularExpression("0+$"))
-                              .remove(QRegularExpression("\\.$")));
+    calculator_->SetAnswer(
+        QString::number(expression_calculate.GetValue(), 'f', 7)
+            .remove(QRegularExpression("0+$"))
+            .remove(QRegularExpression("\\.$")));
   } else {
     calculator_->SetAnswer("Wrong expression");
   }
@@ -99,8 +92,30 @@ void s21::CalcControl::MemoryClear() const noexcept {
   calculator_->ClearHystoryDisplay();
 }
 
-void s21::CalcControl::ClearModel() noexcept {
-  converter_model_.Clear();
-}
+void s21::CalcControl::ClearModel() noexcept { converter_model_.Clear(); }
 
 void s21::CalcControl::ModeSelect() noexcept { calculator_->RadioClicked(); }
+
+void s21::CalcControl::GraphPressed() {
+  calculator_->CalculateCase();
+
+  if (CheckConversion()) {
+    GraphModel graph_data(calculator_->GetXMin(), calculator_->GetXmax(),
+                          converter_model_.GetOut());
+    calculator_->UpdateGraph(graph_data.GetX(), graph_data.GetY());
+    calculator_->SetAnswer("graph");
+  } else {
+    calculator_->SetAnswer("Wrong expression");
+  }
+  ClearModel();
+}
+
+bool s21::CalcControl::CheckConversion() {
+  bool check_conversion = true;
+  try {
+    converter_model_.Conversion();
+  } catch (std::invalid_argument) {
+    check_conversion = false;
+  }
+  return check_conversion;
+}

@@ -28,6 +28,7 @@ set(PROJECT_SOURCES
     ../model/anuitetcalc.h
     ../model/diferentcalc.h
     ../model/deposit.h
+    ../model/graph_model.h
     ../controller/calccontrol.cc
     ../view/viewsmartcalc.cc
     ../view/viewcreditcalc.cc
@@ -40,6 +41,7 @@ set(PROJECT_SOURCES
     ../model/anuitetcalc.cc
     ../model/diferentcalc.cc
     ../model/deposit.cc
+    ../model/graph_model.cc
     main.cpp
 )
 
