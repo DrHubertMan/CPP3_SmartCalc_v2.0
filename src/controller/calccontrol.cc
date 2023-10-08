@@ -77,15 +77,25 @@ void s21::CalcControl::EqualPressed() {
   calculator_->CalculateCase();
 
   if (CheckConversion()) {
-    Calculation expression_calculate(converter_model_.GetOut());
-    calculator_->SetAnswer(
-        QString::number(expression_calculate.GetValue(), 'f', 7)
-            .remove(QRegularExpression("0+$"))
-            .remove(QRegularExpression("\\.$")));
+    if (calculator_->XvarIsChecked()) {
+      Calculation expression_calculate(converter_model_.GetOut(),
+                                       calculator_->GetDisplayXvarValue());
+      calculator_->SetAnswer(
+          QString::number(expression_calculate.GetValue(), 'f', 7)
+              .remove(QRegularExpression("0+$"))
+              .remove(QRegularExpression("\\.$")));
+    } else {
+      Calculation expression_calculate(converter_model_.GetOut());
+      calculator_->SetAnswer(
+          QString::number(expression_calculate.GetValue(), 'f', 7)
+              .remove(QRegularExpression("0+$"))
+              .remove(QRegularExpression("\\.$")));
+    }
   } else {
     calculator_->SetAnswer("Wrong expression");
   }
-  ClearModel();
+  // ClearModel();
+  Clear();
 }
 
 void s21::CalcControl::MemoryClear() const noexcept {
@@ -107,7 +117,7 @@ void s21::CalcControl::GraphPressed() {
   } else {
     calculator_->SetAnswer("Wrong expression");
   }
-  ClearModel();
+  Clear();
 }
 
 bool s21::CalcControl::CheckConversion() {

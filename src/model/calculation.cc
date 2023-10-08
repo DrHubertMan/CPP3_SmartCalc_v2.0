@@ -5,9 +5,18 @@ s21::Calculation::Calculation(std::list<std::string> input)
   Calc();
 };
 
+s21::Calculation::Calculation(std::list<std::string> input, double x_var)
+    : input_string_(input) {
+  for (auto &item : input_string_) {
+    if (item == "x") {
+      item = std::to_string(x_var);
+    }
+  }
+  Calc();
+}
+
 s21::Calculation::Calculation(const Calculation &c)
-    : input_string_(c.input_string_), value_(c.value_) {
-};
+    : input_string_(c.input_string_), value_(c.value_){};
 
 s21::Calculation &s21::Calculation::operator=(const Calculation &c) {
   if (this != &c) {
@@ -17,9 +26,7 @@ s21::Calculation &s21::Calculation::operator=(const Calculation &c) {
   return *this;
 };
 
-s21::Calculation::Calculation(Calculation &&c) : Calculation() {
-  swap(c);
-};
+s21::Calculation::Calculation(Calculation &&c) : Calculation() { swap(c); };
 
 s21::Calculation &s21::Calculation::operator=(Calculation &&c) {
   if (this != &c) {

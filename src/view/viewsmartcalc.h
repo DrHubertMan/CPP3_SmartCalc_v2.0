@@ -50,11 +50,11 @@ public:
 
   double GetXMin();
   double GetXmax();
-  // QString GetDisplayXvarText();
+  double GetDisplayXvarValue() const noexcept;
   // bool DisplayUpIsDisplayXvar();
   // bool DisplayUpIsNull();
   // bool DefaultModeIsChecked();
-  // bool XvarIsChecked();
+  bool XvarIsChecked() const noexcept;
 
   void SetController(CalcControl &control);
 

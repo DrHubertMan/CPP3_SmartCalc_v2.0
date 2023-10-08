@@ -21,6 +21,8 @@ public:
   /// @param input список токенов для вычисления типа std::string
   explicit Calculation(std::list<std::string> input);
 
+  Calculation(std::list<std::string> input, double x_var);
+
   /// @brief Конструктор копирования
   Calculation(const Calculation &c);
   /// @brief Перегрузка оператора присваивания копированием  

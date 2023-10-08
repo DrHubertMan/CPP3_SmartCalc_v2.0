@@ -33,6 +33,8 @@ void s21::ViewSmartCalc::GraphShow() noexcept {
   graph_->addGraph();
   graph_->xAxis->setLabel("x");
   graph_->yAxis->setLabel("y");
+  graph_->xAxis->setLabelColor(Qt::white);
+  graph_->yAxis->setLabelColor(Qt::white);
   graph_->xAxis->setRange(x_min_->value(), x_max_->value());
   graph_->yAxis->setRange(y_min_->value(), y_max_->value());
   graph_->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
@@ -121,7 +123,11 @@ void s21::ViewSmartCalc::ClearHystoryDisplay() noexcept {
   display_hystory_->clear();
 }
 
-void s21::ViewSmartCalc::CalculateCase() noexcept { AddNumber(); }
+void s21::ViewSmartCalc::CalculateCase() noexcept {
+  if (!x_var_->isChecked()) {
+    AddNumber();
+  }
+}
 
 void s21::ViewSmartCalc::SetAnswer(QString value) noexcept {
   display_hystory_->append(display_down_->text() + "=" + value);
@@ -152,7 +158,8 @@ void s21::ViewSmartCalc::UpdateGraph(std::vector<double> x,
                                      std::vector<double> y) noexcept {
   graph_->clearGraphs();
   graph_->addGraph();
-  std::cout << std::endl;
+  graph_->xAxis->setRange(x_min_->value(), x_max_->value());
+  graph_->yAxis->setRange(y_min_->value(), y_max_->value());
   QVector<double> q_x(x.begin(), x.end());
   QVector<double> q_y(y.begin(), y.end());
   graph_->graph(0)->setData(q_x, q_y);
@@ -551,7 +558,6 @@ void s21::ViewSmartCalc::DisplayChange() {
     display_up_ = fake_display;
     fake_display = nullptr;
   }
-  // x_var_->setStyleSheet("background: #008080; color: white; font: 12pt");
 };
 
 void s21::ViewSmartCalc::RadioClicked() {
@@ -581,3 +587,11 @@ bool s21::ViewSmartCalc::CheckState() const noexcept {
 
 double s21::ViewSmartCalc::GetXMin() { return x_min_->value(); }
 double s21::ViewSmartCalc::GetXmax() { return x_max_->value(); }
+
+bool s21::ViewSmartCalc::XvarIsChecked() const noexcept {
+  return x_var_->isChecked();
+}
+
+double s21::ViewSmartCalc::GetDisplayXvarValue() const noexcept {
+  return std::stod(display_x_var_->text().toStdString());
+}
