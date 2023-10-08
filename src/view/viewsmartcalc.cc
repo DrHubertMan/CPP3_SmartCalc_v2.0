@@ -549,25 +549,23 @@ void s21::ViewSmartCalc::DisplayChange() {
   display_up_->clear();
   if (display_up_ == display_x_var_) {
     display_up_ = fake_display;
+    fake_display = nullptr;
   }
-  x_var_->setStyleSheet("background: #008080; color: white; font: 12pt");
+  // x_var_->setStyleSheet("background: #008080; color: white; font: 12pt");
 };
 
 void s21::ViewSmartCalc::RadioClicked() {
   if (x_var_->isChecked()) {
     AddNumber();
-    fake_display = display_up_;
-    display_up_ = display_x_var_;
-  } else if (default_mode_->isChecked()) {
+    if (fake_display != display_up_ && !pointer_swap_) {
+      fake_display = display_up_;
+      display_up_ = display_x_var_;
+      pointer_swap_ = true;
+    }
+  } else if (default_mode_->isChecked() && pointer_swap_) {
     DisplayChange();
+    pointer_swap_ = false;
   }
-  // else if (x_func_->isChecked()) {
-  //   display_down_->setText(display_down_->text() + display_up_->text());
-  //   output_line_.push_back(display_up_->text());
-  //   oper_->clear();
-  //   display_hystory_->append(display_down_->text() + "(function graph)");
-  //   DisplayChange();
-  // }
 };
 
 bool s21::ViewSmartCalc::CheckState() const noexcept {

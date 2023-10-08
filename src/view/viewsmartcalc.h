@@ -151,6 +151,8 @@ private:
   QGraphicsScene *scene_;
   QButtonGroup *x_group_;
 
+  bool pointer_swap_ = false;
+
 };
 }; // namespace s21
 
