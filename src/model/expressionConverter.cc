@@ -10,8 +10,8 @@ s21::ExpressionConverter::ExpressionConverter(std::list<std::string> input)
 s21::ExpressionConverter::ExpressionConverter(const ExpressionConverter &e)
     : input_string_(e.input_string_), output_string_(e.output_string_){};
 
-s21::ExpressionConverter &
-s21::ExpressionConverter::operator=(const ExpressionConverter &e) {
+s21::ExpressionConverter &s21::ExpressionConverter::operator=(
+    const ExpressionConverter &e) {
   if (this != &e) {
     ExpressionConverter copy{e};
     swap(copy);
@@ -24,8 +24,8 @@ s21::ExpressionConverter::ExpressionConverter(ExpressionConverter &&e)
   swap(e);
 };
 
-s21::ExpressionConverter &
-s21::ExpressionConverter::operator=(ExpressionConverter &&e) {
+s21::ExpressionConverter &s21::ExpressionConverter::operator=(
+    ExpressionConverter &&e) {
   if (this != &e) {
     ExpressionConverter moved{std::move(e)};
     swap(moved);
@@ -57,23 +57,17 @@ void s21::ExpressionConverter::Conversion() {
     input_string_.pop_front();
 
     if (token.IsNumber() || token.IsX()) {
-
       output_string_.push_back(token.GetData());
     } else if (token.IsFunciotn()) {
-
       transformator.push(token.GetData());
     } else if (token.IsSeparator()) {
-
       PullOverStack(transformator);
     } else if (token.IsOperator()) {
-
       AddOperatorInStack(transformator, token);
       transformator.push(token.GetData());
     } else if (token.IsOpenBracket()) {
-
       transformator.push(token.GetData());
     } else if (token.IsClosedBracket()) {
-
       AddInOut(transformator);
     }
   }

@@ -1,8 +1,8 @@
 #include "viewsmartcalc.h"
+
 #include <QGraphicsProxyWidget>
 
 s21::ViewSmartCalc::ViewSmartCalc(QWidget *parent) : QGraphicsView(parent) {
-
   setRenderHint(QPainter::Antialiasing);
   setCacheMode(QGraphicsView::CacheNone);
   setWindowTitle("SmartCalc v2.0");
@@ -21,12 +21,9 @@ s21::ViewSmartCalc::ViewSmartCalc(QWidget *parent) : QGraphicsView(parent) {
 };
 
 s21::ViewSmartCalc::~ViewSmartCalc() {
-  if (display_up_)
-    delete display_up_;
-  if (display_down_)
-    delete display_down_;
-  if (oper_)
-    delete oper_;
+  if (display_up_) delete display_up_;
+  if (display_down_) delete display_down_;
+  if (oper_) delete oper_;
 };
 
 void s21::ViewSmartCalc::GraphShow() noexcept {

@@ -1,4 +1,5 @@
 #include "calccontrol.h"
+
 #include "../view/viewsmartcalc.h"
 
 s21::CalcControl::CalcControl(ViewSmartCalc *calc) : calculator_(calc) {}

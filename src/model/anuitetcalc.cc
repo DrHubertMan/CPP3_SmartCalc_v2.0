@@ -4,8 +4,12 @@ s21::AnuitetCalc::AnuitetCalc()
     : all_sum_(0), percent_(0), term_(0), mountly_pay_(0), all_pay_(0){};
 
 s21::AnuitetCalc::AnuitetCalc(double all_sum, double percent, int term)
-    : all_sum_(all_sum), percent_(percent / 100), term_(term), mountly_pay_(0),
-      all_pay_(0), overpay_(0) {
+    : all_sum_(all_sum),
+      percent_(percent / 100),
+      term_(term),
+      mountly_pay_(0),
+      all_pay_(0),
+      overpay_(0) {
   Calculation();
 }
 

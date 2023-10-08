@@ -86,7 +86,8 @@ void s21::CalculatorButton::mousePressEvent(QGraphicsSceneMouseEvent *) {
   //     parent_cred_->SetZeroSpin();
   //   } else if (parent_cred_->GetChecked()) {
   //     AnuitetCalc *credit =
-  //         new AnuitetCalc(parent_cred_->GetAllSum(), parent_cred_->GetPercent(),
+  //         new AnuitetCalc(parent_cred_->GetAllSum(),
+  //         parent_cred_->GetPercent(),
   //                         parent_cred_->GetTerm());
   //     parent_cred_->SetEveryMonthPay(credit->GetMountlyPay());
   //     parent_cred_->SetOverpaySum(credit->GetAllPay());
@@ -142,7 +143,8 @@ void s21::CalculatorButton::mouseReleaseEvent(QGraphicsSceneMouseEvent *) {
 //   if (parent_->DisplayUpIsDisplayXvar()) {
 //     parent_->SetDisplayUpFake();
 //   }
-//   parent_->SetStyleSheetXvar("background: #008080; color: white; font: 12pt");
+//   parent_->SetStyleSheetXvar("background: #008080; color: white; font:
+//   12pt");
 // };
 
 // void s21::CalculatorButton::DefaultMode() noexcept {
@@ -163,7 +165,8 @@ void s21::CalculatorButton::mouseReleaseEvent(QGraphicsSceneMouseEvent *) {
 //   if (check_conversion) {
 //     calculator_ = new Calculation(converter_->GetOut());
 //     parent_->SetDisplayDownText(parent_->GetDisplayDownText() +
-//                                 QString::number(calculator_->GetValue(), 'f', 7)
+//                                 QString::number(calculator_->GetValue(), 'f',
+//                                 7)
 //                                     .remove(QRegularExpression("0+$"))
 //                                     .remove(QRegularExpression("\\.$")));
 //     parent_->SetDisplayHistoryText(parent_->GetDisplayDownText());
@@ -249,13 +252,15 @@ void s21::CalculatorButton::mouseReleaseEvent(QGraphicsSceneMouseEvent *) {
 //   if (!parent_->GetDisplayUpText().isEmpty()) {
 //     QChar last_char_one = parent_->GetDisplayUpText().at(
 //         parent_->GetDisplayUpText().length() - 1);
-//     if (last_char_one.isDigit() || last_char_one == '.' || last_char_one == 'x')
+//     if (last_char_one.isDigit() || last_char_one == '.' || last_char_one ==
+//     'x')
 //       check_one = true;
 //   }
 //   if (!parent_->GetDisplayDownText().isEmpty()) {
 //     QChar last_char_two = parent_->GetDisplayDownText().at(
 //         parent_->GetDisplayDownText().length() - 1);
-//     if (last_char_two.isDigit() || last_char_two == ')' || last_char_two == '(')
+//     if (last_char_two.isDigit() || last_char_two == ')' || last_char_two ==
+//     '(')
 //       check_one = true;
 //   }
 //   return (check_one);

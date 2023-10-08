@@ -2,9 +2,9 @@
 
 s21::GraphModel::GraphModel(double min, double max,
                             std::list<std::string> input_line)
-    : x_min_(min), x_max_(max), postfix_expression_(input_line){
-      Calculate();
-    };
+    : x_min_(min), x_max_(max), postfix_expression_(input_line) {
+  Calculate();
+};
 
 void s21::GraphModel::Calculate() noexcept {
   for (; x_min_ < x_max_; x_min_ += 0.125) {
