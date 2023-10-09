@@ -21,9 +21,12 @@ s21::ViewSmartCalc::ViewSmartCalc(QWidget *parent) : QGraphicsView(parent) {
 };
 
 s21::ViewSmartCalc::~ViewSmartCalc() {
-  if (display_up_) delete display_up_;
-  if (display_down_) delete display_down_;
-  if (oper_) delete oper_;
+  if (display_up_)
+    delete display_up_;
+  if (display_down_)
+    delete display_down_;
+  if (oper_)
+    delete oper_;
 };
 
 void s21::ViewSmartCalc::GraphShow() noexcept {
@@ -377,6 +380,8 @@ void s21::ViewSmartCalc::InitFunctionButton() {
   btn_show_credit_.setPos(490, 310);
   btn_show_credit_.SetGeometry(25, 150);
   btn_show_credit_.setText("Credit_Calc");
+  connect(&btn_show_credit_, &CalculatorButton::KeyPressed, &control_,
+          &CalcControl::StartCredit);
 
   btn_show_deposit_.setPos(490, 340);
   btn_show_deposit_.SetGeometry(25, 150);
@@ -591,4 +596,10 @@ bool s21::ViewSmartCalc::XvarIsChecked() const noexcept {
 
 double s21::ViewSmartCalc::GetDisplayXvarValue() const noexcept {
   return std::stod(display_x_var_->text().toStdString());
+}
+
+void s21::ViewSmartCalc::CreditCaclStart() noexcept {
+  control_.SetCreditView(&credit_calc_);
+  credit_calc_.SetControl(control_);
+  credit_calc_.show();
 }

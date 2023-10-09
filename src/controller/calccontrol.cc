@@ -1,5 +1,4 @@
 #include "calccontrol.h"
-
 #include "../view/viewsmartcalc.h"
 
 s21::CalcControl::CalcControl(ViewSmartCalc *calc) : calculator_(calc) {}
@@ -129,4 +128,14 @@ bool s21::CalcControl::CheckConversion() {
     check_conversion = false;
   }
   return check_conversion;
+}
+
+void s21::CalcControl::StartCredit() noexcept {
+  calculator_->CreditCaclStart();
+}
+
+void s21::CalcControl::SetCreditView(ViewCreditCalc *cred) noexcept {
+  if (credit_calc_ != cred) {
+    credit_calc_ = cred;
+  }
 }

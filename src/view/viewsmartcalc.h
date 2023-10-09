@@ -47,6 +47,7 @@ public:
   void RadioClicked();
   void SetAnswer(QString value) noexcept;
   void UpdateGraph(std::vector<double> x, std::vector<double> y) noexcept;
+  void CreditCaclStart() noexcept;
 
   double GetXMin();
   double GetXmax();

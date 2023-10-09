@@ -12,8 +12,10 @@
 #include <QTextEdit>
 
 #include "calclulatorbutton.h"
+#include "../controller/calccontrol.h"
 
 namespace s21 {
+class CalcControl;
 
 class ViewCreditCalc : public QGraphicsView {
 public:
@@ -32,6 +34,7 @@ public:
   void SetDifMounthPay(int mounth, double pay) noexcept;
 
   void SetZeroSpin() noexcept;
+  void SetControl(CalcControl &control) noexcept;
 
 private:
   void InitElement();
@@ -42,6 +45,7 @@ private:
   void AddAtScene();
 
 private:
+  CalcControl control_;
   QTextEdit *diferent_pay_;
 
   QLineEdit *everymonth_pay_text_;

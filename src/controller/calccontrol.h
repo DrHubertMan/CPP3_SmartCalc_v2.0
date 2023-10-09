@@ -8,6 +8,8 @@
 #include "../model/expressionConverter.h"
 #include "../model/graph_model.h"
 
+#include "../view/viewcreditcalc.h"
+
 namespace s21 {
 class ViewSmartCalc;
 class CalcControl : public QObject {
@@ -22,10 +24,12 @@ public:
   CalcControl(CalcControl &&c);
   CalcControl &operator=(CalcControl &&c);
   ~CalcControl();
-
+public:
   void AddValueInModel(QString text) noexcept;
   void SetModel(ExpressionConverter &e) noexcept;
   void ClearModel() noexcept;
+  void SetCreditView(ViewCreditCalc *cred) noexcept;
+
 public slots:
   void Num(QString text) const noexcept;
   void Dot() const noexcept;
@@ -40,9 +44,11 @@ public slots:
   void MemoryClear() const noexcept;
   void ModeSelect() noexcept;
   void GraphPressed();
+  void StartCredit() noexcept;
 
 private:
   ViewSmartCalc *calculator_ = nullptr;
+  ViewCreditCalc *credit_calc_ = nullptr;
   ExpressionConverter converter_model_;
   // Qlist<Qstring> ouput_line_;
 

@@ -190,3 +190,7 @@ void s21::ViewCreditCalc::AddAtScene() {
   scene_->addItem(&btn_ac_);
   scene_->addItem(&btn_calculate_);
 }
+
+void s21::ViewCreditCalc::SetControl(CalcControl &control) noexcept {
+  control_ = control;
+}
