@@ -1,7 +1,9 @@
 #include "calccontrol.h"
+#include "../view/viewcreditcalc.h"
 #include "../view/viewsmartcalc.h"
 
-s21::CalcControl::CalcControl(ViewSmartCalc *calc) : calculator_(calc) {}
+s21::CalcControl::CalcControl(ViewSmartCalc *calc) : calculator_(calc) {
+}
 
 s21::CalcControl::CalcControl(const CalcControl &c)
     : calculator_(c.calculator_), converter_model_(c.converter_model_) {}
@@ -138,4 +140,10 @@ void s21::CalcControl::SetCreditView(ViewCreditCalc *cred) noexcept {
   if (credit_calc_ != cred) {
     credit_calc_ = cred;
   }
+}
+
+void s21::CalcControl::ClearCredit() noexcept {
+  std::cout << this << std::endl;
+  // std::cout << credit_calc_ << std::endl;
+  credit_calc_->ClearView();
 }

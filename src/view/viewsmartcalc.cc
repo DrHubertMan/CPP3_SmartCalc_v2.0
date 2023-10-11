@@ -20,14 +20,6 @@ s21::ViewSmartCalc::ViewSmartCalc(QWidget *parent) : QGraphicsView(parent) {
   setBackgroundBrush(QBrush(Qt::darkCyan));
 };
 
-s21::ViewSmartCalc::~ViewSmartCalc() {
-  if (display_up_)
-    delete display_up_;
-  if (display_down_)
-    delete display_down_;
-  if (oper_)
-    delete oper_;
-};
 
 void s21::ViewSmartCalc::GraphShow() noexcept {
   graph_->addGraph();
@@ -599,6 +591,7 @@ double s21::ViewSmartCalc::GetDisplayXvarValue() const noexcept {
 }
 
 void s21::ViewSmartCalc::CreditCaclStart() noexcept {
+  std::cout << &credit_calc_ << " kek" << std::endl;
   control_.SetCreditView(&credit_calc_);
   credit_calc_.SetControl(control_);
   credit_calc_.show();

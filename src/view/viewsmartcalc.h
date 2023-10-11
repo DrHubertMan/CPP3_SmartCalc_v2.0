@@ -29,7 +29,7 @@ class ViewSmartCalc : public QGraphicsView {
 
 public:
   ViewSmartCalc(QWidget *parent = nullptr);
-  ~ViewSmartCalc();
+
 
 public:
   void GraphShow() noexcept;

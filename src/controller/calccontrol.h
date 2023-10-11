@@ -8,10 +8,9 @@
 #include "../model/expressionConverter.h"
 #include "../model/graph_model.h"
 
-#include "../view/viewcreditcalc.h"
-
 namespace s21 {
 class ViewSmartCalc;
+class ViewCreditCalc;
 class CalcControl : public QObject {
   Q_OBJECT
 public:
@@ -45,6 +44,7 @@ public slots:
   void ModeSelect() noexcept;
   void GraphPressed();
   void StartCredit() noexcept;
+  void ClearCredit() noexcept;
 
 private:
   ViewSmartCalc *calculator_ = nullptr;

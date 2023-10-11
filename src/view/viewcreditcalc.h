@@ -35,6 +35,7 @@ public:
 
   void SetZeroSpin() noexcept;
   void SetControl(CalcControl &control) noexcept;
+  void ClearView() noexcept;
 
 private:
   void InitElement();
@@ -46,31 +47,31 @@ private:
 
 private:
   CalcControl control_;
-  QTextEdit *diferent_pay_;
+  QTextEdit diferent_pay_;
 
-  QLineEdit *everymonth_pay_text_;
-  QLineEdit *overpay_text_;
-  QLineEdit *overpay_sum_text_;
+  QLineEdit everymonth_pay_text_;
+  QLineEdit overpay_text_;
+  QLineEdit overpay_sum_text_;
 
-  QLabel *all_sum_;
-  QLabel *term_;
-  QLabel *percent_;
+  QLabel all_sum_;
+  QLabel term_;
+  QLabel percent_;
 
-  QLabel *everymonth_pay_;
-  QLabel *overpay_;
-  QLabel *overpay_sum_;
+  QLabel everymonth_pay_;
+  QLabel overpay_;
+  QLabel overpay_sum_;
 
-  QDoubleSpinBox *credit_sum_;
-  QSpinBox *mounth_;
-  QDoubleSpinBox *double_percent_;
+  QDoubleSpinBox credit_sum_;
+  QSpinBox mounth_;
+  QDoubleSpinBox double_percent_;
 
   QGraphicsScene *scene_;
   CalculatorButton btn_ac_{this};
   CalculatorButton btn_calculate_{this};
 
-  QRadioButton *anuitet_;
-  QRadioButton *diferent_;
-  QButtonGroup *credit_mode_;
+  QRadioButton anuitet_;
+  QRadioButton diferent_;
+  QButtonGroup credit_mode_;
 };
 } // namespace s21
 
