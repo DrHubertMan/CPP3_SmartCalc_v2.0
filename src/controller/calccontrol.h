@@ -15,7 +15,7 @@ class CalcControl : public QObject {
   Q_OBJECT
 public:
   CalcControl() = default;
-  explicit CalcControl(ViewSmartCalc *calc);
+  explicit CalcControl(ExpressionConverter *converter_model);
 
   CalcControl(const CalcControl &c);
   CalcControl &operator=(const CalcControl &c);
@@ -25,9 +25,9 @@ public:
   ~CalcControl();
 public:
   void AddValueInModel(QString text) noexcept;
-  void SetModel(ExpressionConverter &e) noexcept;
+  // void SetModel(ExpressionConverter &e) noexcept;
   void ClearModel() noexcept;
-  void SetCreditView(ViewCreditCalc *cred) noexcept;
+  void SetView(ViewSmartCalc *e) noexcept;
 
 public slots:
   void Num(QString text) const noexcept;
@@ -43,13 +43,14 @@ public slots:
   void MemoryClear() const noexcept;
   void ModeSelect() noexcept;
   void GraphPressed();
-  void StartCredit() noexcept;
-  void ClearCredit() noexcept;
+  void ScientificNotation() noexcept;
+  // void StartCredit() noexcept;
+  // void ClearCredit() noexcept;
 
 private:
   ViewSmartCalc *calculator_ = nullptr;
-  ViewCreditCalc *credit_calc_ = nullptr;
-  ExpressionConverter converter_model_;
+  ExpressionConverter *converter_model_ = nullptr;
+  // ViewCreditCalc *credit_calc_ = nullptr;
   // Qlist<Qstring> ouput_line_;
 
 private:
