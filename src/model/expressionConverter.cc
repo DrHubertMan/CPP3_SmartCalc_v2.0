@@ -72,6 +72,10 @@ void s21::ExpressionConverter::Conversion() {
     }
   }
   EmptyTheStack(transformator);
+  
+  if (!Validation()) {
+    throw std::invalid_argument("\nInvalid expression_5\n");
+  }
 };
 
 void s21::ExpressionConverter::Check() {
@@ -146,3 +150,14 @@ void s21::ExpressionConverter::AddOperatorInStack(
     }
   }
 };
+
+bool s21::ExpressionConverter::Validation() const noexcept {
+  bool result = false;
+  for (const auto& item: output_string_) {
+    Element token(item);
+    if (token.IsNumber()) {
+      result = true;
+    }
+  }
+  return result;
+}

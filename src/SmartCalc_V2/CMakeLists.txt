@@ -18,29 +18,29 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wextra -fsanitize=address
 set(PROJECT_SOURCES
     ../controller/calccontrol.h
     ../view/viewsmartcalc.h
-    ../view/viewdepositcalc.h
-    ../view/viewcreditcalc.h
+#    ../view/viewdepositcalc.h
+#    ../view/viewcreditcalc.h
     ../view/qcustomplot.h
     ../view/calclulatorbutton.h
     ../model/expressionConverter.h
     ../model/calculation.h
     ../model/element.h
-    ../model/anuitetcalc.h
-    ../model/diferentcalc.h
-    ../model/deposit.h
+#    ../model/anuitetcalc.h
+#    ../model/diferentcalc.h
+#    ../model/deposit.h
     ../model/graph_model.h
     ../controller/calccontrol.cc
     ../view/viewsmartcalc.cc
-    ../view/viewcreditcalc.cc
-    ../view/viewdepositcalc.cc
+#    ../view/viewcreditcalc.cc
+#    ../view/viewdepositcalc.cc
     ../view/qcustomplot.cpp
     ../view/calculatorbutton.cc
     ../model/expressionConverter.cc
     ../model/calculation.cc
     ../model/element.cc
-    ../model/anuitetcalc.cc
-    ../model/diferentcalc.cc
-    ../model/deposit.cc
+#    ../model/anuitetcalc.cc
+#    ../model/diferentcalc.cc
+#    ../model/deposit.cc
     ../model/graph_model.cc
     main.cpp
 )

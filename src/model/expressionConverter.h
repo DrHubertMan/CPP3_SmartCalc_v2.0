@@ -41,6 +41,7 @@ private:
   void EmptyTheStack(std::stack<std::string> &transformator);
   void PullOverStack(std::stack<std::string> &transformator);
   void Check();
+  bool Validation() const noexcept;
 };
 }; // namespace s21
 
