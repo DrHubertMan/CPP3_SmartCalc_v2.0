@@ -28,7 +28,7 @@ class CalcControl;
 class ViewSmartCalc : public QGraphicsView {
 
 public:
-  ViewSmartCalc(QWidget *parent = nullptr);
+  ViewSmartCalc(CalcControl *control, QWidget *parent = nullptr);
 
 
 public:
@@ -47,17 +47,18 @@ public:
   void RadioClicked();
   void SetAnswer(QString value) noexcept;
   void UpdateGraph(std::vector<double> x, std::vector<double> y) noexcept;
-  void CreditCaclStart() noexcept;
+  void ScientificCase() noexcept;
+  // void CreditCaclStart() noexcept;
 
   double GetXMin();
   double GetXmax();
   double GetDisplayXvarValue() const noexcept;
+  bool XvarIsChecked() const noexcept;
   // bool DisplayUpIsDisplayXvar();
   // bool DisplayUpIsNull();
   // bool DefaultModeIsChecked();
-  bool XvarIsChecked() const noexcept;
 
-  void SetController(CalcControl &control);
+  // void SetController(CalcControl &control);
 
 private:
   void InitViewElement();
@@ -77,7 +78,7 @@ private:
   // bool CharIsOper(QChar c) noexcept;
 
 private:
-  CalcControl control_;
+  CalcControl *control_;
 
   QRadioButton *x_var_;
   QRadioButton *x_func_;
@@ -103,10 +104,11 @@ private:
   QSpinBox *y_min_;
   QSpinBox *y_max_;
 
-  ViewCreditCalc credit_calc_;
-  ViewDepositCalc deposit_calc_;
+  // ViewCreditCalc credit_calc_;
+  // ViewDepositCalc deposit_calc_;
 
   CalculatorButton btn_eq_{this};
+  CalculatorButton btn_e_{this};
 
   CalculatorButton btn_show_credit_{this};
   CalculatorButton btn_show_deposit_{this};
