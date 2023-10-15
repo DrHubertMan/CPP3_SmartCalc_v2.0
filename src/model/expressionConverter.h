@@ -38,7 +38,7 @@ private:
                           Element &op_one) noexcept;
   void AddInOut(std::stack<std::string> &transformator);
   void EmptyTheStack(std::stack<std::string> &transformator);
-  void PullOverStack(std::stack<std::string> &transformator);
+  // void PullOverStack(std::stack<std::string> &transformator);
   void Check();
   bool Validation() const noexcept;
 };

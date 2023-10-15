@@ -393,3 +393,73 @@ TEST(Element, OperatorCheck_UnCorrect_2) {
   Element lol("^");
   EXPECT_EQ(false, kek.OperatorCheck(lol));
 }
+
+// EXPRESSION CONVERTER
+
+TEST(ExpressionConverter, Conctructor_1) {
+  std::list<std::string> inital_list{"(" , "25", "+", "5", ")"};
+  ExpressionConverter test(inital_list);
+  std::list<std::string> right_answer{"25", "5", "+"};
+  EXPECT_EQ(right_answer, test.GetOut());
+}
+
+TEST(ExpressionConverter, Conctructor_2) {
+  std::list<std::string> inital_list{"(" , "25", "+", "5", ")" , "*", "(", "99", "/", "3", ")"};
+  ExpressionConverter test(inital_list);
+  std::list<std::string> right_answer{"25", "5", "+", "99", "3", "/", "*"};
+  EXPECT_EQ(right_answer, test.GetOut());
+}
+
+TEST(ExpressionConverter, Conctructor_3) {
+  std::list<std::string> inital_list{"sin", "(", "45", "+", "cos", "(", "34", ")", ")"};
+  ExpressionConverter test(inital_list);
+  std::list<std::string> right_answer{"45", "34", "cos", "+", "sin"};
+  EXPECT_EQ(right_answer, test.GetOut());
+}
+
+TEST(ExpressionConverter, Conctructor_4) {
+  std::list<std::string> inital_list{"sin", "(", "45", "+", "cos", "(", "34", ")", ")"};
+  ExpressionConverter test;
+  for (const auto& item: inital_list) {
+    test.AddTokenInModel(item);
+  }
+  test.Conversion();
+  std::list<std::string> right_answer{"45", "34", "cos", "+", "sin"};
+  EXPECT_EQ(right_answer, test.GetOut());
+}
+
+TEST(ExpressionConverter, Conctructor_5) {
+  std::list<std::string> inital_list{"23"};
+  ExpressionConverter test;
+  for (const auto& item: inital_list) {
+    test.AddTokenInModel(item);
+  }
+  test.Conversion();
+  std::list<std::string> right_answer{"23"};
+  EXPECT_EQ(right_answer, test.GetOut());
+}
+
+TEST(ExpressionConverter, Conctructor_6) {
+  std::list<std::string> inital_list{"sin", "(", "45", "+", "cos", "(", "34", ")", ")"};
+  ExpressionConverter test;
+  for (const auto& item: inital_list) {
+    test.AddTokenInModel(item);
+  }
+  test.Clear();
+  std::list<std::string> right_answer;
+  EXPECT_EQ(right_answer, test.GetOut());
+}
+
+TEST(ExpressionConverter, Conctructor_7) {
+  std::list<std::string> inital_list{"-", "2", "^", "3", "^", "5", "^", "6", "*", "8", "/", "4", "-", "4"};
+  ExpressionConverter test;
+  for (const auto& item: inital_list) {
+    test.AddTokenInModel(item);
+  }
+  test.Conversion();
+  std::list<std::string> right_answer{"2", "3", "5", "6", "^", "^", "^", "8", "*", "4", "/", "-", "4", "-"};
+  EXPECT_EQ(right_answer, test.GetOut());
+}
+
+// CALCULATION 
+

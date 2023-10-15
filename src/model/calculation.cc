@@ -15,33 +15,33 @@ s21::Calculation::Calculation(std::list<std::string> input, double x_var)
   Calc();
 }
 
-s21::Calculation::Calculation(const Calculation &c)
-    : input_string_(c.input_string_), value_(c.value_){};
+// s21::Calculation::Calculation(const Calculation &c)
+//     : input_string_(c.input_string_), value_(c.value_){};
 
-s21::Calculation &s21::Calculation::operator=(const Calculation &c) {
-  if (this != &c) {
-    Calculation copy{c};
-    swap(copy);
-  }
-  return *this;
-};
+// s21::Calculation &s21::Calculation::operator=(const Calculation &c) {
+//   if (this != &c) {
+//     Calculation copy{c};
+//     swap(copy);
+//   }
+//   return *this;
+// };
 
-s21::Calculation::Calculation(Calculation &&c) : Calculation() { swap(c); };
+// s21::Calculation::Calculation(Calculation &&c) : Calculation() { swap(c); };
 
-s21::Calculation &s21::Calculation::operator=(Calculation &&c) {
-  if (this != &c) {
-    Calculation moved{std::move(c)};
-    swap(moved);
-  }
-  return *this;
-};
+// s21::Calculation &s21::Calculation::operator=(Calculation &&c) {
+//   if (this != &c) {
+//     Calculation moved{std::move(c)};
+//     swap(moved);
+//   }
+//   return *this;
+// };
 
 double s21::Calculation::GetValue() const noexcept { return value_; };
 
-void s21::Calculation::swap(Calculation &other) {
-  std::swap(input_string_, other.input_string_);
-  std::swap(value_, other.value_);
-};
+// void s21::Calculation::swap(Calculation &other) {
+//   std::swap(input_string_, other.input_string_);
+//   std::swap(value_, other.value_);
+// };
 
 void s21::Calculation::Calc() noexcept {
   std::stack<double> calc_stack;

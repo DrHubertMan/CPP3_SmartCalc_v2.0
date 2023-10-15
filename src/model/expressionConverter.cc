@@ -5,7 +5,9 @@ std::list<std::string> s21::ExpressionConverter::GetOut() {
 }
 
 s21::ExpressionConverter::ExpressionConverter(std::list<std::string> input)
-    : input_string_(input){};
+    : input_string_(input){
+      Conversion();
+    };
 
 // s21::ExpressionConverter::ExpressionConverter(const ExpressionConverter &e)
 //     : input_string_(e.input_string_), output_string_(e.output_string_){};
@@ -60,8 +62,8 @@ void s21::ExpressionConverter::Conversion() {
       output_string_.push_back(token.GetData());
     } else if (token.IsFunciotn()) {
       transformator.push(token.GetData());
-    } else if (token.IsSeparator()) {
-      PullOverStack(transformator);
+    // } else if (token.IsSeparator()) {
+    //   PullOverStack(transformator);
     } else if (token.IsOperator()) {
       AddOperatorInStack(transformator, token);
       transformator.push(token.GetData());
@@ -85,18 +87,18 @@ void s21::ExpressionConverter::Check() {
   }
 }
 
-void s21::ExpressionConverter::PullOverStack(
-    std::stack<std::string> &transformator) {
-  Element top(transformator.top());
-  while (!top.IsOpenBracket()) {
-    output_string_.push_back(top.GetData());
-    transformator.pop();
-    if (transformator.empty()) {
-      throw std::invalid_argument("\nInvalid expression_1\n");
-    }
-    top.SetData(transformator.top());
-  }
-}
+// void s21::ExpressionConverter::PullOverStack(
+//     std::stack<std::string> &transformator) {
+//   Element top(transformator.top());
+//   while (!top.IsOpenBracket()) {
+//     output_string_.push_back(top.GetData());
+//     transformator.pop();
+//     if (transformator.empty()) {
+//       throw std::invalid_argument("\nInvalid expression_1\n");
+//     }
+//     top.SetData(transformator.top());
+//   }
+// }
 
 void s21::ExpressionConverter::EmptyTheStack(
     std::stack<std::string> &transformator) {

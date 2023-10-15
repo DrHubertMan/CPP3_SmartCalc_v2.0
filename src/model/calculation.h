@@ -23,15 +23,15 @@ public:
 
   Calculation(std::list<std::string> input, double x_var);
 
-  /// @brief Конструктор копирования
-  Calculation(const Calculation &c);
-  /// @brief Перегрузка оператора присваивания копированием  
-  Calculation &operator=(const Calculation &c);
+  // /// @brief Конструктор копирования
+  // Calculation(const Calculation &c);
+  // /// @brief Перегрузка оператора присваивания копированием  
+  // Calculation &operator=(const Calculation &c);
   
-  /// @brief Конструктор присваивания
-  Calculation(Calculation &&c);
-  /// @brief  Перегрузка оператора присваивания перемещением 
-  Calculation &operator=(Calculation &&c);
+  // /// @brief Конструктор присваивания
+  // Calculation(Calculation &&c);
+  // /// @brief  Перегрузка оператора присваивания перемещением 
+  // Calculation &operator=(Calculation &&c);
 
   /// @brief Функция возвращающая вычисленное значение
   double GetValue() const noexcept;
@@ -46,7 +46,7 @@ private:
   /// @brief Вычисление выражения
   void Calc() noexcept;
   /// @brief Функция осуществляет обмен значениями между экземплярами класса 
-  void swap(Calculation &other);
+  // void swap(Calculation &other);
 
   /// @brief Функция добавляющая оператор в стэк
   /// @param token Токен хранящий в себе оператор
