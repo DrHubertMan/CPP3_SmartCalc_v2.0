@@ -9,21 +9,6 @@
 #include "../model/calculation.h"
 
 using namespace s21;
-// using s21::Calculation;
-// std::list<std::string> input_line = {"25", "+", "(", "66", ")"};
-// s21::ExpressionConverter Convert(input_line);
-// s21::Calculation expr(Convert.GetOut());
-
-// TEST(ExpressionConverter, CorrectCase_1) {
-//   std::list<std::string> inial_case{"sin", "(", "(", "45", ")"};
-//   EXPECT_THROW(ExpressionConverter convert(inial_case),
-//                std::invalid_argument);
-//   // s21::Calculation calic(convert.GetOut());
-//   // std::cout << calic.GetValue() << std::endl;
-//   // std::list<std::string> right_answer{"45", "sin", "2", "3", "^", "sqrt",
-//   // "*"}; EXPECT_EQ(right_answer, convert.GetOut());
-// }
-
 // ELEMENT NUMBER
 
 TEST(Element, Constructor_1) {

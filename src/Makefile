@@ -14,7 +14,7 @@ all: test
 
 gcov_report: test
 	gcov -f model/*.gcda
-	lcov -t "test" -o test.info -c -d . --rc lcov_branch_coverage=0
+	lcov -t "test" -o test.info -c -d . --rc lcov_branch_coverage=0 --no-external
 	genhtml -o report test.info  --rc lcov_branch_coverage=0
 	open report/index.html
 

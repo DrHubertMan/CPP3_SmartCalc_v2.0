@@ -1,5 +1,5 @@
 #include "calccontrol.h"
-#include "../view/viewcreditcalc.h"
+// #include "../view/viewcreditcalc.h"
 #include "../view/viewsmartcalc.h"
 
 s21::CalcControl::CalcControl(ExpressionConverter *converter_model) : converter_model_(converter_model) {

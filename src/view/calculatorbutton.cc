@@ -1,6 +1,6 @@
 #include "calclulatorbutton.h"
-#include "viewcreditcalc.h"
-#include "viewdepositcalc.h"
+// #include "viewcreditcalc.h"
+// #include "viewdepositcalc.h"
 #include "viewsmartcalc.h"
 
 s21::CalculatorButton::CalculatorButton(ViewSmartCalc *parent)
@@ -9,17 +9,17 @@ s21::CalculatorButton::CalculatorButton(ViewSmartCalc *parent)
   setAcceptHoverEvents(true);
 };
 
-s21::CalculatorButton::CalculatorButton(ViewCreditCalc *parent)
-    : parent_cred_(parent) {
-  color_.setRgb(58, 120, 101);
-  setAcceptHoverEvents(true);
-}
+// s21::CalculatorButton::CalculatorButton(ViewCreditCalc *parent)
+//     : parent_cred_(parent) {
+//   color_.setRgb(58, 120, 101);
+//   setAcceptHoverEvents(true);
+// }
 
-s21::CalculatorButton::CalculatorButton(ViewDepositCalc *parent)
-    : parent_deposit_(parent) {
-  color_.setRgb(58, 120, 101);
-  setAcceptHoverEvents(true);
-};
+// s21::CalculatorButton::CalculatorButton(ViewDepositCalc *parent)
+//     : parent_deposit_(parent) {
+//   color_.setRgb(58, 120, 101);
+//   setAcceptHoverEvents(true);
+// };
 
 s21::CalculatorButton::~CalculatorButton() {}
 

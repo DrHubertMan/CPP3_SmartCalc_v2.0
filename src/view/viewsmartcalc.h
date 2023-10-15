@@ -20,8 +20,8 @@
 #include "../controller/calccontrol.h"
 #include "calclulatorbutton.h"
 #include "qcustomplot.h"
-#include "viewcreditcalc.h"
-#include "viewdepositcalc.h"
+// #include "viewcreditcalc.h"
+// #include "viewdepositcalc.h"
 
 namespace s21 {
 class CalcControl;

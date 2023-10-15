@@ -10,7 +10,7 @@
 
 namespace s21 {
 class ViewSmartCalc;
-class ViewCreditCalc;
+// class ViewCreditCalc;
 class CalcControl : public QObject {
   Q_OBJECT
 public:

@@ -15,32 +15,33 @@ find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets PrintSupport)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wextra -fsanitize=address -g")
 
 
+#    ../view/viewdepositcalc.h
+#    ../view/viewcreditcalc.h
+#    ../model/anuitetcalc.h
+#    ../model/diferentcalc.h
+#    ../model/deposit.h
+#    ../view/viewcreditcalc.cc
+#    ../view/viewdepositcalc.cc
+#    ../model/anuitetcalc.cc
+#    ../model/diferentcalc.cc
+#    ../model/deposit.cc
+
 set(PROJECT_SOURCES
     ../controller/calccontrol.h
     ../view/viewsmartcalc.h
-#    ../view/viewdepositcalc.h
-#    ../view/viewcreditcalc.h
     ../view/qcustomplot.h
     ../view/calclulatorbutton.h
     ../model/expressionConverter.h
     ../model/calculation.h
     ../model/element.h
-#    ../model/anuitetcalc.h
-#    ../model/diferentcalc.h
-#    ../model/deposit.h
     ../model/graph_model.h
     ../controller/calccontrol.cc
     ../view/viewsmartcalc.cc
-#    ../view/viewcreditcalc.cc
-#    ../view/viewdepositcalc.cc
     ../view/qcustomplot.cpp
     ../view/calculatorbutton.cc
     ../model/expressionConverter.cc
     ../model/calculation.cc
     ../model/element.cc
-#    ../model/anuitetcalc.cc
-#    ../model/diferentcalc.cc
-#    ../model/deposit.cc
     ../model/graph_model.cc
     main.cpp
 )
