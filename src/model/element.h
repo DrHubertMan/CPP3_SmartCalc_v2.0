@@ -14,15 +14,15 @@ public:
   /// @param value  Значение токена
   explicit Element(std::string value);
 
-  /// @brief Конструктор копирования
-  Element(const Element &e);
-  /// @brief Перегрузка оператора присваивания копированием
-  Element &operator=(const Element &e);
+  // /// @brief Конструктор копирования
+  // Element(const Element &e);
+  // /// @brief Перегрузка оператора присваивания копированием
+  // Element &operator=(const Element &e);
 
-  /// @brief Конструктор присваивания
-  Element(Element &&e);
-  /// @brief  Перегрузка оператора присваивания перемещением
-  Element &operator=(Element &&e);
+  // /// @brief Конструктор присваивания
+  // Element(Element &&e);
+  // /// @brief  Перегрузка оператора присваивания перемещением
+  // Element &operator=(Element &&e);
 
   /// @brief Возвращает значения токена типа std::string
   std::string GetData() const noexcept;
@@ -87,7 +87,7 @@ private:
 
 private:
   /// @brief Функция меняет значения экземпляров класса
-  void swap(Element &other);
+  // void swap(Element &other);
   /// @brief  Возвращает приоритет оператора 
   int GetPriority() const noexcept;
   /// @brief  Сравнивает значения приоритетов 

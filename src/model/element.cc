@@ -2,25 +2,25 @@
 
 s21::Element::Element(std::string value) : data_(value){};
 
-s21::Element::Element(const Element &e) : data_(e.data_){};
-s21::Element &s21::Element::operator=(const Element &e) {
-  if (this != &e) {
-    Element copy{e};
-    swap(copy);
-  }
-  return *this;
-};
+// s21::Element::Element(const Element &e) : data_(e.data_){};
+// s21::Element &s21::Element::operator=(const Element &e) {
+//   if (this != &e) {
+//     Element copy{e};
+//     swap(copy);
+//   }
+//   return *this;
+// };
 
-s21::Element::Element(Element &&e) : Element() { swap(e); };
-s21::Element &s21::Element::operator=(Element &&e) {
-  if (this != &e) {
-    Element moved{std::move(e)};
-    swap(moved);
-  }
-  return *this;
-};
+// s21::Element::Element(Element &&e) : Element() { swap(e); };
+// s21::Element &s21::Element::operator=(Element &&e) {
+//   if (this != &e) {
+//     Element moved{std::move(e)};
+//     swap(moved);
+//   }
+//   return *this;
+// };
 
-void s21::Element::swap(Element &other) { std::swap(data_, other.data_); };
+// void s21::Element::swap(Element &other) { std::swap(data_, other.data_); };
 
 std::string s21::Element::GetData() const noexcept { return data_; };
 
