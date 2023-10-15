@@ -8,6 +8,8 @@
 #include "../model/expressionConverter.h"
 #include "../model/calculation.h"
 
+#define S21EPS 1e-6
+
 using namespace s21;
 // ELEMENT NUMBER
 
@@ -463,3 +465,80 @@ TEST(ExpressionConverter, Conctructor_7) {
 
 // CALCULATION 
 
+TEST(Calculation, Test_1) {
+  std::list<std::string> right_answer{"25", "5", "+", "99", "3", "/", "*"};
+  Calculation test(right_answer);
+  EXPECT_EQ(990, test.GetValue());
+}
+
+TEST(Calculation, Test_2) {
+  std::list<std::string> right_answer{"25", "x", "+", "99", "3", "/", "*"};
+  Calculation test(right_answer, 5);
+  EXPECT_EQ(990, test.GetValue());
+}
+
+TEST(Calculation, Test_3) {
+  std::list<std::string> right_answer{"25", "x", "-", "99", "3", "/", "*"};
+  Calculation test(right_answer, 5);
+  EXPECT_EQ(660, test.GetValue());
+}
+
+TEST(Calculation, Test_4) {
+  std::list<std::string> right_answer{"2", "^", "3", "^", "cos", "45"};
+  Calculation test(right_answer);
+  EXPECT_EQ(45, test.GetValue());
+}
+
+TEST(Calculation, Test_5) {
+  std::list<std::string> right_answer{"2", "^", "3", "^", "sin", "45"};
+  Calculation test(right_answer);
+  EXPECT_EQ(45, test.GetValue());
+}
+
+TEST(Calculation, Test_6) {
+  std::list<std::string> right_answer{"2", "^", "3", "^", "atan", "45"};
+  Calculation test(right_answer);
+  EXPECT_EQ(45, test.GetValue());
+}
+
+TEST(Calculation, Test_7) {
+  std::list<std::string> right_answer{"2", "^", "3", "^", "tan", "45"};
+  Calculation test(right_answer);
+  EXPECT_EQ(45, test.GetValue());
+}
+
+TEST(Calculation, Test_8) {
+  std::list<std::string> right_answer{"2", "^", "3", "^", "asin", "45"};
+  Calculation test(right_answer);
+  EXPECT_EQ(45, test.GetValue());
+}
+
+TEST(Calculation, Test_9) {
+  std::list<std::string> right_answer{"2", "^", "3", "^", "acos", "45", };
+  Calculation test(right_answer);
+  EXPECT_EQ(45, test.GetValue());
+}
+
+TEST(Calculation, Test_10) {
+  std::list<std::string> right_answer{"1", "ln"};
+  Calculation test(right_answer);
+  EXPECT_EQ(0, test.GetValue());
+}
+
+TEST(Calculation, Test_11) {
+  std::list<std::string> right_answer{"9", "sqrt"};
+  Calculation test(right_answer);
+  EXPECT_EQ(3, test.GetValue());
+}
+
+TEST(Calculation, Test_12) {
+  std::list<std::string> right_answer{"1", "log"};
+  Calculation test(right_answer);
+  EXPECT_EQ(0, test.GetValue());
+}
+
+TEST(Calculation, Test_13) {
+  std::list<std::string> right_answer{"4", "2", "%"};
+  Calculation test(right_answer);
+  EXPECT_EQ(0, test.GetValue());
+}

@@ -1,9 +1,9 @@
-CXX = g++ -g -fsanitize=address
+CXX = g++ -g #-fsanitize=address
 WFLAGS = -std=c++17 -Wall -Werror -Wextra
 CFLAGS = -c
 OFLAGS = -o
 COVFLAGS = -fprofile-arcs -ftest-coverage
-TESTF = -lgtest -I/usr/local/include -L/usr/local/lib -pthread -lgcov -lasan
+TESTF = -lgtest -I/usr/local/include -L/usr/local/lib -pthread -lgcov #-lasan
 
 SRCS = $(wildcard model/*.cc)
 OBJS = $(SRCS:.cc=.o)
@@ -26,6 +26,9 @@ $(OBJS): %.o: %.cc
 	$(CXX) $(WFLAGS) $(COVFLAGS) $(CFLAGS) -o $@ $<
 
 tests/tests.o: WFLAGS += -Wno-unused-function
+
+leaks:
+	leaks -atExit -- ./test.out
 
 clean:
 	@rm -f *.out model/*.o model/*.gcno tests/*.o model/*.gcda *.info
