@@ -9,22 +9,21 @@
 
 namespace s21 {
 class GraphModel {
-
-public:
+ public:
   GraphModel(double min, double max, std::list<std::string> input_line);
   std::vector<double> GetX() const noexcept;
   std::vector<double> GetY() const noexcept;
 
-private:
+ private:
   void Calculate() noexcept;
 
-private:
+ private:
   double x_min_;
   double x_max_;
   std::list<std::string> postfix_expression_;
   std::vector<double> x_coordinate_;
   std::vector<double> y_coordinate;
 };
-} // namespace s21
+}  // namespace s21
 
-#endif // CPP3_SMARTCALC_V2_1_MODEL_GRAPH_MODEL_H
+#endif  // CPP3_SMARTCALC_V2_1_MODEL_GRAPH_MODEL_H

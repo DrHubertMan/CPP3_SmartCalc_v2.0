@@ -2,22 +2,24 @@
 #define CPP3_SMARTCALC_V2_1_CALCULATION_H
 
 #include <cmath>
+#include <iostream>
 #include <list>
 #include <stack>
 #include <string>
 
 #include "element.h"
-#include <iostream>
 
 namespace s21 {
-/// @brief Класс служащий для вычисления выражения записаного в постфиксной нотации
+/// @brief Класс служащий для вычисления выражения записаного в постфиксной
+/// нотации
 class Calculation {
-public:
+ public:
   /// @brief Конструктор по умолчанию
   Calculation() = default;
   ~Calculation() = default;
 
-  /// @brief Конструктор класса принимающий на вход список токенов для вычисления
+  /// @brief Конструктор класса принимающий на вход список токенов для
+  /// вычисления
   /// @param input список токенов для вычисления типа std::string
   explicit Calculation(std::list<std::string> input);
 
@@ -25,27 +27,27 @@ public:
 
   // /// @brief Конструктор копирования
   // Calculation(const Calculation &c);
-  // /// @brief Перегрузка оператора присваивания копированием  
+  // /// @brief Перегрузка оператора присваивания копированием
   // Calculation &operator=(const Calculation &c);
-  
+
   // /// @brief Конструктор присваивания
   // Calculation(Calculation &&c);
-  // /// @brief  Перегрузка оператора присваивания перемещением 
+  // /// @brief  Перегрузка оператора присваивания перемещением
   // Calculation &operator=(Calculation &&c);
 
   /// @brief Функция возвращающая вычисленное значение
   double GetValue() const noexcept;
 
-private:
+ private:
   std::list<std::string> input_string_;
   /// @brief Список токенов выражения для вычисления
   /// @brief Вычисленное значение
   double value_;
 
-private:
+ private:
   /// @brief Вычисление выражения
   void Calc() noexcept;
-  /// @brief Функция осуществляет обмен значениями между экземплярами класса 
+  /// @brief Функция осуществляет обмен значениями между экземплярами класса
   // void swap(Calculation &other);
 
   /// @brief Функция добавляющая оператор в стэк
@@ -63,7 +65,7 @@ private:
   void DivCase(std::stack<double> &calc_stack) noexcept;
   /// @brief Функция возведения в степень
   void ExpCase(std::stack<double> &calc_stack) noexcept;
-  /// @brief Функция вычисляющая остаток от деления 
+  /// @brief Функция вычисляющая остаток от деления
   void ModCase(std::stack<double> &calc_stack) noexcept;
   /// @brief Функция отвещающая за вычисление траганометрических функция
   void FuncCase(std::stack<double> &calc_stack, Element &token) noexcept;
@@ -86,5 +88,5 @@ private:
   /// @brief Функция вычисления логарифма
   void LogCase(std::stack<double> &calc_stack) noexcept;
 };
-}; // namespace s21
+};  // namespace s21
 #endif

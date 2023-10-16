@@ -13,7 +13,7 @@ class ViewSmartCalc;
 // class ViewCreditCalc;
 class CalcControl : public QObject {
   Q_OBJECT
-public:
+ public:
   CalcControl() = default;
   explicit CalcControl(ExpressionConverter *converter_model);
 
@@ -23,13 +23,14 @@ public:
   CalcControl(CalcControl &&c);
   CalcControl &operator=(CalcControl &&c);
   ~CalcControl();
-public:
+
+ public:
   void AddValueInModel(QString text) noexcept;
   // void SetModel(ExpressionConverter &e) noexcept;
   void ClearModel() noexcept;
   void SetView(ViewSmartCalc *e) noexcept;
 
-public slots:
+ public slots:
   void Num(QString text) const noexcept;
   void Dot() const noexcept;
   void Clear() const noexcept;
@@ -47,16 +48,16 @@ public slots:
   // void StartCredit() noexcept;
   // void ClearCredit() noexcept;
 
-private:
+ private:
   ViewSmartCalc *calculator_ = nullptr;
   ExpressionConverter *converter_model_ = nullptr;
   // ViewCreditCalc *credit_calc_ = nullptr;
   // Qlist<Qstring> ouput_line_;
 
-private:
+ private:
   void swap(CalcControl &other);
   bool CheckConversion();
 };
-} // namespace s21
+}  // namespace s21
 
-#endif // CPP3_SMARTCALC_V2_1_CONTROLLER_CALCCONTROL_H
+#endif  // CPP3_SMARTCALC_V2_1_CONTROLLER_CALCCONTROL_H

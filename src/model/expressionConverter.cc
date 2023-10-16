@@ -5,9 +5,9 @@ std::list<std::string> s21::ExpressionConverter::GetOut() {
 }
 
 s21::ExpressionConverter::ExpressionConverter(std::list<std::string> input)
-    : input_string_(input){
-      Conversion();
-    };
+    : input_string_(input) {
+  Conversion();
+};
 
 // s21::ExpressionConverter::ExpressionConverter(const ExpressionConverter &e)
 //     : input_string_(e.input_string_), output_string_(e.output_string_){};
@@ -62,8 +62,8 @@ void s21::ExpressionConverter::Conversion() {
       output_string_.push_back(token.GetData());
     } else if (token.IsFunciotn()) {
       transformator.push(token.GetData());
-    // } else if (token.IsSeparator()) {
-    //   PullOverStack(transformator);
+      // } else if (token.IsSeparator()) {
+      //   PullOverStack(transformator);
     } else if (token.IsOperator()) {
       AddOperatorInStack(transformator, token);
       transformator.push(token.GetData());
@@ -74,7 +74,7 @@ void s21::ExpressionConverter::Conversion() {
     }
   }
   EmptyTheStack(transformator);
-  
+
   if (!Validation()) {
     throw std::invalid_argument("\nInvalid expression_5\n");
   }
@@ -155,7 +155,7 @@ void s21::ExpressionConverter::AddOperatorInStack(
 
 bool s21::ExpressionConverter::Validation() const noexcept {
   bool result = false;
-  for (const auto& item: output_string_) {
+  for (const auto &item : output_string_) {
     Element token(item);
     if (token.IsNumber() || token.IsX()) {
       result = true;

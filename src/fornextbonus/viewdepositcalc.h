@@ -10,10 +10,9 @@
 #include <QLineEdit>
 #include <QSpinBox>
 #include <QTextEdit>
+#include <iostream>
 
 #include "calclulatorbutton.h"
-
-#include <iostream>
 
 namespace s21 {
 class ViewDepositCalc : public QGraphicsView {

@@ -49,7 +49,7 @@ void s21::ViewCreditCalc::SetDiferentEveryMountPayGraph() noexcept {
 
 void s21::ViewCreditCalc::SetDifMounthPay(int mounth, double pay) noexcept {
   diferent_pay_.append(QString::number(mounth) + ". Mounth: pay - " +
-                        QString::number(pay, 'f', 2));
+                       QString::number(pay, 'f', 2));
 }
 
 void s21::ViewCreditCalc::SetZeroSpin() noexcept {
@@ -81,54 +81,44 @@ void s21::ViewCreditCalc::InitRadioButton() {
 }
 
 void s21::ViewCreditCalc::InitLabel() {
-
   all_sum_.setGeometry(10, 10, 280, 30);
   all_sum_.setStyleSheet("background: #008080; color: white; font: 18pt");
   all_sum_.setText("Sum of credit:");
-
 
   term_.setGeometry(10, 90, 280, 30);
   term_.setStyleSheet("background: #008080; color: white; font: 18pt");
   term_.setText("Loan term:");
 
-
   percent_.setGeometry(10, 170, 280, 30);
   percent_.setStyleSheet("background: #008080; color: white; font: 18pt");
   percent_.setText("Annual percent:");
-
 
   everymonth_pay_.setGeometry(10, 320, 280, 30);
   everymonth_pay_.setStyleSheet(
       "background: #008080; color: white; font: 18pt");
   everymonth_pay_.setText("Everymonth pay:");
 
-
   everymonth_pay_text_.setGeometry(10, 350, 280, 30);
   everymonth_pay_text_.setReadOnly(true);
   everymonth_pay_text_.setStyleSheet(
       "background: #326759; color: white; font: 15pt");
 
-
   overpay_.setGeometry(10, 390, 280, 30);
   overpay_.setStyleSheet("background: #008080; color: white; font: 18pt");
   overpay_.setText("Overpay:");
-
 
   overpay_text_.setGeometry(10, 420, 280, 30);
   overpay_text_.setReadOnly(true);
   overpay_text_.setStyleSheet("background: #326759; color: white; font: 15pt");
 
-
   overpay_sum_.setGeometry(10, 470, 280, 30);
   overpay_sum_.setStyleSheet("background: #008080; color: white; font: 18pt");
   overpay_sum_.setText("All sum pay:");
-
 
   overpay_sum_text_.setGeometry(10, 500, 280, 30);
   overpay_sum_text_.setReadOnly(true);
   overpay_sum_text_.setStyleSheet(
       "background: #326759; color: white; font: 15pt");
-
 
   diferent_pay_.setGeometry(10, 540, 280, 200);
   diferent_pay_.setReadOnly(true);
@@ -136,18 +126,15 @@ void s21::ViewCreditCalc::InitLabel() {
 }
 
 void s21::ViewCreditCalc::InitSpinBox() {
-
   credit_sum_.setGeometry(10, 50, 250, 30);
   credit_sum_.setRange(0, 999999999);
   credit_sum_.setValue(10);
   credit_sum_.setStyleSheet("background: #326759; color: white; font: 14pt");
 
-
   mounth_.setGeometry(10, 130, 250, 30);
   mounth_.setRange(0, 999);
   mounth_.setValue(0);
   mounth_.setStyleSheet("background: #326759; color: white; font: 14pt");
-
 
   double_percent_.setGeometry(10, 210, 250, 30);
   double_percent_.setRange(0, 999);
@@ -169,7 +156,6 @@ void s21::ViewCreditCalc::InitButton() {
 }
 
 void s21::ViewCreditCalc::ClearView() noexcept {
-  
   // diferent_pay_.append("lol");
   // everymonth_pay_text_->clear();
   // overpay_text_->clear();

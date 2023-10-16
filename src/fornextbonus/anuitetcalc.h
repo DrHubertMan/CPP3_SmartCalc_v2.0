@@ -7,7 +7,7 @@
 namespace s21 {
 /// @brief Класс вычисляющий основный параметры ануитетного кредита
 class AnuitetCalc {
-public:
+ public:
   /// @brief Конструктор класса по умолчанию
   AnuitetCalc();
 
@@ -19,17 +19,17 @@ public:
 
   /// @brief  Функция возвращающая месячный платеж
   double GetMountlyPay();
-  /// @brief  Функция возвращающая полную сумму выплат 
+  /// @brief  Функция возвращающая полную сумму выплат
   double GetAllPay();
   /// @brief Функция возвращающая сумму переплат
   double GetOverPay();
 
-private:
+ private:
   /// @brief Производит расчет кредитных параметров
   /// \details Вычисляется месячный платеж, полная сумма выплат и сумма переплат
   void Calculation();
 
-private:
+ private:
   /// @brief Сумма кредита 
   double all_sum_;
   /// @brief Годовая ставка
@@ -44,6 +44,6 @@ private:
   /// @brief Переплаты
   double overpay_;
 };
-}; // namespace s21
+};  // namespace s21
 
-#endif //  CPP3_SMARTCALC_V2_1_MODEL_ANUITETCALC_H
+#endif  //  CPP3_SMARTCALC_V2_1_MODEL_ANUITETCALC_H

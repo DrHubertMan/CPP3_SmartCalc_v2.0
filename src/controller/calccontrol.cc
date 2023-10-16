@@ -2,8 +2,8 @@
 // #include "../view/viewcreditcalc.h"
 #include "../view/viewsmartcalc.h"
 
-s21::CalcControl::CalcControl(ExpressionConverter *converter_model) : converter_model_(converter_model) {
-}
+s21::CalcControl::CalcControl(ExpressionConverter *converter_model)
+    : converter_model_(converter_model) {}
 
 s21::CalcControl::CalcControl(const CalcControl &c)
     : calculator_(c.calculator_), converter_model_(c.converter_model_) {}
@@ -28,9 +28,7 @@ s21::CalcControl &s21::CalcControl::operator=(CalcControl &&c) {
 
 s21::CalcControl::~CalcControl() { calculator_ = nullptr; };
 
-void s21::CalcControl::SetView(ViewSmartCalc *e) noexcept {
-  calculator_ = e;
-}
+void s21::CalcControl::SetView(ViewSmartCalc *e) noexcept { calculator_ = e; }
 
 void s21::CalcControl::swap(CalcControl &other) {
   std::swap(calculator_, other.calculator_);

@@ -287,7 +287,7 @@ void s21::ViewSmartCalc::InitOperatorButton() {
   connect(&btn_e_, &CalculatorButton::KeyPressed, control_,
           &CalcControl::ScientificNotation);
 
-      btn_exp_.setPos(250, 130);
+  btn_exp_.setPos(250, 130);
   btn_exp_.SetGeometry(50, 50);
   btn_exp_.setText("^");
   connect(&btn_exp_, &CalculatorButton::KeyPressed, control_,

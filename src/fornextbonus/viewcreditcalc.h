@@ -11,14 +11,14 @@
 #include <QSpinBox>
 #include <QTextEdit>
 
-#include "calclulatorbutton.h"
 #include "../controller/calccontrol.h"
+#include "calclulatorbutton.h"
 
 namespace s21 {
 class CalcControl;
 
 class ViewCreditCalc : public QGraphicsView {
-public:
+ public:
   ViewCreditCalc();
 
   bool GetChecked() const noexcept;
@@ -37,7 +37,7 @@ public:
   void SetControl(CalcControl &control) noexcept;
   void ClearView() noexcept;
 
-private:
+ private:
   void InitElement();
   void InitRadioButton();
   void InitLabel();
@@ -45,7 +45,7 @@ private:
   void InitButton();
   void AddAtScene();
 
-private:
+ private:
   CalcControl control_;
   QTextEdit diferent_pay_;
 
@@ -73,6 +73,6 @@ private:
   QRadioButton diferent_;
   QButtonGroup credit_mode_;
 };
-} // namespace s21
+}  // namespace s21
 
-#endif // CPP3_SMARTCALC_V2_1_VIEWCREDITCALC_H
+#endif  // CPP3_SMARTCALC_V2_1_VIEWCREDITCALC_H

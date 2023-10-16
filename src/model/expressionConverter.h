@@ -10,7 +10,7 @@
 
 namespace s21 {
 class ExpressionConverter {
-public:
+ public:
   ExpressionConverter() = default;
   ~ExpressionConverter() = default;
 
@@ -28,11 +28,12 @@ public:
   void Clear() noexcept;
 
   void Conversion();
-private:
+
+ private:
   std::list<std::string> input_string_;
   std::list<std::string> output_string_;
 
-private:
+ private:
   // void swap(ExpressionConverter &other) noexcept;
   void AddOperatorInStack(std::stack<std::string> &transformator,
                           Element &op_one) noexcept;
@@ -42,6 +43,6 @@ private:
   void Check();
   bool Validation() const noexcept;
 };
-}; // namespace s21
+};  // namespace s21
 
 #endif

@@ -17,7 +17,7 @@ class ViewSmartCalc;
 // class ViewDepositCalc;
 
 class CalculatorButton : public QObject, public QGraphicsItem {
-    Q_OBJECT
+  Q_OBJECT
  public:
   CalculatorButton(ViewSmartCalc *parent = nullptr);
   // CalculatorButton(ViewCreditCalc *parent = nullptr);
@@ -31,7 +31,7 @@ class CalculatorButton : public QObject, public QGraphicsItem {
   void SetGeometry(int heigth, int width) noexcept;
   void setText(const QString &text) noexcept;
 
-signals:
+ signals:
   void KeyPressed(QString text);
 
  private:

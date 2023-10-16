@@ -10,7 +10,8 @@ enum class Periodicity { kMonthly = 0, kQuarterly, kYerly };
 /// @brief Класс вычилсяющий основные параметры депозитного вклада
 class DepositCalc {
  public:
-  /// @brief Конструктор по умолчанию, в нем все поля заполняются нулевыми значениями
+  /// @brief Конструктор по умолчанию, в нем все поля заполняются нулевыми
+  /// значениями
   DepositCalc();
   /// @brief Конструктор класса с входными параметрами
   /// @param p Сумма влкада
@@ -26,7 +27,7 @@ class DepositCalc {
   double CalculateInterest();
   /// @brief Функция возвращает значение начисленных налогов
   double CalculateTax();
-  /// @brief Функция возвращает итоговую сумму на счете 
+  /// @brief Функция возвращает итоговую сумму на счете
   double CalculateFinalAmount();
 
   /// @brief Функция добавляет пополнение вклада
@@ -40,7 +41,7 @@ class DepositCalc {
 
   /// @brief Устанавливает сумму вклада
   void SetPrincipal(double p) noexcept;
-  /// @brief Устанавливает срок вклада 
+  /// @brief Устанавливает срок вклада
   void SetTerm(int t) noexcept;
   /// @brief Устанавливает годовую процентную ставку вклада
   void SetPercentRate(double pr) noexcept;
@@ -52,13 +53,13 @@ class DepositCalc {
   void SetCaptalization(bool c) noexcept;
 
  private:
-  /// @brief Хранит начальную сумму вклада 
+  /// @brief Хранит начальную сумму вклада
   double principal_;
   /// @brief Срок вклада в месяцах
   int term_;
   /// @brief Годовая процентная ставка
   double percent_rate_;
-  /// @brief Налог на проценты 
+  /// @brief Налог на проценты
   double tax_rate_;
   /// @brief Периодичность выплат
   Periodicity payout_frequency_;

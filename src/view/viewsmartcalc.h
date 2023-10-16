@@ -26,12 +26,10 @@
 namespace s21 {
 class CalcControl;
 class ViewSmartCalc : public QGraphicsView {
-
-public:
+ public:
   ViewSmartCalc(CalcControl *control, QWidget *parent = nullptr);
 
-
-public:
+ public:
   void GraphShow() noexcept;
   void SetNumOnDisplay(QString text) noexcept;
   void SetXVarOnDisplay(QString text) noexcept;
@@ -60,7 +58,7 @@ public:
 
   // void SetController(CalcControl &control);
 
-private:
+ private:
   void InitViewElement();
   void InitNumberButtton();
   void InitOperatorButton();
@@ -74,10 +72,10 @@ private:
   void AddLineAtScene();
   void DisplayChange();
   void AddNumber() noexcept;
-  bool CheckState()const noexcept;
+  bool CheckState() const noexcept;
   // bool CharIsOper(QChar c) noexcept;
 
-private:
+ private:
   CalcControl *control_;
 
   QRadioButton *x_var_;
@@ -155,8 +153,7 @@ private:
   QButtonGroup *x_group_;
 
   bool pointer_swap_ = false;
-
 };
-}; // namespace s21
+};  // namespace s21
 
-#endif // CPP3_SMARTCALC_V2_1_VIEWSMARTCALC_H
+#endif  // CPP3_SMARTCALC_V2_1_VIEWSMARTCALC_H

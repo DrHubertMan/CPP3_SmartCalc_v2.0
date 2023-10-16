@@ -7,7 +7,7 @@
 namespace s21 {
 /// @brief Класс для расчета параметров дифференцированного кредита
 class DiferenttCalc {
-public:
+ public:
   DiferenttCalc();
   /// @brief Конструктор класса с входными параметрами
   /// @param all_sum Общая сумма займа
@@ -23,12 +23,12 @@ public:
   /// @brief Функция возвращает значение переплаты
   double GetOverPay();
 
-private:
+ private:
   /// @brief Вычисляет параметры дифференцированного кредита
   void Calculation();
 
-private:
-  /// @brief Сумма займа 
+ private:
+  /// @brief Сумма займа
   double all_sum_;
   /// @brief Годовая процентная ставка
   double percent_;
@@ -40,6 +40,6 @@ private:
   /// @brief Переплата
   double overpay_;
 };
-}; // namespace s21
+};  // namespace s21
 
-#endif //  CPP3_SMARTCALC_V2_1_MODEL_ANUITETCALC_H
+#endif  //  CPP3_SMARTCALC_V2_1_MODEL_ANUITETCALC_H

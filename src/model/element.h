@@ -6,10 +6,10 @@
 namespace s21 {
 /// @brief Класс служит для определения того, чем является токен
 class Element {
-public:
+ public:
   Element() = default;
   ~Element() = default;
-  
+
   /// @brief Конструктор класса с входными параметрами
   /// @param value  Значение токена
   explicit Element(std::string value);
@@ -26,7 +26,7 @@ public:
 
   /// @brief Возвращает значения токена типа std::string
   std::string GetData() const noexcept;
-  /// @brief Проверяет является ли токен числом 
+  /// @brief Проверяет является ли токен числом
   bool IsNumber() const noexcept;
   /// @brief  Проверяет является ли токен оператором
   bool IsOperator() const noexcept;
@@ -81,20 +81,20 @@ public:
   /// @brief  Проверят является ли токен иксом
   bool IsX() const noexcept;
 
-private:
+ private:
   /// @brief Хранит значение токена
   std::string data_;
 
-private:
+ private:
   /// @brief Функция меняет значения экземпляров класса
   // void swap(Element &other);
-  /// @brief  Возвращает приоритет оператора 
+  /// @brief  Возвращает приоритет оператора
   int GetPriority() const noexcept;
-  /// @brief  Сравнивает значения приоритетов 
+  /// @brief  Сравнивает значения приоритетов
   bool PriorityComparsion(Element &other) const noexcept;
-  /// @brief Проверяет равенство приоритетов 
+  /// @brief Проверяет равенство приоритетов
   bool IsEqualPriority(Element &other) const noexcept;
 };
-}; // namespace s21
+};  // namespace s21
 
-#endif // CPP3_SMARTCALC_V2_1_MODEL_ELEMENT_H
+#endif  // CPP3_SMARTCALC_V2_1_MODEL_ELEMENT_H
