@@ -68,7 +68,7 @@ leaks:
 open:
 	@open ../build/SmartCalc_V2.app
 
-clean:
+clean: uninstall
 	@rm -f *.out model/*.o model/*.gcno tests/*.o model/*.gcda *.info
 	@rm -rf report
 	@rm -f *.gcov
