@@ -35,9 +35,18 @@ void s21::ViewSmartCalc::GraphShow() noexcept {
 }
 
 void s21::ViewSmartCalc::SetNumOnDisplay(QString text) noexcept {
+  bool check = true;
   if (!display_up_->text().contains('x')) {
-    display_up_->setText(display_up_->text() + text);
-    oper_->clear();
+    if (display_up_->text().contains('e')) {
+      if ((display_up_->text().length() - display_up_->text().indexOf('e')) >
+          2) {
+        check = false;
+      }
+    }
+    if (check) {
+      display_up_->setText(display_up_->text() + text);
+      oper_->clear();
+    }
   }
 }
 
@@ -60,7 +69,8 @@ void s21::ViewSmartCalc::SetDotOnDisplay() noexcept {
   if (display_up_->text().isEmpty()) {
     display_up_->setText("0.");
   } else if (!display_up_->text().contains('.') &&
-             !display_up_->text().contains('x')) {
+             !display_up_->text().contains('x') &&
+             !display_up_->text().contains('e')) {
     display_up_->setText(display_up_->text() + ".");
   }
 }
@@ -123,7 +133,26 @@ void s21::ViewSmartCalc::CalculateCase() noexcept {
   }
 }
 
-void s21::ViewSmartCalc::ScientificCase() noexcept {}
+void s21::ViewSmartCalc::ScientificCase() noexcept {
+  QChar last_char;
+  if (!display_up_->text().isEmpty()) {
+    last_char = display_up_->text().at(display_up_->text().length() - 1);
+  }
+  if (!display_up_->text().contains('e')) {
+    display_up_->setText(display_up_->text() + "e");
+  } else if (last_char == 'e' || last_char == '-') {
+    if (last_char == '-') {
+      display_up_->setText(
+          display_up_->text().remove(display_up_->text().length() - 1, 1) +
+          "+");
+    } else {
+      display_up_->setText(display_up_->text() + "+");
+    }
+  } else if (display_up_->text().at(display_up_->text().length() - 1) == '+') {
+    display_up_->setText(
+        display_up_->text().remove(display_up_->text().length() - 1, 1) + "-");
+  }
+}
 
 void s21::ViewSmartCalc::SetAnswer(QString value) noexcept {
   display_hystory_->append(display_down_->text() + "=" + value);
@@ -145,6 +174,8 @@ void s21::ViewSmartCalc::AddNumber() noexcept {
     display_up_->clear();
   }
 }
+
+// void s21::ViewSmartCalc::ECase() noexcept {}
 
 // void s21::ViewSmartCalc::SetController(CalcControl &control) {
 //   control_ = control;

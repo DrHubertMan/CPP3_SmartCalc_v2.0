@@ -15,6 +15,8 @@ s21::Calculation::Calculation(std::list<std::string> input, double x_var)
   Calc();
 }
 
+
+
 // s21::Calculation::Calculation(const Calculation &c)
 //     : input_string_(c.input_string_), value_(c.value_){};
 

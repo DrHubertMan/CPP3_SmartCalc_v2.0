@@ -65,7 +65,7 @@ style:
 leaks:
 	leaks -atExit -- ./test.out
 
-open:
+open: install
 	@open ../build/SmartCalc_V2.app
 
 clean: uninstall
