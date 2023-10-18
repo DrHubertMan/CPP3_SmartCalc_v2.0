@@ -580,29 +580,45 @@ TEST(Calculation, Test_13) {
 }
 
 TEST(GraphModel, Test_1) {
+  double x_min_ = -5;
+  double x_max_ = -3;
   std::list<std::string> init_string{"25", "x", "+"};
-  GraphModel test(-5, -3, init_string);
-  std::vector<double> right_x{-5,    -4.875, -4.75, -4.625, -4.5,  -4.375,
-                              -4.25, -4.125, -4,    -3.875, -3.75, -3.625,
-                              -3.5,  -3.375, -3.25, -3.125};
-  std::vector<double> right_y{20,    20.125, 20.25, 20.375, 20.5,  20.625,
-                              20.75, 20.875, 21,    21.125, 21.25, 21.375,
-                              21.5,  21.625, 21.75, 21.875};
+  GraphModel test(x_min_, x_max_, init_string);
+
+  double step = (x_max_ - x_min_) / 2200;
+  double x_m = x_min_;
+  std::vector<double> right_x;
+  for (; x_min_ < x_max_; x_min_ += step) {
+    right_x.push_back(x_min_);
+  }
+  std::vector<double> right_y;
+  for (; x_m < x_max_; x_m += step) {
+    right_y.push_back(25 + x_m);
+  }
   EXPECT_EQ(right_x, test.GetX());
-  EXPECT_EQ(right_y, test.GetY());
+  for (int i = 0; i < right_y.size(); ++i) {
+    EXPECT_NEAR(right_y[i], test.GetY()[i], 1e-6);
+  }
 }
 
 TEST(GraphModel, Test_2) {
-  std::list<std::string> init_string{"25", "x", "+"};
-  GraphModel test(-5, -2, init_string);
-  std::vector<double> right_x{-5,    -4.875, -4.75, -4.625, -4.5,  -4.375,
-                              -4.25, -4.125, -4,    -3.875, -3.75, -3.625,
-                              -3.5,  -3.375, -3.25, -3.125, -3,    -2.875,
-                              -2.75, -2.625, -2.5,  -2.375, -2.25, -2.125};
-  std::vector<double> right_y{20,    20.125, 20.25, 20.375, 20.5,  20.625,
-                              20.75, 20.875, 21,    21.125, 21.25, 21.375,
-                              21.5,  21.625, 21.75, 21.875, 22,    22.125,
-                              22.25, 22.375, 22.5,  22.625, 22.75, 22.875};
+  double x_min_ = 50;
+  double x_max_ = 300;
+  std::list<std::string> init_string{"x", "sqrt"};
+  GraphModel test(x_min_, x_max_, init_string);
+
+  double step = (x_max_ - x_min_) / 2200;
+  double x_m = x_min_;
+  std::vector<double> right_x;
+  for (; x_min_ < x_max_; x_min_ += step) {
+    right_x.push_back(x_min_);
+  }
+  std::vector<double> right_y;
+  for (; x_m < x_max_; x_m += step) {
+    right_y.push_back(sqrt(x_m));
+  }
   EXPECT_EQ(right_x, test.GetX());
-  EXPECT_EQ(right_y, test.GetY());
+  for (int i = 0; i < right_y.size(); ++i) {
+    EXPECT_NEAR(right_y[i], test.GetY()[i], 1e-6);
+  }
 }
