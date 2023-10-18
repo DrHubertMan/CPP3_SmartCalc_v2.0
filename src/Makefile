@@ -8,7 +8,7 @@ TESTF = -lgtest -I/usr/local/include -L/usr/local/lib -pthread -lgcov #-lasan
 SRCS = $(wildcard model/*.cc)
 OBJS = $(SRCS:.cc=.o)
 
-.PHONY: all clean rebuild
+.PHONY: all clean rebuild install dist dvi style gcov_report leaks  open clean
 
 all: tests
 
@@ -37,6 +37,7 @@ dist:
 	tar -czvf ../build/SmartCalc_V2.tar.gz ../build/SmartCalc_V2.app
 
 dvi:
+	@cd model && doxygen && open html/index.html
 
 style:
 	@cp ../materials/linters/.clang-format .
@@ -62,7 +63,7 @@ style:
 	clang-format -n fornextbonus/*.h
 	@rm .clang-format
 
-leaks:
+leaks: tests
 	leaks -atExit -- ./test.out
 
 open: install
@@ -81,5 +82,7 @@ clean: uninstall
 	@rm -f SmartCalc_V2/CMakeCache.txt
 	@rm -f SmartCalc_V2/Makefile
 	@rm -f ../build/SmartCalc_V2.tar.gz
+	@rm -rf model/html
+	@rm -rf model/latex
 
 rebuild: clean test
