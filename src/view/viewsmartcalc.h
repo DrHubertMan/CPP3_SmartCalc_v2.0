@@ -152,6 +152,7 @@ class ViewSmartCalc : public QGraphicsView {
   QGraphicsScene *scene_;
   QButtonGroup *x_group_;
 
+  int help_for_scient_ = 0;
   bool pointer_swap_ = false;
 };
 };  // namespace s21

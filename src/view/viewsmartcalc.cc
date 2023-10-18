@@ -35,15 +35,11 @@ void s21::ViewSmartCalc::GraphShow() noexcept {
 }
 
 void s21::ViewSmartCalc::SetNumOnDisplay(QString text) noexcept {
-  bool check = true;
   if (!display_up_->text().contains('x')) {
     if (display_up_->text().contains('e')) {
-      if ((display_up_->text().length() - display_up_->text().indexOf('e')) >
-          2) {
-        check = false;
-      }
+      ++help_for_scient_;
     }
-    if (check) {
+    if (help_for_scient_ <= 2) {
       display_up_->setText(display_up_->text() + text);
       oper_->clear();
     }
@@ -139,6 +135,7 @@ void s21::ViewSmartCalc::ScientificCase() noexcept {
     last_char = display_up_->text().at(display_up_->text().length() - 1);
   }
   if (!display_up_->text().contains('e')) {
+    help_for_scient_ = 0;
     display_up_->setText(display_up_->text() + "e");
   } else if (last_char == 'e' || last_char == '-') {
     if (last_char == '-') {
@@ -161,6 +158,7 @@ void s21::ViewSmartCalc::SetAnswer(QString value) noexcept {
 
 void s21::ViewSmartCalc::AddNumber() noexcept {
   if (!display_up_->text().isEmpty()) {
+    help_for_scient_ = 0;
     if (display_up_->text().at(0) == '-') {
       display_down_->setText(display_down_->text() + "(" + display_up_->text() +
                              ")");

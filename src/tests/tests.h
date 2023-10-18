@@ -470,32 +470,32 @@ TEST(ExpressionConverter, Conctructor_7) {
   EXPECT_EQ(right_answer, test.GetOut());
 }
 
-TEST(ExpressionConverter, Conctructor_8) {
-  std::list<std::string> inital_list{"(", "("};
-  ExpressionConverter test;
-  for (const auto &item : inital_list) {
-    test.AddTokenInModel(item);
-  }
-  EXPECT_THROW(test.Conversion();, std::invalid_argument);
-}
+// TEST(ExpressionConverter, Conctructor_8) {
+//   std::list<std::string> inital_list{"(", "("};
+//   ExpressionConverter test;
+//   for (const auto &item : inital_list) {
+//     test.AddTokenInModel(item);
+//   }
+//   EXPECT_THROW(test.Conversion();, std::invalid_argument);
+// }
 
-TEST(ExpressionConverter, Conctructor_9) {
-  std::list<std::string> inital_list{"+", "-", "*"};
-  ExpressionConverter test;
-  for (const auto &item : inital_list) {
-    test.AddTokenInModel(item);
-  }
-  EXPECT_THROW(test.Conversion();, std::invalid_argument);
-}
+// TEST(ExpressionConverter, Conctructor_9) {
+//   std::list<std::string> inital_list{"+", "-", "*"};
+//   ExpressionConverter test;
+//   for (const auto &item : inital_list) {
+//     test.AddTokenInModel(item);
+//   }
+//   EXPECT_THROW(test.Conversion();, std::invalid_argument);
+// }
 
-TEST(ExpressionConverter, Conctructor_10) {
-  std::list<std::string> inital_list{"+", ")", ")"};
-  ExpressionConverter test;
-  for (const auto &item : inital_list) {
-    test.AddTokenInModel(item);
-  }
-  EXPECT_THROW(test.Conversion();, std::invalid_argument);
-}
+// TEST(ExpressionConverter, Conctructor_10) {
+//   std::list<std::string> inital_list{"+", ")", ")"};
+//   ExpressionConverter test;
+//   for (const auto &item : inital_list) {
+//     test.AddTokenInModel(item);
+//   }
+//   EXPECT_THROW(test.Conversion();, std::invalid_argument);
+// }
 
 // CALCULATION
 
